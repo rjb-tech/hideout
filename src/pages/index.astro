@@ -1,11 +1,45 @@
 ---
-import { HomeWindow } from "@components/windows/home";
 import Layout from "@layouts/Layout.astro";
+
+import { SynthPane } from "@components/panes/synth";
+import { Blog } from "@components/panes/blog";
+
+import styles from "./home.module.scss";
+import type { MarkdownInstance } from "astro";
+import type { BlogPost } from "@hideoutTypes/blog";
+
+const posts = Object.values(
+  import.meta.glob<MarkdownInstance<BlogPost>>("@content/blog/*.md", {
+    eager: true,
+  }),
+);
 ---
 
 <Layout title="RJB Tech">
   <main>
-    <HomeWindow client:only />
+    <div class={styles.container}>
+      <div class={styles.bioContainer}>
+        <img src="/logo.png" />
+        <span>Ryne Burden</span>
+        <span>Software Engineer</span>
+        <div>
+          <a href="https://github.com/rjb-tech">Github</a>
+        </div>
+        <div>
+          <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class={styles.otherContainer}>
+        <div class={styles.blogContainer}>
+          <Blog posts={posts} />
+        </div>
+        <div class={styles.synthContainer}>
+          <SynthPane client:only />
+        </div>
+      </div>
+    </div>
   </main>
 </Layout>
 

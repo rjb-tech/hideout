@@ -1,5 +1,5 @@
 export interface BlogPost {
   title: string;
-  date: Date;
+  date: string;
   description?: string;
 }

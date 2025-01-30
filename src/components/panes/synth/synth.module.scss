@@ -1,0 +1,33 @@
+.synthContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.waveWindow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .waveForm {
+    height: 2rem;
+    width: 2rem;
+    stroke: white;
+  }
+
+  .wavePane {
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+}
+
+.arrow {
+  height: 100%;
+  width: 1rem;
+  cursor: pointer;
+}

@@ -1,0 +1,21 @@
+---
+import { HomeWindow } from "@components/windows/home";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="RJB Tech">
+  <main>
+    <HomeWindow client:only />
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+</style>

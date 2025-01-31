@@ -10,3 +10,7 @@ $green: #234340;
 $blue: #07609c;
 $lighterGray: #151515;
 $darkerGray: #151515;
+
+$defaultTransitionProperty: all;
+$defaultTransitionDuration: 250ms;
+$defaultTransitionFunction: cubic-bezier(0.4, 0, 0.2, 1);

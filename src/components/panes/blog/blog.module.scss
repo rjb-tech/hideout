@@ -33,7 +33,9 @@
       border-radius: 4px;
       opacity: 1;
 
-      transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+      transition-property: vars.$defaultTransitionProperty;
+      transition-duration: 100ms;
+      transition-timing-function: vars.$defaultTransitionFunction;
     }
 
     .hidden {

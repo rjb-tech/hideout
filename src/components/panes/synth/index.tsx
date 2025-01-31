@@ -16,6 +16,7 @@ import styles from "./synth.module.scss";
   To add:
     - secret key phrase played on the keyboard that will access a new page that you can't get to otherwise
       - May involve context values to redirect off the page unless the secret phrase has been guessed
+    - add last used synth settings to session storage
 */
 
 export const SynthPane = () => {

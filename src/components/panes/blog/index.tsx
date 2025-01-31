@@ -24,6 +24,11 @@ export const Blog = ({ posts }: IBlog) => {
     setPostIndex(newIndex);
   };
 
+  /*
+   * To Do: Change this to a scrollable container with all posts with reading time and
+      published date
+   */
+
   return (
     <div className={styles.container}>
       <div className={styles.navContainer}>

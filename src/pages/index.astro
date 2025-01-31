@@ -1,12 +1,11 @@
 ---
+import type { MarkdownInstance } from "astro";
+import type { BlogPost } from "@hideoutTypes/blog";
 import Layout from "@layouts/Layout.astro";
-
 import { SynthPane } from "@components/panes/synth";
 import { Blog } from "@components/panes/blog";
 
 import styles from "./home.module.scss";
-import type { MarkdownInstance } from "astro";
-import type { BlogPost } from "@hideoutTypes/blog";
 
 const posts = Object.values(
   import.meta.glob<MarkdownInstance<BlogPost>>("@content/blog/*.md", {
@@ -33,7 +32,7 @@ const posts = Object.values(
       </div>
       <div class={styles.otherContainer}>
         <div class={styles.blogContainer}>
-          <Blog posts={posts} />
+          <Blog posts={posts} client:load />
         </div>
         <div class={styles.synthContainer}>
           <SynthPane client:only />

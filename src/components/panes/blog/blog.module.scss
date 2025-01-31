@@ -1,13 +1,69 @@
 @use "../../../styles/variables.scss" as vars;
 
-.blogContainer {
+.container {
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+}
+
+.navContainer {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  .arrow {
+    cursor: pointer;
+    width: 35%;
+  }
+
+  .labelContainer {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+
+    .label {
+      font-size: x-small;
+      width: fit-content;
+      height: fit-content;
+      text-align: center;
+      border: 1px solid vars.$white;
+      padding: 3px;
+      border-radius: 4px;
+      opacity: 1;
+
+      transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hidden {
+      @extend .label;
+      opacity: 0;
+    }
+  }
+}
+
+.blogContainer {
+  height: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   box-sizing: border-box;
+  padding-top: 0.5rem;
+
+  .readMore {
+    cursor: pointer;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: vars.$green;
+    border: 1px solid vars.$green;
+    padding: 3px 1rem;
+    border-radius: 4px;
+  }
 }
 
 .postContainer {
@@ -19,35 +75,13 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-}
 
-.label {
-  font-size: x-small;
-  width: fit-content;
-  height: fit-content;
-  text-align: center;
-  border: 1px solid vars.$white;
-  padding: 3px;
-  border-radius: 4px;
-}
+  .title {
+    margin: 0;
+  }
 
-.title {
-  margin: 0;
-}
-
-.readingTime {
-  font-style: italic;
-  font-size: small;
-}
-
-.readMore {
-  cursor: pointer;
-  width: fit-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: vars.$green;
-  border: 1px solid vars.$green;
-  padding: 3px 1rem;
-  border-radius: 4px;
+  .readingTime {
+    font-style: italic;
+    font-size: small;
+  }
 }

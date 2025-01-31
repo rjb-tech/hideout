@@ -1,3 +1,5 @@
+@use "../styles/variables.scss" as vars;
+
 .container {
   width: 50%;
   height: 50%;
@@ -8,6 +10,14 @@
   padding: 2rem 1rem;
   background-color: rgba(37, 39, 45, 0.65);
   gap: 1rem;
+
+  @media (width <= vars.$laptopBreakpoint) {
+    width: 75%;
+  }
+
+  @media (width <= vars.$tabletBreakpoint) {
+    width: 90%;
+  }
 }
 
 .bioContainer {

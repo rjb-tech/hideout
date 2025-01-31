@@ -8,7 +8,7 @@ import { Blog } from "@components/panes/blog";
 import styles from "./home.module.scss";
 
 const posts = Object.values(
-  import.meta.glob<MarkdownInstance<BlogPost>>("@content/blog/*.md", {
+  import.meta.glob<MarkdownInstance<BlogPost>>("@content/blog/published/*.md", {
     eager: true,
   }),
 );

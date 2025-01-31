@@ -35,7 +35,13 @@
   margin: 0;
 }
 
+.readingTime {
+  font-style: italic;
+  font-size: small;
+}
+
 .readMore {
+  cursor: pointer;
   width: fit-content;
   display: flex;
   justify-content: center;

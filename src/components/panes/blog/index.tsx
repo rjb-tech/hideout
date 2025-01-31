@@ -15,7 +15,9 @@ export const Blog = ({ posts }: IBlog) => {
       <div className={styles.postContainer}>
         <h2 className={styles.title}>{latestPost.frontmatter.title}</h2>
         <span>{latestPost.frontmatter.description}</span>
-        <span>{latestPost.frontmatter.minutesRead}</span>
+        <span className={styles.readingTime}>
+          {latestPost.frontmatter.minutesRead}
+        </span>
 
         {/* <span>Arrows on the side to cycle through articles</span>
         <span>

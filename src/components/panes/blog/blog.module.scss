@@ -9,7 +9,7 @@
 
 .navContainer {
   height: 10%;
-  width: 100%;
+  width: inherit;
   display: flex;
   justify-content: space-around;
 
@@ -47,7 +47,7 @@
 
 .blogContainer {
   height: 90%;
-  width: 100%;
+  width: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,16 +55,23 @@
   box-sizing: border-box;
   padding-top: 0.5rem;
 
-  .readMore {
-    cursor: pointer;
-    width: fit-content;
+  .buttonContainer {
+    height: fit-content;
+    width: inherit;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: vars.$green;
-    border: 1px solid vars.$green;
-    padding: 3px 1rem;
-    border-radius: 4px;
+    gap: 1rem;
+
+    .button {
+      cursor: pointer;
+      width: 35%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: vars.$green;
+      border: 1px solid vars.$green;
+      border-radius: 4px;
+    }
   }
 }
 

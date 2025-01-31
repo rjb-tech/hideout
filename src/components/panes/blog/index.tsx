@@ -4,7 +4,6 @@ import type { BlogPost } from "@hideoutTypes/blog";
 import styles from "./blog.module.scss";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
-import classNames from "classnames";
 
 interface IBlog {
   posts: MarkdownInstance<BlogPost>[];
@@ -23,11 +22,6 @@ export const Blog = ({ posts }: IBlog) => {
 
     setPostIndex(newIndex);
   };
-
-  /*
-   * To Do: Change this to a scrollable container with all posts with reading time and
-      published date
-   */
 
   return (
     <div className={styles.container}>
@@ -53,14 +47,14 @@ export const Blog = ({ posts }: IBlog) => {
           <span className={styles.readingTime}>
             {posts[postIndex].frontmatter.minutesRead}
           </span>
-
-          {/* <span>Arrows on the side to cycle through articles</span>
-        <span>
-          Expand button that will fit content height and transition smoothly
-        </span> */}
         </div>
-        <div className={styles.readMore}>
-          <span>Read More</span>
+        <div className={styles.buttonContainer}>
+          <div className={styles.button}>
+            <div>Read This</div>
+          </div>
+          <div className={styles.button}>
+            <div>All Posts</div>
+          </div>
         </div>
       </div>
     </div>

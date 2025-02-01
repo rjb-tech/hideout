@@ -36,6 +36,7 @@ export const SynthPane = () => {
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
   const oscRef = useRef<OscillatorNode | null>(null);
+  const pressedKeys = useRef<string[]>([]);
 
   const octaveOptions = [1, 2, 3, 4];
 
@@ -76,13 +77,22 @@ export const SynthPane = () => {
       });
     };
 
-  const handleChromaticKey = (frequency: number, time: number) => {
+  const handleChromaticKeyDown = (frequency: number, time: number) => {
     oscRef.current!.frequency.setValueAtTime(frequency * octave, time);
 
+    gainNodeRef.current!.gain.cancelScheduledValues(time);
     gainNodeRef.current!.gain.setValueAtTime(0, time);
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       gain,
       time + envelope.attack / 100,
+    );
+  };
+
+  const handleChromaticKeyUp = (time: number) => {
+    gainNodeRef.current!.gain.cancelScheduledValues(time);
+    gainNodeRef.current!.gain.linearRampToValueAtTime(
+      0,
+      time + envelope.decay / 100,
     );
   };
 
@@ -99,10 +109,7 @@ export const SynthPane = () => {
     oscRef.current.type = waveType as OscillatorType;
 
     const keyupListener = (e: KeyboardEvent) => {
-      gainNodeRef.current!.gain.setValueAtTime(
-        0,
-        audioRef.current!.currentTime,
-      );
+      handleChromaticKeyUp(audioRef.current!.currentTime);
     };
     const keydownListener = (e: KeyboardEvent) => {
       const chromaticKey = chromaticKeys[e.code];
@@ -113,7 +120,7 @@ export const SynthPane = () => {
       if (chromaticKey) {
         const time = audioRef.current!.currentTime;
         const freq = chromaticKey.baseFrequency * octave;
-        handleChromaticKey(freq, time);
+        handleChromaticKeyDown(freq, time);
       } else if (actionKey) {
         handleActionKeys(actionKey);
       }

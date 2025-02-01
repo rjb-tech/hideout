@@ -92,7 +92,7 @@ export const SynthPane = () => {
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       0,
-      time + envelope.decay / 100,
+      time + envelope.release / 100,
     );
   };
 

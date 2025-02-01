@@ -4,13 +4,16 @@ import classNames from "classnames";
 import { actionKeys, chromaticKeys, GAIN_MAX, waveforms } from "./constants";
 import { Waveform } from "./waveform";
 
-import type {
-  ActionDirection,
-  ActionKey,
-  HideoutWaveforms,
+import {
+  type EnvelopeValue,
+  type ActionDirection,
+  type ActionKey,
+  type EnvelopeParameter,
+  type HideoutWaveforms,
 } from "@hideoutTypes/synth";
 
 import styles from "./synth.module.scss";
+import { Envelope } from "./envelope";
 
 /*
   To add:
@@ -23,6 +26,12 @@ export const SynthPane = () => {
   const [gain, setGain] = useState<number>(GAIN_MAX);
   const [octave, setOctave] = useState<number>(2);
   const [waveType, setWaveType] = useState<HideoutWaveforms>("sine");
+  const [envelope, setEnvelope] = useState<EnvelopeValue>({
+    attack: 0,
+    decay: 0,
+    sustain: 0,
+    release: 0,
+  });
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -59,6 +68,24 @@ export const SynthPane = () => {
     }
   };
 
+  const handleEnvelopeChange =
+    (parameter: EnvelopeParameter) => (event: any) => {
+      setEnvelope({
+        ...envelope,
+        [parameter]: parseInt(event.target.value, 10),
+      });
+    };
+
+  const handleChromaticKey = (frequency: number, time: number) => {
+    oscRef.current!.frequency.setValueAtTime(frequency * octave, time);
+
+    gainNodeRef.current!.gain.setValueAtTime(0, time);
+    gainNodeRef.current!.gain.linearRampToValueAtTime(
+      gain,
+      time + envelope.attack / 100,
+    );
+  };
+
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
@@ -72,7 +99,10 @@ export const SynthPane = () => {
     oscRef.current.type = waveType as OscillatorType;
 
     const keyupListener = (e: KeyboardEvent) => {
-      gainNodeRef.current!.gain.value = 0;
+      gainNodeRef.current!.gain.setValueAtTime(
+        0,
+        audioRef.current!.currentTime,
+      );
     };
     const keydownListener = (e: KeyboardEvent) => {
       const chromaticKey = chromaticKeys[e.code];
@@ -81,11 +111,9 @@ export const SynthPane = () => {
         oscRef.current!.start();
       } catch {}
       if (chromaticKey) {
-        oscRef.current!.frequency.setValueAtTime(
-          chromaticKeys[e.code]?.baseFrequency * octave,
-          audioRef.current!.currentTime,
-        );
-        gainNodeRef.current!.gain.value = gain;
+        const time = audioRef.current!.currentTime;
+        const freq = chromaticKey.baseFrequency * octave;
+        handleChromaticKey(freq, time);
       } else if (actionKey) {
         handleActionKeys(actionKey);
       }
@@ -98,10 +126,12 @@ export const SynthPane = () => {
       window.removeEventListener("keyup", keyupListener);
       window.removeEventListener("keydown", keydownListener);
 
-      oscRef.current?.stop();
-      audioRef.current?.close();
+      try {
+        oscRef.current?.stop();
+        audioRef.current?.close();
+      } catch {}
     };
-  }, [octave, gain, waveType]);
+  }, [octave, gain, waveType, envelope]);
 
   return (
     <div className={styles.synthContainer}>
@@ -116,6 +146,7 @@ export const SynthPane = () => {
           </span>
         ))}
       </div>
+      <Envelope onEnvelopeChange={handleEnvelopeChange} envelope={envelope} />
     </div>
   );
 };

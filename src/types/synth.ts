@@ -3,6 +3,8 @@ export type ActionScope = "wave" | "filter" | "gain" | "octave";
 export type ChromaticKeys = Record<string, ChromaticKey>;
 export type ActionKeys = Record<string, ActionKey>;
 export type HideoutWaveforms = "sine" | "triangle" | "sawtooth" | "square";
+export type EnvelopeParameter = "attack" | "decay" | "sustain" | "release";
+export type EnvelopeValue = Record<EnvelopeParameter, number>;
 
 export interface ChromaticKey {
   note: string;

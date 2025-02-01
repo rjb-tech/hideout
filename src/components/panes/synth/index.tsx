@@ -80,14 +80,27 @@ export const SynthPane = () => {
   const handleChromaticKeyDown = (frequency: number, time: number) => {
     oscRef.current!.frequency.setValueAtTime(frequency * octave, time);
 
+    const attackTime = time + envelope.attack / 100;
+    const decayTime = attackTime + envelope.decay / 100;
+
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     gainNodeRef.current!.gain.setValueAtTime(0, time);
+
+    // apply attack
+    gainNodeRef.current!.gain.linearRampToValueAtTime(gain, attackTime);
+
+    // apply decay into sustain
     gainNodeRef.current!.gain.linearRampToValueAtTime(
-      gain,
-      time + envelope.attack / 100,
+      gain * (envelope.sustain / 100),
+      decayTime,
     );
   };
 
+  // short key presses still don't apply release correctly
+  // might be something with not hitting attack?
+  // no sustain bit of attack, decay, and release causing sound retriggers on keyup
+  // probably should apply key up differently depending on envelope
+  // second oscillator might be needed to make it clean
   const handleChromaticKeyUp = (time: number) => {
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     gainNodeRef.current!.gain.linearRampToValueAtTime(

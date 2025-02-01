@@ -29,8 +29,8 @@ export const Envelope = ({ onEnvelopeChange, envelope }: any) => {
       <div className={classNames(styles.slider, styles.sustain)}>
         <label htmlFor="sustain">S</label>
         <input
-          min={1}
-          max={200}
+          min={0}
+          max={100}
           type="range"
           name="sustain"
           value={envelope.sustain}

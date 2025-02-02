@@ -16,9 +16,22 @@ export interface ActionKey {
   direction: ActionDirection;
 }
 
+export interface SynthDelay {
+  on: boolean;
+  time: number;
+  feedback: number;
+}
+
+export interface SynthReverb {
+  on: boolean;
+  mix: number;
+}
+
 export interface SynthSettings {
   envelope: EnvelopeValue;
   gain: number;
   octave: number;
   waveform: HideoutWaveforms;
+  delay: SynthDelay;
+  reverb: SynthReverb;
 }

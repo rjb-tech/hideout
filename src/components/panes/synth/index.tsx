@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 
-import { actionKeys, chromaticKeys, GAIN_MAX, waveforms } from "./constants";
+import {
+  actionKeys,
+  chromaticKeys,
+  GAIN_MAX,
+  waveforms,
+  octaveOptions,
+} from "./constants";
 import { Waveform } from "./waveform";
 
 import {
@@ -37,14 +43,26 @@ export const SynthPane = () => {
       sustain: 100,
       release: 0,
     },
+    delay: settings.delay ?? {
+      on: true,
+      time: 300,
+      feedback: 0, // not working
+    },
+    reverb: settings.reverb ?? {
+      on: true,
+      mix: 0.5,
+    },
   });
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
   const oscRef = useRef<OscillatorNode | null>(null);
-  const pressedKey = useRef<string | null>(null);
+  const delayRef = useRef<DelayNode | null>(null);
+  const delayFeedbackRef = useRef<GainNode | null>(null);
+  const convolverRef = useRef<ConvolverNode | null>(null);
+  const reverbGainRef = useRef<GainNode | null>(null);
 
-  const octaveOptions = [1, 2, 3, 4];
+  const pressedKey = useRef<string | null>(null);
 
   const handleActionKeys = (action: ActionKey) => {
     switch (action.scope) {
@@ -118,15 +136,53 @@ export const SynthPane = () => {
     );
   };
 
+  const createImpulseResponse = (audioContext: AudioContext) => {
+    const sampleRate = audioContext.sampleRate;
+    const length = 2 * sampleRate; // 2 seconds
+    const impulse = audioContext.createBuffer(2, length, sampleRate);
+
+    for (let channel = 0; channel < 2; channel++) {
+      const channelData = impulse.getChannelData(channel);
+      for (let i = 0; i < length; i++) {
+        // Create a decaying noise for natural reverb sound
+        const decay = Math.exp(-i / (sampleRate * 0.5)); // Adjust decay time here
+        channelData[i] = (Math.random() * 2 - 1) * decay;
+      }
+    }
+    return impulse;
+  };
+
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
     oscRef.current = audioRef.current.createOscillator();
+    delayRef.current = audioRef.current.createDelay();
+    delayFeedbackRef.current = audioRef.current.createGain();
+    convolverRef.current = audioRef.current.createConvolver();
+    reverbGainRef.current = audioRef.current.createGain();
+
+    delayRef.current.delayTime.value = params.delay.time / 1000;
+    delayFeedbackRef.current.gain.value = params.delay.feedback;
+    reverbGainRef.current.gain.value = params.reverb.mix;
+    convolverRef.current.buffer = createImpulseResponse(audioRef.current);
 
     gainNodeRef.current.gain.value = 0;
     oscRef.current
       .connect(gainNodeRef.current)
       .connect(audioRef.current.destination);
+
+    if (params.delay.on) {
+      gainNodeRef.current.connect(delayRef.current);
+      delayRef.current.connect(delayFeedbackRef.current);
+      delayFeedbackRef.current.connect(delayRef.current); // Create feedback loop
+      delayRef.current.connect(audioRef.current.destination);
+    }
+
+    if (params.reverb.on) {
+      gainNodeRef.current.connect(convolverRef.current);
+      convolverRef.current.connect(reverbGainRef.current);
+      reverbGainRef.current.connect(audioRef.current.destination);
+    }
 
     oscRef.current.type = params.waveform as OscillatorType;
 

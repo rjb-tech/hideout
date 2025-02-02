@@ -39,3 +39,5 @@ export const waveforms: HideoutWaveforms[] = [
   "sawtooth",
   "square",
 ];
+
+export const octaveOptions = [1, 2, 3, 4];

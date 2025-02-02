@@ -94,7 +94,7 @@ export const SynthPane = () => {
     const decayTime = attackTime + envelope.decay / 100;
 
     gainNodeRef.current!.gain.cancelScheduledValues(time);
-    gainNodeRef.current!.gain.setValueAtTime(0, time);
+    // gainNodeRef.current!.gain.setValueAtTime(0, time);
 
     // apply attack
     gainNodeRef.current!.gain.linearRampToValueAtTime(gain, attackTime);

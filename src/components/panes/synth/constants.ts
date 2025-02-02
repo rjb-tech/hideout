@@ -31,7 +31,7 @@ export const actionKeys: ActionKeys = {
   ArrowDown: { scope: "octave", direction: "decr" }, // change these to octave
 };
 
-export const GAIN_MAX = 0.2;
+export const GAIN_MAX = 0.4;
 
 export const waveforms: HideoutWaveforms[] = [
   "sine",

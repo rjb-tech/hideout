@@ -44,7 +44,7 @@ export const SynthPane = () => {
       release: 0,
     },
     delay: settings.delay ?? {
-      on: true,
+      on: false,
       time: 300,
       feedback: 0, // not working
     },
@@ -129,7 +129,6 @@ export const SynthPane = () => {
   // probably should apply key up differently depending on envelope
   // second oscillator might be needed to make it clean
   const handleChromaticKeyUp = (time: number) => {
-    gainNodeRef.current!.gain.cancelScheduledValues(time);
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       0,
       time + params.envelope.release / 100,
@@ -187,16 +186,13 @@ export const SynthPane = () => {
     oscRef.current.type = params.waveform as OscillatorType;
 
     const keyupListener = (e: KeyboardEvent) => {
-      e.preventDefault();
-
       if (pressedKey.current === e.code) {
+        e.preventDefault();
         handleChromaticKeyUp(audioRef.current!.currentTime);
         pressedKey.current = null;
       }
     };
     const keydownListener = (e: KeyboardEvent) => {
-      e.preventDefault();
-
       const chromaticKey = chromaticKeys[e.code];
       const actionKey = actionKeys[e.code];
       try {
@@ -210,6 +206,7 @@ export const SynthPane = () => {
           handleChromaticKeyDown(freq, time);
         }
       } else if (actionKey) {
+        e.preventDefault();
         handleActionKeys(actionKey);
       }
     };

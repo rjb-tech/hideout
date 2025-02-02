@@ -108,7 +108,6 @@ export const SynthPane = () => {
 
   // short key presses still don't apply release correctly
   // might be something with not hitting attack?
-  // no sustain bit of attack, decay, and release causing sound retriggers on keyup
   // probably should apply key up differently depending on envelope
   // second oscillator might be needed to make it clean
   const handleChromaticKeyUp = (time: number) => {

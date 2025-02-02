@@ -17,27 +17,33 @@ const posts = Object.values(
 <Layout title="RJB Tech">
   <main>
     <div class={styles.container}>
-      <div class={styles.bioContainer}>
-        <img src="/logo.png" />
-        <span class={styles.name}>Ryne Burden</span>
-        <span class={styles.job}>Software Engineer</span>
-        <div>
-          <a href="https://github.com/rjb-tech">Github</a>
+      <div class={styles.topContainer}>
+        <div class={styles.bioContainer}>
+          <img src="/logo.png" />
+          <span class={styles.name}>Ryne Burden</span>
+          <span class={styles.job}>Software Engineer</span>
+          <div>
+            <a href="https://github.com/rjb-tech">Github</a>
+          </div>
+          <div>
+            <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
+              LinkedIn
+            </a>
+          </div>
         </div>
-        <div>
-          <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
-            LinkedIn
-          </a>
-        </div>
-      </div>
-      <div class={styles.otherContainer}>
         <div class={styles.blogContainer}>
           <Blog posts={posts} client:load />
         </div>
+      </div>
+      <div class={styles.synthContainer}>
+        <SynthPane client:only />
+      </div>
+      <!-- <div class={styles.otherContainer}>
+        
         <div class={styles.synthContainer}>
           <SynthPane client:only />
         </div>
-      </div>
+      </div> -->
     </div>
   </main>
 </Layout>

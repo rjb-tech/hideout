@@ -8,7 +8,7 @@ export const Envelope = ({ onEnvelopeChange, envelope }: any) => {
         <label htmlFor="attack">A</label>
         <input
           min={1}
-          max={200}
+          max={100}
           type="range"
           name="attack"
           value={envelope.attack}
@@ -19,7 +19,7 @@ export const Envelope = ({ onEnvelopeChange, envelope }: any) => {
         <label htmlFor="decay">D</label>
         <input
           min={1}
-          max={200}
+          max={100}
           type="range"
           name="decay"
           value={envelope.decay}

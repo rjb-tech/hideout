@@ -5,11 +5,9 @@ import { actionKeys, chromaticKeys, GAIN_MAX, waveforms } from "./constants";
 import { Waveform } from "./waveform";
 
 import {
-  type EnvelopeValue,
   type ActionDirection,
   type ActionKey,
   type EnvelopeParameter,
-  type HideoutWaveforms,
   type SynthSettings,
 } from "@hideoutTypes/synth";
 
@@ -28,19 +26,18 @@ export const SynthPane = () => {
   const settings = JSON.parse(
     window.sessionStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}",
   ) as SynthSettings;
-  const [gain, setGain] = useState<number>(settings?.gain ?? GAIN_MAX);
-  const [octave, setOctave] = useState<number>(settings?.octave ?? 2);
-  const [waveform, setWaveform] = useState<HideoutWaveforms>(
-    settings?.waveform ?? "sine",
-  );
-  const [envelope, setEnvelope] = useState<EnvelopeValue>(
-    settings?.envelope ?? {
+
+  const [params, setParams] = useState<SynthSettings>({
+    gain: settings.gain ?? GAIN_MAX,
+    octave: settings.octave ?? 2,
+    waveform: settings.waveform ?? "sawtooth",
+    envelope: settings.envelope ?? {
       attack: 0,
       decay: 0,
       sustain: 100,
       release: 0,
     },
-  );
+  });
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -61,46 +58,50 @@ export const SynthPane = () => {
   };
 
   const handleWaveChangeAction = (direction: ActionDirection) => {
-    const currentIndex = waveforms.indexOf(waveform);
+    const currentIndex = waveforms.indexOf(params.waveform);
     const newIndex =
       direction === "incr"
         ? (currentIndex + 1) % waveforms.length
         : (currentIndex - 1 + waveforms.length) % waveforms.length;
 
-    setWaveform(waveforms[newIndex]);
+    setParams({ ...params, waveform: waveforms[newIndex] });
   };
 
   const handleOctaveChangeAction = (direction: ActionDirection) => {
-    const newOctave = direction === "incr" ? octave + 1 : octave - 1;
+    const newOctave =
+      direction === "incr" ? params.octave + 1 : params.octave - 1;
 
     if (octaveOptions.includes(newOctave)) {
-      setOctave(newOctave);
+      setParams({ ...params, octave: newOctave });
     }
   };
 
   const handleEnvelopeChange =
     (parameter: EnvelopeParameter) => (event: any) => {
-      setEnvelope({
-        ...envelope,
-        [parameter]: parseInt(event.target.value, 10),
+      setParams({
+        ...params,
+        envelope: {
+          ...params.envelope,
+          [parameter]: parseInt(event.target.value, 10),
+        },
       });
     };
 
   const handleChromaticKeyDown = (frequency: number, time: number) => {
-    oscRef.current!.frequency.setValueAtTime(frequency * octave, time);
+    oscRef.current!.frequency.setValueAtTime(frequency * params.octave, time);
 
-    const attackTime = time + envelope.attack / 100;
-    const decayTime = attackTime + envelope.decay / 100;
+    const attackTime = time + params.envelope.attack / 100;
+    const decayTime = attackTime + params.envelope.decay / 100;
 
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     // gainNodeRef.current!.gain.setValueAtTime(0, time);
 
     // apply attack
-    gainNodeRef.current!.gain.linearRampToValueAtTime(gain, attackTime);
+    gainNodeRef.current!.gain.linearRampToValueAtTime(params.gain, attackTime);
 
     // apply decay into sustain
     gainNodeRef.current!.gain.linearRampToValueAtTime(
-      gain * (envelope.sustain / 100),
+      params.gain * (params.envelope.sustain / 100),
       decayTime,
     );
   };
@@ -114,7 +115,7 @@ export const SynthPane = () => {
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       0,
-      time + envelope.release / 100,
+      time + params.envelope.release / 100,
     );
   };
 
@@ -128,7 +129,7 @@ export const SynthPane = () => {
       .connect(gainNodeRef.current)
       .connect(audioRef.current.destination);
 
-    oscRef.current.type = waveform as OscillatorType;
+    oscRef.current.type = params.waveform as OscillatorType;
 
     const keyupListener = (e: KeyboardEvent) => {
       if (pressedKey.current === e.code) {
@@ -146,7 +147,7 @@ export const SynthPane = () => {
         if (pressedKey.current !== e.code) {
           pressedKey.current = e.code;
           const time = audioRef.current!.currentTime;
-          const freq = chromaticKey.baseFrequency * octave;
+          const freq = chromaticKey.baseFrequency * params.octave;
           handleChromaticKeyDown(freq, time);
         }
       } else if (actionKey) {
@@ -154,15 +155,7 @@ export const SynthPane = () => {
       }
     };
 
-    window.sessionStorage.setItem(
-      LOCAL_STORAGE_KEY,
-      JSON.stringify({
-        envelope,
-        gain,
-        waveform,
-        octave,
-      } as SynthSettings),
-    );
+    window.sessionStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(params));
 
     window.addEventListener("keyup", keyupListener);
     window.addEventListener("keydown", keydownListener);
@@ -176,7 +169,7 @@ export const SynthPane = () => {
         audioRef.current?.close();
       } catch {}
     };
-  }, [octave, gain, waveform, envelope]);
+  }, [params]);
 
   return (
     <div className={styles.synthContainer}>
@@ -191,7 +184,10 @@ export const SynthPane = () => {
           </span>
         ))}
       </div>
-      <Envelope onEnvelopeChange={handleEnvelopeChange} envelope={envelope} />
+      <Envelope
+        onEnvelopeChange={handleEnvelopeChange}
+        envelope={params.envelope}
+      />
     </div>
   );
 };

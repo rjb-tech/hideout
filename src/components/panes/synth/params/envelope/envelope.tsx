@@ -22,6 +22,7 @@ export const EnvelopeParams = ({
           value={envelope.attack}
           onChange={onEnvelopeChange("attack")}
         />
+        A
       </label>
       <label className={styles.slider}>
         <input
@@ -33,6 +34,7 @@ export const EnvelopeParams = ({
           value={envelope.decay}
           onChange={onEnvelopeChange("decay")}
         />
+        D
       </label>
       <label className={styles.slider}>
         <input
@@ -44,6 +46,7 @@ export const EnvelopeParams = ({
           value={envelope.sustain}
           onChange={onEnvelopeChange("sustain")}
         />
+        S
       </label>
       <label className={styles.slider}>
         <input
@@ -55,6 +58,7 @@ export const EnvelopeParams = ({
           value={envelope.release}
           onChange={onEnvelopeChange("release")}
         />
+        R
       </label>
     </div>
   );

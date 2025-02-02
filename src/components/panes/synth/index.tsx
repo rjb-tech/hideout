@@ -132,12 +132,16 @@ export const SynthPane = () => {
     oscRef.current.type = params.waveform as OscillatorType;
 
     const keyupListener = (e: KeyboardEvent) => {
+      e.preventDefault();
+
       if (pressedKey.current === e.code) {
         handleChromaticKeyUp(audioRef.current!.currentTime);
         pressedKey.current = null;
       }
     };
     const keydownListener = (e: KeyboardEvent) => {
+      e.preventDefault();
+
       const chromaticKey = chromaticKeys[e.code];
       const actionKey = actionKeys[e.code];
       try {

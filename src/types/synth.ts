@@ -15,3 +15,10 @@ export interface ActionKey {
   scope: ActionScope;
   direction: ActionDirection;
 }
+
+export interface SynthSettings {
+  envelope: EnvelopeValue;
+  gain: number;
+  octave: number;
+  waveform: HideoutWaveforms;
+}

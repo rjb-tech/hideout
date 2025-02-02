@@ -10,6 +10,7 @@ import {
   type ActionKey,
   type EnvelopeParameter,
   type HideoutWaveforms,
+  type SynthSettings,
 } from "@hideoutTypes/synth";
 
 import styles from "./synth.module.scss";
@@ -22,16 +23,25 @@ import { Envelope } from "./envelope";
     - add last used synth settings to session storage
 */
 
+const LOCAL_STORAGE_KEY = "synth_settings";
+
 export const SynthPane = () => {
-  const [gain, setGain] = useState<number>(GAIN_MAX);
-  const [octave, setOctave] = useState<number>(2);
-  const [waveType, setWaveType] = useState<HideoutWaveforms>("sine");
-  const [envelope, setEnvelope] = useState<EnvelopeValue>({
-    attack: 0,
-    decay: 0,
-    sustain: 100,
-    release: 0,
-  });
+  const settings = JSON.parse(
+    window.sessionStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}",
+  ) as SynthSettings;
+  const [gain, setGain] = useState<number>(settings?.gain ?? GAIN_MAX);
+  const [octave, setOctave] = useState<number>(settings?.octave ?? 2);
+  const [waveform, setWaveform] = useState<HideoutWaveforms>(
+    settings?.waveform ?? "sine",
+  );
+  const [envelope, setEnvelope] = useState<EnvelopeValue>(
+    settings?.envelope ?? {
+      attack: 0,
+      decay: 0,
+      sustain: 100,
+      release: 0,
+    },
+  );
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -52,13 +62,13 @@ export const SynthPane = () => {
   };
 
   const handleWaveChangeAction = (direction: ActionDirection) => {
-    const currentIndex = waveforms.indexOf(waveType);
+    const currentIndex = waveforms.indexOf(waveform);
     const newIndex =
       direction === "incr"
         ? (currentIndex + 1) % waveforms.length
         : (currentIndex - 1 + waveforms.length) % waveforms.length;
 
-    setWaveType(waveforms[newIndex]);
+    setWaveform(waveforms[newIndex]);
   };
 
   const handleOctaveChangeAction = (direction: ActionDirection) => {
@@ -119,7 +129,7 @@ export const SynthPane = () => {
       .connect(gainNodeRef.current)
       .connect(audioRef.current.destination);
 
-    oscRef.current.type = waveType as OscillatorType;
+    oscRef.current.type = waveform as OscillatorType;
 
     const keyupListener = (e: KeyboardEvent) => {
       if (pressedKey.current === e.code) {
@@ -145,6 +155,16 @@ export const SynthPane = () => {
       }
     };
 
+    window.sessionStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({
+        envelope,
+        gain,
+        waveform,
+        octave,
+      } as SynthSettings),
+    );
+
     window.addEventListener("keyup", keyupListener);
     window.addEventListener("keydown", keydownListener);
 
@@ -157,7 +177,7 @@ export const SynthPane = () => {
         audioRef.current?.close();
       } catch {}
     };
-  }, [octave, gain, waveType, envelope]);
+  }, [octave, gain, waveform, envelope]);
 
   return (
     <div className={styles.synthContainer}>
@@ -167,7 +187,7 @@ export const SynthPane = () => {
             <Waveform
               type={waveform}
               className={styles.waveForm}
-              selected={waveforms.indexOf(waveType) === i}
+              selected={waveforms.indexOf(waveform) === i}
             />
           </span>
         ))}

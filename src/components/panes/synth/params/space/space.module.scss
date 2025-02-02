@@ -6,6 +6,46 @@
   gap: 1rem;
 }
 
+.selectorContainer {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selector {
+  display: flex;
+
+  .leftNode {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  .rightNode {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    font-size: small;
+    border: 1px solid white;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    transition-property: vars.$defaultTransitionProperty;
+    transition-duration: vars.$defaultTransitionDuration;
+    transition-timing-function: vars.$defaultTransitionFunction;
+  }
+
+  .selected {
+    border: 1px solid vars.$lightGreen;
+    box-shadow: inset 0px 0px 5px vars.$lightGreen;
+  }
+}
+
 /* From Uiverse.io by gharsh11032000 */
 /* The switch - the box around the slider */
 .switch {

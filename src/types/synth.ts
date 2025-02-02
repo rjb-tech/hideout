@@ -17,13 +17,12 @@ export interface ActionKey {
 }
 
 export interface SynthDelay {
-  on: boolean;
-  time: number;
+  time: number | null;
   feedback: number;
 }
 
 export interface SynthReverb {
-  on: boolean;
+  decay: number | null;
   mix: number;
 }
 

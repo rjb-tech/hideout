@@ -7,6 +7,8 @@ import {
   GAIN_MAX,
   waveforms,
   octaveOptions,
+  delayTimeOptions,
+  reverbDecayOptions,
 } from "./constants";
 import { Waveform } from "./params/waveform/waveform";
 
@@ -45,12 +47,11 @@ export const SynthPane = () => {
       release: 0,
     },
     delay: settings.delay ?? {
-      on: false,
-      time: 300,
+      time: 150,
       feedback: 0, // not working
     },
     reverb: settings.reverb ?? {
-      on: true,
+      decay: 0.5,
       mix: 0.5,
     },
   });
@@ -152,14 +153,23 @@ export const SynthPane = () => {
     return impulse;
   };
 
-  const onDelayChange = () => {
-    setParams({ ...params, delay: { ...params.delay, on: !params.delay.on } });
-  };
-
-  const onReverbChange = () => {
+  const onDelayChange = (time: number | null) => {
     setParams({
       ...params,
-      reverb: { ...params.reverb, on: !params.reverb.on },
+      delay: {
+        ...params.delay,
+        time,
+      },
+    });
+  };
+
+  const onReverbChange = (decay: number | null) => {
+    setParams({
+      ...params,
+      reverb: {
+        ...params.reverb,
+        decay,
+      },
     });
   };
 
@@ -172,7 +182,6 @@ export const SynthPane = () => {
     convolverRef.current = audioRef.current.createConvolver();
     reverbGainRef.current = audioRef.current.createGain();
 
-    delayRef.current.delayTime.value = params.delay.time / 1000;
     delayFeedbackRef.current.gain.value = params.delay.feedback;
     reverbGainRef.current.gain.value = params.reverb.mix;
     convolverRef.current.buffer = createImpulseResponse(audioRef.current);
@@ -182,14 +191,15 @@ export const SynthPane = () => {
       .connect(gainNodeRef.current)
       .connect(audioRef.current.destination);
 
-    if (params.delay.on) {
+    if (params.delay.time !== null) {
+      delayRef.current.delayTime.value = params.delay.time / 1000;
       gainNodeRef.current.connect(delayRef.current);
       delayRef.current.connect(delayFeedbackRef.current);
       delayFeedbackRef.current.connect(delayRef.current); // Create feedback loop
       delayRef.current.connect(audioRef.current.destination);
     }
 
-    if (params.reverb.on) {
+    if (params.reverb.decay !== null) {
       gainNodeRef.current.connect(convolverRef.current);
       convolverRef.current.connect(reverbGainRef.current);
       reverbGainRef.current.connect(audioRef.current.destination);
@@ -257,9 +267,9 @@ export const SynthPane = () => {
           envelope={params.envelope}
         />
         <SpaceParams
-          delayOn={params.delay.on}
+          currentDelay={params.delay.time}
           onDelayChange={onDelayChange}
-          reverbOn={params.reverb.on}
+          currentReverb={params.reverb.decay}
           onReverbChange={onReverbChange}
         />
       </div>

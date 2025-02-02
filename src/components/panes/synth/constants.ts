@@ -41,3 +41,6 @@ export const waveforms: HideoutWaveforms[] = [
 ];
 
 export const octaveOptions = [1, 2, 3, 4];
+
+export const reverbDecayOptions = [0.25, 0.5, 1, 2];
+export const delayTimeOptions = [100, 150, 200, 250];

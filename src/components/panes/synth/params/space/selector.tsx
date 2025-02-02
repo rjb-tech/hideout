@@ -6,9 +6,10 @@ interface ISelector {
   onChange: (time: number | null) => void;
   options: number[];
   selected: number | null;
+  scale: 1 | 1000; // s or ms
 }
 
-export const Selector = ({ onChange, options, selected }: ISelector) => {
+export const Selector = ({ onChange, options, selected, scale }: ISelector) => {
   return (
     <div className={styles.selector}>
       <span
@@ -24,6 +25,8 @@ export const Selector = ({ onChange, options, selected }: ISelector) => {
       {options.map((option, i) => {
         const isRightNode = i === options.length - 1;
         const isSelected = option === selected;
+        const shouldPad = scale === 1 && option >= 1;
+
         return (
           <span
             key={i}
@@ -33,7 +36,7 @@ export const Selector = ({ onChange, options, selected }: ISelector) => {
               `${isRightNode && styles.rightNode} ${isSelected && styles.selected}`,
             )}
           >
-            {option}
+            {`${shouldPad ? option + ".0" : option}`}
           </span>
         );
       })}

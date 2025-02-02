@@ -19,16 +19,18 @@ export const SpaceParams = ({
   return (
     <div className={styles.container}>
       <div className={styles.selectorContainer}>
-        Delay
+        Delay (ms)
         <Selector
+          scale={1000}
           onChange={onDelayChange}
           options={delayTimeOptions}
           selected={currentDelay}
         />
       </div>
       <div className={styles.selectorContainer}>
-        Reverb
+        Reverb (s)
         <Selector
+          scale={1}
           onChange={onReverbChange}
           options={reverbDecayOptions}
           selected={currentReverb}

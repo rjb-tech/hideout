@@ -16,12 +16,6 @@
   align-items: center;
   gap: 1rem;
 
-  .waveForm {
-    height: 2rem;
-    width: 2rem;
-    stroke: vars.$white;
-  }
-
   .wavePane {
     padding: 0.25rem;
     display: flex;

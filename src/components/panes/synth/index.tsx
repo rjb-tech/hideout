@@ -8,7 +8,7 @@ import {
   waveforms,
   octaveOptions,
 } from "./constants";
-import { Waveform } from "./waveform";
+import { Waveform } from "./params/waveform/waveform";
 
 import {
   type ActionDirection,
@@ -18,7 +18,7 @@ import {
 } from "@hideoutTypes/synth";
 
 import styles from "./synth.module.scss";
-import { Envelope } from "./envelope";
+import { EnvelopeParams } from "./params/envelope/envelope";
 import { SpaceParams } from "./params/space";
 
 /*
@@ -246,14 +246,13 @@ export const SynthPane = () => {
           <span key={i} className={classNames(styles.wavePane)}>
             <Waveform
               type={waveform}
-              className={styles.waveForm}
               selected={waveforms.indexOf(waveform) === i}
             />
           </span>
         ))}
       </div>
       <div className={styles.paramsWindow}>
-        <Envelope
+        <EnvelopeParams
           onEnvelopeChange={handleEnvelopeChange}
           envelope={params.envelope}
         />

@@ -1,17 +1,14 @@
 import type { ReactNode } from "react";
 import type { HideoutWaveforms } from "@hideoutTypes/synth";
 
+import styles from "./waveform.module.scss";
+
 interface IWaveform {
-  className: string;
   selected: boolean;
   type: HideoutWaveforms;
 }
 
-export const Waveform = ({
-  className,
-  selected,
-  type,
-}: IWaveform): ReactNode => {
+export const Waveform = ({ selected, type }: IWaveform): ReactNode => {
   const pathMap: Record<HideoutWaveforms, string> = {
     sine: `M 10 50 
              C 20 50 26.67 20 36.67 20 
@@ -26,7 +23,7 @@ export const Waveform = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
-      className={className}
+      className={styles.waveform}
     >
       {selected && (
         <defs>
@@ -39,7 +36,7 @@ export const Waveform = ({
       <path
         d={pathMap[type]}
         fill="none"
-        className={className}
+        className={styles.waveform}
         stroke="currentColor"
         strokeWidth="3"
         filter={selected ? "url(#glow)" : ""}

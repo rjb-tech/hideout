@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import styles from "./envelope.module.scss";
 
-export const Envelope = ({ onEnvelopeChange, envelope }: any) => {
+export const EnvelopeParams = ({ onEnvelopeChange, envelope }: any) => {
   return (
     <div className={styles.envelopeContainer}>
       <div className={classNames(styles.slider, styles.attack)}>

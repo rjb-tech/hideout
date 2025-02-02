@@ -126,36 +126,36 @@ export const SynthPane = () => {
         handleChromaticKeyUp(audioRef.current!.currentTime);
         pressedKey.current = null;
       }
-      const keydownListener = (e: KeyboardEvent) => {
-        const chromaticKey = chromaticKeys[e.code];
-        const actionKey = actionKeys[e.code];
-        try {
-          oscRef.current!.start();
-        } catch {}
-        if (chromaticKey) {
-          if (pressedKey.current !== e.code) {
-            pressedKey.current = e.code;
-            const time = audioRef.current!.currentTime;
-            const freq = chromaticKey.baseFrequency * octave;
-            handleChromaticKeyDown(freq, time);
-          }
-        } else if (actionKey) {
-          handleActionKeys(actionKey);
+    };
+    const keydownListener = (e: KeyboardEvent) => {
+      const chromaticKey = chromaticKeys[e.code];
+      const actionKey = actionKeys[e.code];
+      try {
+        oscRef.current!.start();
+      } catch {}
+      if (chromaticKey) {
+        if (pressedKey.current !== e.code) {
+          pressedKey.current = e.code;
+          const time = audioRef.current!.currentTime;
+          const freq = chromaticKey.baseFrequency * octave;
+          handleChromaticKeyDown(freq, time);
         }
-      };
+      } else if (actionKey) {
+        handleActionKeys(actionKey);
+      }
+    };
 
-      window.addEventListener("keyup", keyupListener);
-      window.addEventListener("keydown", keydownListener);
+    window.addEventListener("keyup", keyupListener);
+    window.addEventListener("keydown", keydownListener);
 
-      return () => {
-        window.removeEventListener("keyup", keyupListener);
-        window.removeEventListener("keydown", keydownListener);
+    return () => {
+      window.removeEventListener("keyup", keyupListener);
+      window.removeEventListener("keydown", keydownListener);
 
-        try {
-          oscRef.current?.stop();
-          audioRef.current?.close();
-        } catch {}
-      };
+      try {
+        oscRef.current?.stop();
+        audioRef.current?.close();
+      } catch {}
     };
   }, [octave, gain, waveType, envelope]);
 

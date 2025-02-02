@@ -7,6 +7,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  box-sizing: border-box;
+  padding: 1rem;
 }
 
 .waveWindow {
@@ -33,4 +35,11 @@
   height: 100%;
   width: 1rem;
   cursor: pointer;
+}
+
+.paramsWindow {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 }

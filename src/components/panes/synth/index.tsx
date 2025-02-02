@@ -19,6 +19,7 @@ import {
 
 import styles from "./synth.module.scss";
 import { Envelope } from "./envelope";
+import { SpaceParams } from "./params/space";
 
 /*
   To add:
@@ -151,6 +152,17 @@ export const SynthPane = () => {
     return impulse;
   };
 
+  const onDelayChange = () => {
+    setParams({ ...params, delay: { ...params.delay, on: !params.delay.on } });
+  };
+
+  const onReverbChange = () => {
+    setParams({
+      ...params,
+      reverb: { ...params.reverb, on: !params.reverb.on },
+    });
+  };
+
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
@@ -240,10 +252,18 @@ export const SynthPane = () => {
           </span>
         ))}
       </div>
-      <Envelope
-        onEnvelopeChange={handleEnvelopeChange}
-        envelope={params.envelope}
-      />
+      <div className={styles.paramsWindow}>
+        <Envelope
+          onEnvelopeChange={handleEnvelopeChange}
+          envelope={params.envelope}
+        />
+        <SpaceParams
+          delayOn={params.delay.on}
+          onDelayChange={onDelayChange}
+          reverbOn={params.reverb.on}
+          onReverbChange={onReverbChange}
+        />
+      </div>
     </div>
   );
 };

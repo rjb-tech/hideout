@@ -242,11 +242,11 @@ export const SynthPane = () => {
   return (
     <div className={styles.synthContainer}>
       <div className={styles.waveWindow}>
-        {waveforms.map((waveform, i) => (
+        {waveforms.map((current, i) => (
           <span key={i} className={classNames(styles.wavePane)}>
             <Waveform
-              type={waveform}
-              selected={waveforms.indexOf(waveform) === i}
+              type={current}
+              selected={waveforms.indexOf(params.waveform) === i}
             />
           </span>
         ))}

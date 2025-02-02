@@ -1,53 +1,61 @@
-import classNames from "classnames";
+import type { EnvelopeValue } from "@hideoutTypes/synth";
 import styles from "./envelope.module.scss";
 
-export const EnvelopeParams = ({ onEnvelopeChange, envelope }: any) => {
+interface IEnvelopeParams {
+  onEnvelopeChange: any;
+  envelope: EnvelopeValue;
+}
+
+export const EnvelopeParams = ({
+  onEnvelopeChange,
+  envelope,
+}: IEnvelopeParams) => {
   return (
     <div className={styles.envelopeContainer}>
-      <div className={classNames(styles.slider, styles.attack)}>
-        <label htmlFor="attack">A</label>
+      <label className={styles.slider}>
         <input
-          min={1}
-          max={100}
-          type="range"
           name="attack"
+          type="range"
+          className={styles.level}
+          min={0}
+          max={100}
           value={envelope.attack}
           onChange={onEnvelopeChange("attack")}
         />
-      </div>
-      <div className={classNames(styles.slider, styles.decay)}>
-        <label htmlFor="decay">D</label>
+      </label>
+      <label className={styles.slider}>
         <input
-          min={1}
-          max={100}
-          type="range"
           name="decay"
+          type="range"
+          className={styles.level}
+          min={0}
+          max={100}
           value={envelope.decay}
           onChange={onEnvelopeChange("decay")}
         />
-      </div>
-      <div className={classNames(styles.slider, styles.sustain)}>
-        <label htmlFor="sustain">S</label>
+      </label>
+      <label className={styles.slider}>
         <input
+          name="sustain"
+          type="range"
+          className={styles.level}
           min={0}
           max={100}
-          type="range"
-          name="sustain"
           value={envelope.sustain}
           onChange={onEnvelopeChange("sustain")}
         />
-      </div>
-      <div className={classNames(styles.slider, styles.release)}>
-        <label htmlFor="release">R</label>
+      </label>
+      <label className={styles.slider}>
         <input
-          min={1}
-          max={200}
-          type="range"
           name="release"
+          type="range"
+          className={styles.level}
+          min={0}
+          max={200}
           value={envelope.release}
           onChange={onEnvelopeChange("release")}
         />
-      </div>
+      </label>
     </div>
   );
 };

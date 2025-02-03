@@ -17,11 +17,12 @@
   gap: 1rem;
 
   @media (width <= vars.$laptopBreakpoint) {
-    width: 75%;
+    width: 65%;
   }
 
   @media (width <= vars.$tabletBreakpoint) {
-    width: 90%;
+    width: 75%;
+    height: 90%;
   }
 }
 
@@ -30,6 +31,11 @@
   gap: 1rem;
   height: 70%;
   width: 100%;
+
+  @media (width <= vars.$tabletBreakpoint) {
+    flex-direction: column;
+    height: 100%;
+  }
 }
 
 .bioContainer {
@@ -43,6 +49,11 @@
   text-align: center;
   background-color: rgba(46, 49, 56, 0.75);
   border-radius: 12px;
+
+  @media (width <= vars.$tabletBreakpoint) {
+    height: 50%;
+    width: 100%;
+  }
 
   .name {
     font-size: xx-large;
@@ -69,6 +80,11 @@
   gap: 1rem;
   background-color: rgba(46, 49, 56, 0.8);
   border-radius: 12px;
+
+  @media (width <= vars.$tabletBreakpoint) {
+    height: 50%;
+    width: 100%;
+  }
 }
 
 .synthContainer {
@@ -76,4 +92,8 @@
   height: 30%;
   background-color: rgba(46, 49, 56, 0.8);
   border-radius: 12px;
+
+  @media (width <= vars.$tabletBreakpoint) {
+    display: none;
+  }
 }

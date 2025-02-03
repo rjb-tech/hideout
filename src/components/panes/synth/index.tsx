@@ -20,6 +20,7 @@ import {
 import styles from "./synth.module.scss";
 import { EnvelopeParams } from "./params/envelope/envelope";
 import { SpaceParams } from "./params/space";
+import { FilterParams } from "./params/filter/filter";
 
 /*
   To add:
@@ -47,7 +48,7 @@ export const SynthPane = () => {
       release: 0,
     },
     delay: settings.delay ?? {
-      time: 150,
+      time: null,
       feedback: 0, // not working
     },
     reverb: settings.reverb ?? {
@@ -57,7 +58,7 @@ export const SynthPane = () => {
     filter: settings.filter ?? {
       frequency: 20000,
       type: "lowpass",
-      q: 3,
+      q: 1,
     },
   });
 
@@ -281,6 +282,12 @@ export const SynthPane = () => {
   return (
     <div className={styles.synthContainer}>
       <div className={styles.waveWindow}>
+        <FilterParams
+          filter={params.filter}
+          onFilterChange={(frequency: number) => {
+            setParams({ ...params, filter: { ...params.filter, frequency } });
+          }}
+        />
         {waveforms.map((current, i) => (
           <span key={i} className={classNames(styles.wavePane)}>
             <Waveform

@@ -7,8 +7,6 @@ import {
   GAIN_MAX,
   waveforms,
   octaveOptions,
-  delayTimeOptions,
-  reverbDecayOptions,
 } from "./constants";
 import { Waveform } from "./params/waveform/waveform";
 

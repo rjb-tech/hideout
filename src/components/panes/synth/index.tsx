@@ -26,8 +26,9 @@ import { FilterParams } from "./params/filter/filter";
   To add:
     - secret key phrase played on the keyboard that will access a new page that you can't get to otherwise
       - May involve context values to redirect off the page unless the secret phrase has been guessed
-    - Filter and UI for it
-    - Fix styling with envelope and space params
+    - Fix all the styling
+    - Make delay feedback work
+    - Wire up filter so changing it doesn't stop the sound
 */
 
 const LOCAL_STORAGE_KEY = "synth_settings";

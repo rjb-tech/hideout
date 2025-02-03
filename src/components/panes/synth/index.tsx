@@ -54,6 +54,11 @@ export const SynthPane = () => {
       decay: 0.5,
       mix: 0.5,
     },
+    filter: settings.filter ?? {
+      frequency: 20000,
+      type: "lowpass",
+      q: 3,
+    },
   });
 
   const audioRef = useRef<AudioContext | null>(null);
@@ -63,6 +68,7 @@ export const SynthPane = () => {
   const delayFeedbackRef = useRef<GainNode | null>(null);
   const convolverRef = useRef<ConvolverNode | null>(null);
   const reverbGainRef = useRef<GainNode | null>(null);
+  const filterRef = useRef<BiquadFilterNode | null>(null);
 
   const pressedKey = useRef<string | null>(null);
 
@@ -173,6 +179,18 @@ export const SynthPane = () => {
     });
   };
 
+  // I put this in here so changing the filter doesn't stop the sound
+  useEffect(() => {
+    if (audioRef.current !== null && filterRef.current !== null) {
+      filterRef.current.frequency.value = params.filter.frequency;
+      filterRef.current.type = params.filter.type;
+      filterRef.current.Q.value = params.filter.q;
+
+      gainNodeRef.current?.connect(filterRef.current);
+      filterRef.current.connect(audioRef.current.destination);
+    }
+  }, [params.filter]);
+
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
@@ -181,12 +199,15 @@ export const SynthPane = () => {
     delayFeedbackRef.current = audioRef.current.createGain();
     convolverRef.current = audioRef.current.createConvolver();
     reverbGainRef.current = audioRef.current.createGain();
+    filterRef.current = audioRef.current.createBiquadFilter();
 
     gainNodeRef.current.gain.value = 0;
     oscRef.current
+      .connect(filterRef.current!)
       .connect(gainNodeRef.current)
       .connect(audioRef.current.destination);
 
+    // I don't like the conditionals here. It makes the signal flow connections unclear
     if (params.delay.time !== null) {
       delayFeedbackRef.current.gain.value = params.delay.feedback;
       delayRef.current.delayTime.value = params.delay.time / 1000;
@@ -196,6 +217,7 @@ export const SynthPane = () => {
       delayRef.current.connect(audioRef.current.destination);
     }
 
+    // I don't like the conditionals here. It makes the signal flow connections unclear
     if (params.reverb.decay !== null) {
       reverbGainRef.current.gain.value = params.reverb.mix;
       convolverRef.current.buffer = createImpulseResponse(audioRef.current);
@@ -246,7 +268,15 @@ export const SynthPane = () => {
         audioRef.current?.close();
       } catch {}
     };
-  }, [params]);
+  }, [
+    params.delay,
+    params.envelope,
+    params.gain,
+    params.gain,
+    params.octave,
+    params.reverb,
+    params.waveform,
+  ]);
 
   return (
     <div className={styles.synthContainer}>

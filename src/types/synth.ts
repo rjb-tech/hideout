@@ -4,6 +4,7 @@ export type ChromaticKeys = Record<string, ChromaticKey>;
 export type ActionKeys = Record<string, ActionKey>;
 export type HideoutWaveforms = "sine" | "triangle" | "sawtooth" | "square";
 export type EnvelopeParameter = "attack" | "decay" | "sustain" | "release";
+export type FilterType = "lowpass" | "highpass" | "bandpass";
 export type EnvelopeValue = Record<EnvelopeParameter, number>;
 
 export interface ChromaticKey {
@@ -26,6 +27,12 @@ export interface SynthReverb {
   mix: number;
 }
 
+export interface SynthFilter {
+  frequency: number; // hz
+  type: FilterType;
+  q: number; // quality factor
+}
+
 export interface SynthSettings {
   envelope: EnvelopeValue;
   gain: number;
@@ -33,4 +40,5 @@ export interface SynthSettings {
   waveform: HideoutWaveforms;
   delay: SynthDelay;
   reverb: SynthReverb;
+  filter: SynthFilter;
 }

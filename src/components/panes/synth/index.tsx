@@ -289,6 +289,7 @@ export const SynthPane = () => {
             <Waveform
               type={current}
               selected={waveforms.indexOf(params.waveform) === i}
+              onClick={() => setParams({ ...params, waveform: current })}
             />
           </span>
         ))}

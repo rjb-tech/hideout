@@ -6,9 +6,10 @@ import styles from "./waveform.module.scss";
 interface IWaveform {
   selected: boolean;
   type: HideoutWaveforms;
+  onClick: (...args: any[]) => void;
 }
 
-export const Waveform = ({ selected, type }: IWaveform): ReactNode => {
+export const Waveform = ({ selected, type, onClick }: IWaveform): ReactNode => {
   const pathMap: Record<HideoutWaveforms, string> = {
     sine: `M 10 50 
              C 20 50 26.67 20 36.67 20 
@@ -24,6 +25,7 @@ export const Waveform = ({ selected, type }: IWaveform): ReactNode => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
       className={styles.waveform}
+      onClick={onClick}
     >
       {selected && (
         <defs>

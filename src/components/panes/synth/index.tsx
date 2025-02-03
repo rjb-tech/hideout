@@ -212,6 +212,7 @@ export const SynthPane = () => {
     if (params.delay.time !== null) {
       delayFeedbackRef.current.gain.value = params.delay.feedback;
       delayRef.current.delayTime.value = params.delay.time / 1000;
+
       gainNodeRef.current.connect(delayRef.current);
       delayRef.current.connect(delayFeedbackRef.current);
       delayFeedbackRef.current.connect(delayRef.current); // Create feedback loop
@@ -222,6 +223,7 @@ export const SynthPane = () => {
     if (params.reverb.decay !== null) {
       reverbGainRef.current.gain.value = params.reverb.mix;
       convolverRef.current.buffer = createImpulseResponse(audioRef.current);
+
       gainNodeRef.current.connect(convolverRef.current);
       convolverRef.current.connect(reverbGainRef.current);
       reverbGainRef.current.connect(audioRef.current.destination);

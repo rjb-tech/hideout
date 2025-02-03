@@ -277,6 +277,7 @@ export const SynthPane = () => {
     <div className={styles.synthContainer}>
       <div className={styles.waveWindow}>
         <FilterParams
+          octave={params.octave}
           filter={params.filter}
           onFilterChange={(frequency: number) => {
             setParams({ ...params, filter: { ...params.filter, frequency } });

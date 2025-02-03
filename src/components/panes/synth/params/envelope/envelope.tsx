@@ -1,5 +1,6 @@
 import type { EnvelopeValue } from "@hideoutTypes/synth";
 import styles from "./envelope.module.scss";
+import { Slider } from "@components/slider/slider";
 
 interface IEnvelopeParams {
   onEnvelopeChange: any;
@@ -12,54 +13,34 @@ export const EnvelopeParams = ({
 }: IEnvelopeParams) => {
   return (
     <div className={styles.envelopeContainer}>
-      <label className={styles.slider}>
-        <input
-          name="attack"
-          type="range"
-          className={styles.level}
-          min={0}
-          max={100}
-          value={envelope.attack}
-          onChange={onEnvelopeChange("attack")}
-        />
-        A
-      </label>
-      <label className={styles.slider}>
-        <input
-          name="decay"
-          type="range"
-          className={styles.level}
-          min={0}
-          max={100}
-          value={envelope.decay}
-          onChange={onEnvelopeChange("decay")}
-        />
-        D
-      </label>
-      <label className={styles.slider}>
-        <input
-          name="sustain"
-          type="range"
-          className={styles.level}
-          min={0}
-          max={100}
-          value={envelope.sustain}
-          onChange={onEnvelopeChange("sustain")}
-        />
-        S
-      </label>
-      <label className={styles.slider}>
-        <input
-          name="release"
-          type="range"
-          className={styles.level}
-          min={0}
-          max={200}
-          value={envelope.release}
-          onChange={onEnvelopeChange("release")}
-        />
-        R
-      </label>
+      <Slider
+        min={0}
+        max={100}
+        value={envelope.attack}
+        onChange={onEnvelopeChange("attack")}
+        sideText="A"
+      />
+      <Slider
+        min={0}
+        max={100}
+        value={envelope.decay}
+        onChange={onEnvelopeChange("decay")}
+        sideText="D"
+      />
+      <Slider
+        min={0}
+        max={100}
+        value={envelope.sustain}
+        onChange={onEnvelopeChange("sustain")}
+        sideText="S"
+      />
+      <Slider
+        min={0}
+        max={100}
+        value={envelope.release}
+        onChange={onEnvelopeChange("release")}
+        sideText="D"
+      />
     </div>
   );
 };

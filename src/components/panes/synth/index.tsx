@@ -180,18 +180,6 @@ export const SynthPane = () => {
     });
   };
 
-  // I put this in here so changing the filter doesn't stop the sound
-  useEffect(() => {
-    if (audioRef.current !== null && filterRef.current !== null) {
-      filterRef.current.frequency.value = params.filter.frequency;
-      filterRef.current.type = params.filter.type;
-      filterRef.current.Q.value = params.filter.q;
-
-      gainNodeRef.current?.connect(filterRef.current);
-      filterRef.current.connect(audioRef.current.destination);
-    }
-  }, [params.filter]);
-
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
@@ -203,10 +191,13 @@ export const SynthPane = () => {
     filterRef.current = audioRef.current.createBiquadFilter();
 
     gainNodeRef.current.gain.value = 0;
-    oscRef.current
-      .connect(filterRef.current!)
-      .connect(gainNodeRef.current)
-      .connect(audioRef.current.destination);
+    filterRef.current.frequency.value = params.filter.frequency;
+    filterRef.current.type = params.filter.type;
+    filterRef.current.Q.value = params.filter.q;
+
+    oscRef.current.connect(filterRef.current!);
+    filterRef.current.connect(gainNodeRef.current);
+    gainNodeRef.current.connect(audioRef.current.destination);
 
     // I don't like the conditionals here. It makes the signal flow connections unclear
     if (params.delay.time !== null) {
@@ -279,6 +270,7 @@ export const SynthPane = () => {
     params.octave,
     params.reverb,
     params.waveform,
+    params.filter,
   ]);
 
   return (

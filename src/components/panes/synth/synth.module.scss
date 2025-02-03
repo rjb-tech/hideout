@@ -11,7 +11,7 @@
   padding: 1rem;
 }
 
-.waveWindow {
+.top {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 
-.paramsWindow {
+.bottom {
   display: flex;
   gap: 1rem;
   justify-content: space-between;

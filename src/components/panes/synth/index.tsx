@@ -276,7 +276,7 @@ export const SynthPane = () => {
 
   return (
     <div className={styles.synthContainer}>
-      <div className={styles.waveWindow}>
+      <div className={styles.top}>
         <FilterParams
           octave={params.octave}
           filter={params.filter}
@@ -294,7 +294,7 @@ export const SynthPane = () => {
           </span>
         ))}
       </div>
-      <div className={styles.paramsWindow}>
+      <div className={styles.bottom}>
         <EnvelopeParams
           onEnvelopeChange={handleEnvelopeChange}
           envelope={params.envelope}

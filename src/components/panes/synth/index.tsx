@@ -148,7 +148,7 @@ export const SynthPane = () => {
       const channelData = impulse.getChannelData(channel);
       for (let i = 0; i < length; i++) {
         // Create a decaying noise for natural reverb sound
-        const decay = Math.exp(-i / (sampleRate * 0.5)); // Adjust decay time here
+        const decay = Math.exp(-i / (sampleRate * params.reverb.decay!)); // Adjust decay time here
         channelData[i] = (Math.random() * 2 - 1) * decay;
       }
     }
@@ -184,16 +184,13 @@ export const SynthPane = () => {
     convolverRef.current = audioRef.current.createConvolver();
     reverbGainRef.current = audioRef.current.createGain();
 
-    delayFeedbackRef.current.gain.value = params.delay.feedback;
-    reverbGainRef.current.gain.value = params.reverb.mix;
-    convolverRef.current.buffer = createImpulseResponse(audioRef.current);
-
     gainNodeRef.current.gain.value = 0;
     oscRef.current
       .connect(gainNodeRef.current)
       .connect(audioRef.current.destination);
 
     if (params.delay.time !== null) {
+      delayFeedbackRef.current.gain.value = params.delay.feedback;
       delayRef.current.delayTime.value = params.delay.time / 1000;
       gainNodeRef.current.connect(delayRef.current);
       delayRef.current.connect(delayFeedbackRef.current);
@@ -202,6 +199,8 @@ export const SynthPane = () => {
     }
 
     if (params.reverb.decay !== null) {
+      reverbGainRef.current.gain.value = params.reverb.mix;
+      convolverRef.current.buffer = createImpulseResponse(audioRef.current);
       gainNodeRef.current.connect(convolverRef.current);
       convolverRef.current.connect(reverbGainRef.current);
       reverbGainRef.current.connect(audioRef.current.destination);

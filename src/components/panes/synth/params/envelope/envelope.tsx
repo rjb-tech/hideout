@@ -14,7 +14,7 @@ export const EnvelopeParams = ({
   return (
     <div className={styles.envelopeContainer}>
       <Slider
-        min={0}
+        min={1} // smooths the sound just a touch
         max={100}
         value={envelope.attack}
         onChange={onEnvelopeChange("attack")}

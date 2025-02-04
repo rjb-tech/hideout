@@ -73,7 +73,7 @@
     transition-property: vars.$defaultTransitionProperty;
     transition-duration: 1.5s;
     transition-timing-function: vars.$defaultTransitionFunction;
-    box-shadow: 0px 0px 5px rgba(244, 244, 249, 0.2);
+    box-shadow: 0px 0px 5px rgba(244, 244, 249, 0);
 
     &:hover {
       rotate: -360deg;

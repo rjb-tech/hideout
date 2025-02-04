@@ -1,3 +1,4 @@
+@use "../../styles/variables.scss" as vars;
 /* From Uiverse.io by Galahhad */
 /* level settings 👇 */
 
@@ -48,10 +49,22 @@
 
 .slider .level::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 0;
-  height: 0;
-  -webkit-box-shadow: -200px 0 0 200px var(--level-color);
-  box-shadow: -200px 0 0 200px var(--level-color);
+  width: 16px;
+  height: 16px;
+  background: vars.$white; /* thumb color */
+  border-radius: 50%; /* makes it round */
+  cursor: pointer;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* optional shadow */
+}
+
+.slider .level::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: vars.$white;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none; /* removes default border */
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
 // .slider:hover .level {

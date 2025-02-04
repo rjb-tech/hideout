@@ -29,6 +29,7 @@ import { FilterParams } from "./params/filter/filter";
     - Fix all the styling
     - Make delay feedback work
     - Wire up filter so changing it doesn't stop the sound
+    - wire envelope to filter
 */
 
 const LOCAL_STORAGE_KEY = "synth_settings";

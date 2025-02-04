@@ -4,28 +4,6 @@
   color: vars.$white;
 }
 
-.container {
-  width: 50%;
-  height: 65%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background-color: rgba(37, 39, 45, 0.65);
-  gap: 1rem;
-
-  @media (width <= vars.$laptopBreakpoint) {
-    width: 65%;
-  }
-
-  @media (width <= vars.$tabletBreakpoint) {
-    width: 75%;
-    height: 90%;
-  }
-}
-
 .topContainer {
   display: flex;
   gap: 1rem;

@@ -4,6 +4,7 @@ import type { BlogPost } from "@hideoutTypes/blog";
 import Layout from "@layouts/Layout.astro";
 import { SynthPane } from "@components/synth";
 import { Blog } from "@components/blog";
+import { Window } from "@components/window";
 
 import styles from "./home.module.scss";
 
@@ -20,7 +21,7 @@ To Do
 -->
 <Layout title="RJB Tech">
   <main>
-    <div class={styles.container}>
+    <Window>
       <div class={styles.topContainer}>
         <div class={styles.bioContainer}>
           <img src="/logo.png" />
@@ -45,7 +46,7 @@ To Do
       <div class={styles.synthContainer}>
         <SynthPane client:only />
       </div>
-    </div>
+    </Window>
   </main>
 </Layout>
 

@@ -5,6 +5,7 @@ import Layout from "@layouts/Layout.astro";
 import { SynthPane } from "@components/synth";
 import { Blog } from "@components/blog";
 import { Window } from "@components/window";
+import { Pane } from "@components/pane";
 
 import styles from "./home.module.scss";
 
@@ -23,7 +24,7 @@ To Do
   <main>
     <Window>
       <div class={styles.topContainer}>
-        <div class={styles.bioContainer}>
+        <Pane>
           <img src="/logo.png" />
           <span class={styles.name}>Ryne Burden</span>
           <span class={styles.job}>Software Engineer</span>
@@ -38,13 +39,13 @@ To Do
               LinkedIn
             </a>
           </div>
-        </div>
-        <div class={styles.blogContainer}>
+        </Pane>
+        <Pane>
           <Blog posts={posts} client:load />
-        </div>
+        </Pane>
       </div>
-      <div class={styles.synthContainer}>
-        <SynthPane client:only />
+      <div class={styles.bottomContainer}>
+        <Pane fullWidth><SynthPane client:only /></Pane>
       </div>
     </Window>
   </main>

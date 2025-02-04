@@ -1,4 +1,5 @@
 ---
+import "../styles/fonts.scss";
 interface Props {
   title: string;
 }
@@ -50,7 +51,7 @@ const { title } = Astro.props;
 
   <style is:global>
     html {
-      font-family: system-ui, sans-serif;
+      font-family: "exo_2light", sans-serif;
       color: #f4f4f9; /* same as vars.$white */
       height: 100vh;
       width: 100vw;

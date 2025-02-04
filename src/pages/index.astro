@@ -21,43 +21,30 @@ To Do
   make blog and portfolio containers smoothly maximize over home window
 -->
 <Layout title="RJB Tech">
-  <main>
-    <Window>
-      <div class={styles.topContainer}>
-        <Pane>
-          <img src="/logo.png" />
-          <span class={styles.name}>Ryne Burden</span>
-          <span class={styles.job}>Software Engineer</span>
-          <div>
-            <a href="/portfolio"> Portfolio </a>
-          </div>
-          <div>
-            <a href="https://github.com/rjb-tech">Github</a>
-          </div>
-          <div>
-            <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
-              LinkedIn
-            </a>
-          </div>
-        </Pane>
-        <Pane>
-          <Blog posts={posts} client:load />
-        </Pane>
-      </div>
-      <div class={styles.bottomContainer}>
-        <Pane fullWidth><SynthPane client:only /></Pane>
-      </div>
-    </Window>
-  </main>
+  <Window>
+    <div class={styles.topContainer}>
+      <Pane>
+        <img src="/logo.png" />
+        <span class={styles.name}>Ryne Burden</span>
+        <span class={styles.job}>Software Engineer</span>
+        <div>
+          <a href="/portfolio"> Portfolio </a>
+        </div>
+        <div>
+          <a href="https://github.com/rjb-tech">Github</a>
+        </div>
+        <div>
+          <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
+            LinkedIn
+          </a>
+        </div>
+      </Pane>
+      <Pane>
+        <Blog posts={posts} client:load />
+      </Pane>
+    </div>
+    <div class={styles.bottomContainer}>
+      <Pane fullWidth><SynthPane client:only /></Pane>
+    </div>
+  </Window>
 </Layout>
-
-<style>
-  main {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-</style>

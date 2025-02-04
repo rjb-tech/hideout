@@ -21,3 +21,8 @@
     height: 90%;
   }
 }
+
+.dynamicHeightWindowContainer {
+  @extend .windowContainer;
+  height: fit-content;
+}

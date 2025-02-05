@@ -21,7 +21,8 @@ Greater Chattanooga-area news aggregator.
 
 ## Syncwav
 
-ADD THE DEMO VIDEO HERE
+ADD THE DEMO VIDEO HERE. ALSO IT WOULD BE REALLY NICE TO USE THE NEW C# VERSION
+
 Generative adversarial neural network-based music visualization service
 
 - Python

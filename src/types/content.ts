@@ -1,4 +1,4 @@
-export interface HideMarkdown {
+export interface HideoutMarkdown {
   title: string;
   date: string;
   minutesRead: string;

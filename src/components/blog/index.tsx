@@ -1,12 +1,12 @@
 import type { MarkdownInstance } from "astro";
-import type { BlogPost } from "@hideoutTypes/blog";
+import type { HideoutMarkdown } from "@hideoutTypes/content";
 
 import styles from "./blog.module.scss";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 
 interface IBlog {
-  posts: MarkdownInstance<BlogPost>[];
+  posts: MarkdownInstance<HideoutMarkdown>[];
 }
 
 export const Blog = ({ posts }: IBlog) => {

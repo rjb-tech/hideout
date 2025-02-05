@@ -25,4 +25,6 @@
 .dynamicHeightWindowContainer {
   @extend .windowContainer;
   height: fit-content;
+  align-self: flex-start;
+  margin: 2rem 0;
 }

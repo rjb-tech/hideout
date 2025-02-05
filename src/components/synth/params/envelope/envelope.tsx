@@ -39,7 +39,7 @@ export const EnvelopeParams = ({
         max={100}
         value={envelope.release}
         onChange={onEnvelopeChange("release")}
-        sideText="D"
+        sideText="R"
       />
     </div>
   );

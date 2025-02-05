@@ -1,6 +1,6 @@
 ---
 import type { MarkdownInstance } from "astro";
-import type { BlogPost } from "@hideoutTypes/blog";
+import type { HideMarkdown } from "@hideoutTypes/blog";
 import Layout from "@layouts/Layout.astro";
 import { SynthPane } from "@components/synth";
 import { Blog } from "@components/blog";
@@ -10,9 +10,12 @@ import { Pane } from "@components/pane";
 import styles from "./home.module.scss";
 
 const posts = Object.values(
-  import.meta.glob<MarkdownInstance<BlogPost>>("@content/blog/published/*.md", {
-    eager: true,
-  }),
+  import.meta.glob<MarkdownInstance<HideMarkdown>>(
+    "@content/blog/published/*.md",
+    {
+      eager: true,
+    },
+  ),
 );
 ---
 

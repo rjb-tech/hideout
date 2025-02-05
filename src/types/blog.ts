@@ -1,4 +1,4 @@
-export interface BlogPost {
+export interface HideMarkdown {
   title: string;
   date: string;
   minutesRead: string;

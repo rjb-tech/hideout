@@ -1,6 +1,7 @@
 import type { EnvelopeValue } from "@hideoutTypes/synth";
-import styles from "./envelope.module.scss";
 import { Slider } from "@components/slider/slider";
+
+import styles from "./envelope.module.scss";
 
 interface IEnvelopeParams {
   onEnvelopeChange: any;

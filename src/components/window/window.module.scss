@@ -18,7 +18,7 @@
 
   @media (width <= vars.$tabletBreakpoint) {
     width: 75%;
-    height: 90%;
+    height: max-content;
   }
 }
 

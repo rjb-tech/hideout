@@ -74,6 +74,10 @@ const { title } = Astro.props;
       justify-content: center;
       color: white;
       overflow-y: scroll;
+
+      @media (width <= 768px) {
+        align-items: flex-start;
+      }
     }
     code {
       font-family:

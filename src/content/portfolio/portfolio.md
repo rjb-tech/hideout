@@ -18,7 +18,7 @@ Built in 2020, refactored each year since
 
 Greater Chattanooga-area news aggregator. This project has been through many iterations, but it current has two main parts, the hub and the scraper factory. The hub is a frontend interface built with Next.js that also includes an api route for server-side article fetching. The scraper factory is a large scale script that gathers news from all sources in parallel, and each individual news site's scraper is built with a combination of playwright and rss feed parsing. Article information is saved to Postgres is the given article is deemed to be relevant to those living in Chattanooga. Scrapers are run every 15 minutes via a cron job to ensure the site stays up to date with the newest articles from around town.
 
-## [Syncwav](https://drive.proton.me/urls/SDX9K8CJYC#ozzZ7FZdtE0f)
+## [Syncwav](https://youtu.be/00sSCxs14j0)
 
 Built in 2022, currently being refactored
 
@@ -40,7 +40,7 @@ Originally built in 2020, refactored in 2021 and 2022
 
 This neural network was built with Pytorch and trained on custom data points (EPA per rush and pass play, first down rate, explosive play rate, etc.) for both the away and home team's offense and defense. I used a rolling average of 4 weeks during the season to best represent each team's most recent on-field play for predictions. Along with this I employed 5 versions of the model and forwarded the data through each to try and create a more accurate prediction. Version 1 only predicted a given game's winner and versions 2 and 3 predicted score as well as the game winner. The data was compiled in R then passed to a python script using the reticulate R package.
 
-## [Streamthing](https://drive.proton.me/urls/NYJY44NBF4#T1hokRFUH0vp)
+## [Streamthing](https://youtu.be/xoHws8YNSDs)
 
 Built in late 2022/early 2023
 

@@ -12,6 +12,7 @@ interface IBlog {
 export const Blog = ({ posts }: IBlog) => {
   const [postIndex, setPostIndex] = useState<number>(posts.length - 1);
 
+  const multiplePosts = posts.length > 1;
   const isLatestPost = postIndex === posts.length - 1;
 
   const onArrowClick = (direction: "incr" | "decr") => {
@@ -25,35 +26,45 @@ export const Blog = ({ posts }: IBlog) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.navContainer}>
-        <ChevronLeftIcon
-          className={styles.arrow}
-          onClick={() => onArrowClick("decr")}
-        />
-        <span className={styles.labelContainer}>
-          <div className={`${styles.label} ${!isLatestPost && styles.hidden}`}>
-            latest
-          </div>
-        </span>
-        <ChevronRightIcon
-          className={styles.arrow}
-          onClick={() => onArrowClick("incr")}
-        />
-      </div>
-      <div className={styles.blogContainer}>
-        <div className={styles.postContainer}>
+      {multiplePosts && (
+        <div className={styles.navContainer}>
+          <ChevronLeftIcon
+            className={styles.arrow}
+            onClick={() => onArrowClick("decr")}
+          />
+          <span className={styles.labelContainer}>
+            <div
+              className={`${styles.label} ${!isLatestPost && styles.hidden}`}
+            >
+              latest
+            </div>
+          </span>
+          <ChevronRightIcon
+            className={styles.arrow}
+            onClick={() => onArrowClick("incr")}
+          />
+        </div>
+      )}
+      <div
+        className={`${multiplePosts ? styles.blogContainer : styles.fullHeightBlogContainer}`}
+      >
+        <div className={styles.titleContainer}>
           <h2 className={styles.title}>{posts[postIndex].frontmatter.title}</h2>
+        </div>
+        <div className={styles.postContainer}>
           <span>{posts[postIndex].frontmatter.description}</span>
+        </div>
+        <div className={styles.bottomContainer}>
           <span className={styles.readingTime}>
             {posts[postIndex].frontmatter.minutesRead}
           </span>
-        </div>
-        <div className={styles.buttonContainer}>
-          <div className={styles.button}>
-            <div>Read This</div>
-          </div>
-          <div className={styles.button}>
-            <div>All Posts</div>
+          <div className={styles.buttonContainer}>
+            <div className={styles.button}>
+              <div>Read This</div>
+            </div>
+            <div className={styles.button}>
+              <div>All Posts</div>
+            </div>
           </div>
         </div>
       </div>

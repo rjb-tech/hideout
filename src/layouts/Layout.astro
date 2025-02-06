@@ -1,4 +1,5 @@
 ---
+import Analytics from "@vercel/analytics/astro";
 import "../styles/fonts.scss";
 interface Props {
   title: string;
@@ -42,6 +43,7 @@ const { title } = Astro.props;
         });
       });
     </script>
+    <Analytics />
     <base target="_blank" /></head
   >
 
@@ -51,51 +53,50 @@ const { title } = Astro.props;
         <slot />
       </main>
     </div>
-  </body>
-
-  <style is:global>
-    html {
-      font-family: "exo_2light", sans-serif;
-      color: #f4f4f9; /* same as vars.$white */
-      height: 100vh;
-      width: 100vw;
-    }
-    body {
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
-    }
-    main {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      overflow-y: scroll;
-
-      @media (width <= 768px) {
-        align-items: flex-start;
+    <style is:global>
+      html {
+        font-family: "exo_2light", sans-serif;
+        color: #f4f4f9; /* same as vars.$white */
+        height: 100vh;
+        width: 100vw;
       }
-    }
-    code {
-      font-family:
-        Menlo,
-        Monaco,
-        Lucida Console,
-        Liberation Mono,
-        DejaVu Sans Mono,
-        Bitstream Vera Sans Mono,
-        Courier New,
-        monospace;
-    }
-    a {
-      color: white;
-    }
-    #vanta-bg {
-      height: 100vh;
-      width: 100vw;
-    }
-  </style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+      main {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        overflow-y: scroll;
+
+        @media (width <= 768px) {
+          align-items: flex-start;
+        }
+      }
+      code {
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
+      }
+      a {
+        color: white;
+      }
+      #vanta-bg {
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+  </body>
 </html>

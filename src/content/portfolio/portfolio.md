@@ -3,8 +3,6 @@ title: Portfolio
 description: This is my portfolio :)
 ---
 
-# Portfolio
-
 ## [myChattanooga News](https://mychattanooga.news)
 
 Built in 2020, refactored each year since

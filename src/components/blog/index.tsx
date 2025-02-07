@@ -65,7 +65,9 @@ export const Blog = ({ posts }: IBlog) => {
               </a>
             </div>
             <div className={styles.button}>
-              <div>All Posts</div>
+              <a href="/blog" target="_self">
+                All Posts
+              </a>
             </div>
           </div>
         </div>

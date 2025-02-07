@@ -1,0 +1,12 @@
+---
+import { Pane } from "@components/pane";
+import { Window } from "@components/window";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+---
+
+<DefaultLayout title="RJB Tech Blog">
+  <Window dynamicHeight>
+    <Pane fullWidth> <h1>Blog</h1> </Pane>
+    <Pane fullWidth> Blog Posts and Filters </Pane>
+  </Window>
+</DefaultLayout>

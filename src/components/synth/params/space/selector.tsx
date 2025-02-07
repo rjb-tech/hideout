@@ -2,6 +2,7 @@ import classNames from "classnames";
 
 import styles from "./space.module.scss";
 import sharedStyles from "@styles/sharedStyles.module.scss";
+import { useEffect } from "react";
 
 interface ISelector {
   onChange: (time: number | null) => void;
@@ -17,7 +18,8 @@ export const Selector = ({ onChange, options, selected, scale }: ISelector) => {
         className={classNames(
           styles.node,
           styles.leftNode,
-          `${selected === null && styles.selected}`,
+          `${selected === null && sharedStyles.selected}`,
+          sharedStyles.noSelect,
         )}
         onClick={() => onChange(null)}
       >
@@ -34,6 +36,7 @@ export const Selector = ({ onChange, options, selected, scale }: ISelector) => {
             onClick={() => onChange(option)}
             className={classNames(
               styles.node,
+              sharedStyles.noSelect,
               `${isRightNode && styles.rightNode} ${isSelected && sharedStyles.selected}`,
             )}
           >

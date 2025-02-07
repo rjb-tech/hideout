@@ -55,11 +55,12 @@ export const Blog = ({ posts }: IBlog) => {
         <div className={styles.postContainer}>
           <span>{posts[postIndex].frontmatter.description}</span>
         </div>
-        <div className={styles.bottomContainer}>
-          <span className={styles.readingTime}>
-            {posts[postIndex].frontmatter.minutesRead}
-          </span>
-          {!isProd && (
+        {!isProd && (
+          <div className={styles.bottomContainer}>
+            <span className={styles.readingTime}>
+              {posts[postIndex].frontmatter.minutesRead}
+            </span>
+
             <div className={styles.buttonContainer}>
               <div className={styles.button}>
                 <a href={posts[postIndex].url} target="_self">
@@ -74,8 +75,8 @@ export const Blog = ({ posts }: IBlog) => {
                 </div>
               )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -60,7 +60,9 @@ export const Blog = ({ posts }: IBlog) => {
           </span>
           <div className={styles.buttonContainer}>
             <div className={styles.button}>
-              <div>Read This</div>
+              <a href={posts[postIndex].url} target="_self">
+                Read This
+              </a>
             </div>
             <div className={styles.button}>
               <div>All Posts</div>

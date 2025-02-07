@@ -7,15 +7,12 @@ import { Blog } from "@components/blog";
 import { Window } from "@components/window";
 import { Pane } from "@components/pane";
 
-import styles from "./home.module.scss";
+import styles from "./_home.module.scss";
 
 const posts = Object.values(
-  import.meta.glob<MarkdownInstance<HideoutMarkdown>>(
-    "@content/blog/published/*.md",
-    {
-      eager: true,
-    },
-  ),
+  import.meta.glob<MarkdownInstance<HideoutMarkdown>>("@pages/blog/*.md", {
+    eager: true,
+  }),
 );
 ---
 
@@ -28,9 +25,8 @@ To Do
   Wire up envelope to filter
     lil envelope button
   Fix filter so it doesn't stop the sound on change
-  Add more description to portfolio page projects
   Add go home button to portfolio page
-  Add resume to portfolio page
+  Move post tags below nav arrow
 -->
 <Layout title="RJB Tech">
   <Window>

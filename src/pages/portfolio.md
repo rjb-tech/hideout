@@ -1,6 +1,7 @@
 ---
 title: Portfolio
 description: This is my portfolio :)
+layout: "@layouts/ContentLayout.astro"
 ---
 
 ## [myChattanooga News](https://mychattanooga.news)

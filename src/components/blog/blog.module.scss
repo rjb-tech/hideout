@@ -71,6 +71,10 @@
       background-color: vars.$green;
       border: 1px solid vars.$green;
       border-radius: 4px;
+
+      a {
+        text-decoration: none;
+      }
     }
   }
 

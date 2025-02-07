@@ -1,0 +1,31 @@
+---
+import { Pane } from "@components/pane";
+import Layout from "./Layout.astro";
+import { Window } from "@components/window";
+const { frontmatter } = Astro.props;
+---
+
+<Layout title="RJB Tech Blog">
+  <Window dynamicHeight>
+    <Pane fullWidth>
+      <h1 class="title">
+        {frontmatter.title}
+      </h1>
+    </Pane>
+    <Pane fullWidth> <div class="content"><slot /></div> </Pane>
+  </Window>
+</Layout>
+
+<style>
+  .title {
+    margin: 2rem;
+  }
+
+  .content {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    text-align: left;
+  }
+</style>

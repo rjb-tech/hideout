@@ -6,9 +6,9 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@content/*": ["src/content/*"],
       "@layouts/*": ["src/layouts/*"],
       "@hideoutTypes/*": ["src/types/*"],
+      "@pages/*": ["src/pages/*"],
     },
   },
   "include": ["./src/**/*"],

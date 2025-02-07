@@ -61,39 +61,32 @@ const isProd = import.meta.env.PROD;
         height: 100vh;
         width: 100vw;
       }
+
       body {
         width: 100vw;
         height: 100vh;
         margin: 0;
         overflow: hidden;
       }
+
       main {
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: #f4f4f9; /* same as vars.$white */
         overflow-y: scroll;
 
         @media (width <= 768px) {
           align-items: flex-start;
         }
       }
-      code {
-        font-family:
-          Menlo,
-          Monaco,
-          Lucida Console,
-          Liberation Mono,
-          DejaVu Sans Mono,
-          Bitstream Vera Sans Mono,
-          Courier New,
-          monospace;
-      }
+
       a {
-        color: white;
+        color: #f4f4f9; /* same as vars.$white */
       }
+
       #vanta-bg {
         height: 100vh;
         width: 100vw;

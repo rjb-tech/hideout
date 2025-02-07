@@ -1,12 +1,29 @@
 ---
+import type { MarkdownInstance } from "astro";
 import { Pane } from "@components/pane";
 import { Window } from "@components/window";
+import type { HideoutMarkdown } from "@hideoutTypes/content";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { PostsDisplay } from "@components/posts";
+
+const posts = Object.values(
+  import.meta.glob<MarkdownInstance<HideoutMarkdown>>("@pages/blog/*.md", {
+    eager: true,
+  }),
+);
 ---
 
 <DefaultLayout title="RJB Tech Blog">
   <Window dynamicHeight>
-    <Pane fullWidth> <h1>Blog</h1> </Pane>
-    <Pane fullWidth> Blog Posts and Filters </Pane>
+    <Pane fullWidth> <h1><b>Blog Posts</b></h1> </Pane>
+    <Pane fullWidth>
+      <PostsDisplay posts={posts} client:load />
+    </Pane>
   </Window>
 </DefaultLayout>
+
+<style>
+  h1 {
+    margin: 2rem;
+  }
+</style>

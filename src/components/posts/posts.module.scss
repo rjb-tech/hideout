@@ -1,0 +1,140 @@
+@use "@styles/variables.scss" as vars;
+@use "@styles/sharedStyles.module.scss" as sharedStyles;
+
+a {
+  text-decoration: none;
+}
+
+.postsContainer {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 2rem 1rem;
+  gap: 1.5rem;
+
+  @media (width <= vars.$tabletBreakpoint) {
+    width: 100%;
+  }
+}
+
+.filterContainer {
+  justify-self: center;
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.filters {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  .tagFilter {
+    cursor: pointer;
+    font-size: small;
+    border: 1px solid vars.$white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+
+    transition-property: vars.$defaultTransitionProperty;
+    transition-duration: vars.$defaultTransitionDuration;
+    transition-timing-function: vars.$defaultTransitionFunction;
+  }
+}
+
+.postList {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .post {
+    text-align: left;
+    height: inherit;
+    border: 1px solid vars.$white;
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    transition-property: vars.$defaultTransitionProperty;
+    transition-duration: vars.$defaultTransitionDuration;
+    transition-timing-function: vars.$defaultTransitionFunction;
+
+    @media (width <= vars.$tabletBreakpoint) {
+      gap: 4rem;
+    }
+  }
+
+  .hiddenPost {
+    @extend .post;
+    height: 0;
+  }
+
+  .infoContainer {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @media (width <= vars.$tabletBreakpoint) {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  .postTagsContainer {
+    height: fit-content;
+    width: fit-content;
+    align-items: center;
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .postTag {
+    cursor: default;
+    height: fit-content;
+    width: fit-content;
+    font-size: x-small;
+    padding: 0.35rem 1rem;
+    border: 1px solid vars.$white;
+    border-radius: 2px;
+  }
+
+  .readingTime {
+    font-style: italic;
+  }
+
+  .timeDateContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .published {
+    word-spacing: 0.15rem;
+  }
+}

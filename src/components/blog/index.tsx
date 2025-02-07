@@ -12,6 +12,7 @@ interface IBlog {
 export const Blog = ({ posts }: IBlog) => {
   const [postIndex, setPostIndex] = useState<number>(posts.length - 1);
 
+  const isProd = import.meta.env.PROD;
   const multiplePosts = posts.length > 1;
   const isLatestPost = postIndex === posts.length - 1;
 
@@ -58,20 +59,22 @@ export const Blog = ({ posts }: IBlog) => {
           <span className={styles.readingTime}>
             {posts[postIndex].frontmatter.minutesRead}
           </span>
-          <div className={styles.buttonContainer}>
-            <div className={styles.button}>
-              <a href={posts[postIndex].url} target="_self">
-                Read This
-              </a>
-            </div>
-            {posts.length > 1 && (
+          {!isProd && (
+            <div className={styles.buttonContainer}>
               <div className={styles.button}>
-                <a href="/blog" target="_self">
-                  All Posts
+                <a href={posts[postIndex].url} target="_self">
+                  Read This
                 </a>
               </div>
-            )}
-          </div>
+              {posts.length > 1 && (
+                <div className={styles.button}>
+                  <a href="/blog" target="_self">
+                    All Posts
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

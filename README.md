@@ -52,3 +52,14 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+---
+
+### To Do
+
+Add second oscillator Only accessible on large screens
+Wire up envelope to filter
+lil envelope button
+Fix filter so it doesn't stop the sound on change
+Add go home button to portfolio page and blog layout
+Move post tags below nav arrow

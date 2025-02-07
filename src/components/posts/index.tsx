@@ -58,7 +58,12 @@ export const PostsDisplay = ({ posts }: IPostsDisplay) => {
             "dd MMMM yyyy",
           );
           return (
-            <a key={idx} href={post.url} target="_self">
+            <a
+              key={idx}
+              href={post.url}
+              className={styles.postLink}
+              target="_self"
+            >
               <div
                 className={`${styles.post} ${!isVisible && sharedStyles.hidden}`}
               >

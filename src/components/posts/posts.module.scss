@@ -1,7 +1,7 @@
 @use "@styles/variables.scss" as vars;
 @use "@styles/sharedStyles.module.scss" as sharedStyles;
 
-a {
+.postLink {
   text-decoration: none;
 }
 

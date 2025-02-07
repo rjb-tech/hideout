@@ -9,7 +9,7 @@ const { frontmatter } = Astro.props;
 <DefaultLayout title="RJB Tech Blog">
   <Window dynamicHeight>
     <Pane fullWidth>
-      <h1 class="title">
+      <h1>
         {frontmatter.title}
       </h1>
     </Pane>
@@ -18,7 +18,7 @@ const { frontmatter } = Astro.props;
 </DefaultLayout>
 
 <style>
-  .title {
+  h1 {
     margin: 2rem;
   }
 

@@ -1,12 +1,12 @@
 ---
 import { Pane } from "@components/pane";
-import Layout from "./Layout.astro";
+import DefaultLayout from "./DefaultLayout.astro";
 import { Window } from "@components/window";
 
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title="RJB Tech Blog">
+<DefaultLayout title="RJB Tech Blog">
   <Window dynamicHeight>
     <Pane fullWidth>
       <h1 class="title">
@@ -15,7 +15,7 @@ const { frontmatter } = Astro.props;
     </Pane>
     <Pane fullWidth> <div class="content"><slot /></div> </Pane>
   </Window>
-</Layout>
+</DefaultLayout>
 
 <style>
   .title {

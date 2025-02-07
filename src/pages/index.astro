@@ -1,7 +1,7 @@
 ---
 import type { MarkdownInstance } from "astro";
 import type { HideoutMarkdown } from "@hideoutTypes/content";
-import Layout from "@layouts/Layout.astro";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { SynthPane } from "@components/synth";
 import { Blog } from "@components/blog";
 import { Window } from "@components/window";
@@ -28,7 +28,7 @@ To Do
   Add go home button to portfolio page
   Move post tags below nav arrow
 -->
-<Layout title="RJB Tech">
+<DefaultLayout title="RJB Tech">
   <Window>
     <div class={styles.topContainer}>
       <Pane>
@@ -55,4 +55,4 @@ To Do
       <Pane fullWidth><SynthPane client:only /></Pane>
     </div>
   </Window>
-</Layout>
+</DefaultLayout>

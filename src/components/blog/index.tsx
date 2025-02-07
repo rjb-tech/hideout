@@ -64,11 +64,13 @@ export const Blog = ({ posts }: IBlog) => {
                 Read This
               </a>
             </div>
-            <div className={styles.button}>
-              <a href="/blog" target="_self">
-                All Posts
-              </a>
-            </div>
+            {posts.length > 1 && (
+              <div className={styles.button}>
+                <a href="/blog" target="_self">
+                  All Posts
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

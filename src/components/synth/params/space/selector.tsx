@@ -1,6 +1,7 @@
 import classNames from "classnames";
 
 import styles from "./space.module.scss";
+import sharedStyles from "@styles/sharedStyles.module.scss";
 
 interface ISelector {
   onChange: (time: number | null) => void;
@@ -33,7 +34,7 @@ export const Selector = ({ onChange, options, selected, scale }: ISelector) => {
             onClick={() => onChange(option)}
             className={classNames(
               styles.node,
-              `${isRightNode && styles.rightNode} ${isSelected && styles.selected}`,
+              `${isRightNode && styles.rightNode} ${isSelected && sharedStyles.selected}`,
             )}
           >
             {`${shouldPad ? option + ".0" : option}`}

@@ -9,6 +9,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@hideoutTypes/*": ["src/types/*"],
       "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
     },
   },
   "include": ["./src/**/*"],

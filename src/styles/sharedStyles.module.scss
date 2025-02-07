@@ -1,0 +1,9 @@
+@use "./variables.scss" as vars;
+
+.selected {
+  border: 1px solid vars.$lightGreen;
+  box-shadow: inset 0px 0px 5px vars.$lightGreen;
+  transition-property: vars.$defaultTransitionProperty;
+  transition-duration: vars.$defaultTransitionDuration;
+  transition-timing-function: vars.$defaultTransitionFunction;
+}

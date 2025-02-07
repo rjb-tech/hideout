@@ -1,9 +1,24 @@
 @use "./variables.scss" as vars;
 
 .selected {
-  border: 1px solid vars.$lightGreen;
-  box-shadow: inset 0px 0px 5px vars.$lightGreen;
-  transition-property: vars.$defaultTransitionProperty;
-  transition-duration: vars.$defaultTransitionDuration;
-  transition-timing-function: vars.$defaultTransitionFunction;
+  border: 1px solid vars.$lightGreen !important;
+  box-shadow: inset 0px 0px 5px vars.$lightGreen !important;
+
+  transition-property: vars.$defaultTransitionProperty !important;
+  transition-duration: vars.$defaultTransitionDuration !important;
+  transition-timing-function: vars.$defaultTransitionFunction !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

@@ -4,7 +4,6 @@
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -54,6 +53,7 @@
 
 .blogContainer {
   height: 90%;
+  padding: 2rem;
   width: inherit;
   display: flex;
   flex-direction: column;

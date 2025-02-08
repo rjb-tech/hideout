@@ -63,6 +63,7 @@ export const SynthPane = () => {
       type: "lowpass",
       q: 1,
     },
+    secondOscOn: false,
   });
 
   const audioRef = useRef<AudioContext | null>(null);
@@ -274,6 +275,7 @@ export const SynthPane = () => {
     params.reverb,
     params.waveform,
     params.filter,
+    params.secondOscOn,
   ]);
 
   return (
@@ -295,7 +297,12 @@ export const SynthPane = () => {
             />
           </span>
         ))}
-        <AddOscillator onClick={() => {}} />
+        <AddOscillator
+          toggled={params.secondOscOn}
+          onClick={() => {
+            setParams({ ...params, secondOscOn: !params.secondOscOn });
+          }}
+        />
       </div>
       <div className={styles.bottom}>
         <EnvelopeParams

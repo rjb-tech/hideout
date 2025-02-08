@@ -41,4 +41,5 @@ export interface SynthSettings {
   delay: SynthDelay;
   reverb: SynthReverb;
   filter: SynthFilter;
+  secondOscOn: boolean;
 }

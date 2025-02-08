@@ -312,10 +312,6 @@ export const SynthPane = () => {
     params.secondOscOn,
   ]);
 
-  useEffect(() => {
-    console.log(params.filter.envelopeLink);
-  }, [params.filter.envelopeLink]);
-
   return (
     <div className={styles.synthContainer}>
       <div className={styles.top}>

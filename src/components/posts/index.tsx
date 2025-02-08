@@ -71,7 +71,7 @@ export const PostsDisplay = ({ posts }: IPostsDisplay) => {
                 <div className={styles.infoContainer}>
                   <div className={styles.timeDateContainer}>
                     <p className={styles.readingTime}>
-                      {post.frontmatter.minutesRead}
+                      {post.frontmatter.readingTime}
                     </p>
                     <p className={styles.published}>{` ${published}`}</p>
                   </div>

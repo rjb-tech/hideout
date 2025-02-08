@@ -43,7 +43,7 @@ export const Blog = ({ posts }: IBlog) => {
         </div>
         <div className={styles.bottomContainer}>
           <span className={styles.readingTime}>
-            {posts[postIndex].frontmatter.minutesRead}
+            {posts[postIndex].frontmatter.readingTime}
           </span>
 
           <div className={styles.buttonContainer}>

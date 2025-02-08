@@ -9,12 +9,15 @@
   flex-direction: column;
   box-sizing: border-box;
   padding: 1rem;
+  gap: 1rem;
 }
 
 .top {
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: 100%;
+  justify-content: center;
 
   .wavePane {
     padding: 0.25rem;

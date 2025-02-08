@@ -57,6 +57,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ### To Do
 
+Add email address to portfolio
 Add second oscillator Only accessible on large screens
 Wire up envelope to filter
 lil envelope button

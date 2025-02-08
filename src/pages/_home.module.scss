@@ -7,7 +7,7 @@
 .topContainer {
   display: flex;
   gap: 1rem;
-  height: 70%;
+  height: 60%;
   width: 100%;
 
   @media (width <= vars.$tabletBreakpoint) {
@@ -57,14 +57,20 @@
 
   .linkContainer {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
     gap: 1rem;
     align-items: center;
     justify-content: center;
 
+    @media (width <= vars.$tabletBreakpoint) {
+      display: flex;
+      flex-direction: column;
+    }
+
     .linkButton {
-      padding: 0.15rem 1rem;
+      padding: 0.15rem 0.75rem;
       background-color: vars.$green;
       width: 6rem;
       border-radius: 4px;
@@ -87,7 +93,7 @@
 
 .bottomContainer {
   width: 100%;
-  height: 30%;
+  height: 40%;
   border-radius: 12px;
 
   @media (width <= vars.$tabletBreakpoint) {

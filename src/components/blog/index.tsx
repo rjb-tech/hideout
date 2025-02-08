@@ -32,13 +32,6 @@ export const Blog = ({ posts }: IBlog) => {
             className={styles.arrow}
             onClick={() => onArrowClick("decr")}
           />
-          <span className={styles.labelContainer}>
-            <div
-              className={`${styles.label} ${!isLatestPost && styles.hidden}`}
-            >
-              latest
-            </div>
-          </span>
           <ChevronRightIcon
             className={styles.arrow}
             onClick={() => onArrowClick("incr")}

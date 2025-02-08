@@ -20,7 +20,7 @@ import {
 import styles from "./synth.module.scss";
 import { EnvelopeParams } from "./params/envelope/envelope";
 import { SpaceParams } from "./params/space";
-import { FilterParams } from "./params/filter/filter";
+import { FilterParams } from "./params/filter";
 import { AddOscillator } from "./params/addOscillator";
 
 /*

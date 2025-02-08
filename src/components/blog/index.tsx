@@ -12,8 +12,7 @@ interface IBlog {
 export const Blog = ({ posts }: IBlog) => {
   const [postIndex, setPostIndex] = useState<number>(posts.length - 1);
 
-  const multiplePosts = posts.length > 1;
-  const isLatestPost = postIndex === posts.length - 1;
+  const multiplePosts = true;
 
   const onArrowClick = (direction: "incr" | "decr") => {
     const newIndex =
@@ -38,6 +37,7 @@ export const Blog = ({ posts }: IBlog) => {
           />
         </div>
       )}
+
       <div
         className={`${multiplePosts ? styles.blogContainer : styles.fullHeightBlogContainer}`}
       >
@@ -48,6 +48,13 @@ export const Blog = ({ posts }: IBlog) => {
           <span>{posts[postIndex].frontmatter.description}</span>
         </div>
         <div className={styles.bottomContainer}>
+          <div className={styles.tagContainer}>
+            {posts[postIndex].frontmatter.tags.map((tag, idx) => (
+              <span key={idx} className={styles.tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
           <span className={styles.readingTime}>
             {posts[postIndex].frontmatter.minutesRead}
           </span>

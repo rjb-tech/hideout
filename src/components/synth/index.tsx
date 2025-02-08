@@ -45,8 +45,8 @@ export const SynthPane = () => {
     waveform: settings.waveform ?? "sawtooth",
     envelope: settings.envelope ?? {
       attack: 0,
-      decay: 0,
-      sustain: 100,
+      decay: 15,
+      sustain: 0,
       release: 0,
     },
     delay: settings.delay ?? {

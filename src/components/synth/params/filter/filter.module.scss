@@ -1,5 +1,13 @@
-@use "../../../../styles/variables.scss" as vars;
+@use "@styles/variables.scss" as vars;
 
 .filterParamsContainer {
   display: flex;
+  gap: 0.5rem;
+}
+
+.envelopeLink {
+  height: 2rem;
+  width: 2rem;
+  stroke-width: 0.5px;
+  cursor: pointer;
 }

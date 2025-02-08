@@ -31,6 +31,7 @@ export interface SynthFilter {
   frequency: number; // hz
   type: FilterType;
   q: number; // quality factor
+  envelopeLink: boolean;
 }
 
 export interface SynthSettings {

@@ -61,7 +61,8 @@ export const SynthPane = () => {
     filter: settings.filter ?? {
       frequency: 20000,
       type: "lowpass",
-      q: 1,
+      q: 10,
+      envelopeLink: false,
     },
     secondOscOn: false,
   });
@@ -120,21 +121,43 @@ export const SynthPane = () => {
 
   const handleChromaticKeyDown = (frequency: number, time: number) => {
     oscRef.current!.frequency.setValueAtTime(frequency * params.octave, time);
+    if (params.filter.envelopeLink)
+      filterRef.current!.frequency.setValueAtTime(
+        params.filter.frequency,
+        time,
+      );
+
+    // js is dumb, had to parse these as floats
+    const maxFilterFrequency =
+      parseFloat(`${params.filter.frequency}`) +
+      parseFloat(`${params.filter.frequency}`) * (params.envelope.decay / 100);
 
     const attackTime = time + params.envelope.attack / 100;
     const decayTime = attackTime + params.envelope.decay / 100;
 
     gainNodeRef.current!.gain.cancelScheduledValues(time);
+    filterRef.current!.frequency.cancelScheduledValues(time);
     // gainNodeRef.current!.gain.setValueAtTime(0, time);
 
     // apply attack
     gainNodeRef.current!.gain.linearRampToValueAtTime(params.gain, attackTime);
+    if (params.filter.envelopeLink)
+      filterRef.current!.frequency.linearRampToValueAtTime(
+        maxFilterFrequency,
+        attackTime,
+      );
 
     // apply decay into sustain
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       params.gain * (params.envelope.sustain / 100),
       decayTime,
     );
+
+    if (params.filter.envelopeLink)
+      filterRef.current!.frequency.linearRampToValueAtTime(
+        params.filter.frequency * (params.envelope.sustain / 100),
+        decayTime,
+      );
   };
 
   // short key presses still don't apply release correctly
@@ -146,6 +169,15 @@ export const SynthPane = () => {
       0,
       time + params.envelope.release / 100,
     );
+
+    if (params.filter.envelopeLink) {
+      filterRef.current!.frequency.linearRampToValueAtTime(
+        parseFloat(`${params.filter.frequency}`) -
+          parseFloat(`${params.filter.frequency}`) *
+            (params.envelope.release / 100),
+        time + params.envelope.release / 100,
+      );
+    }
   };
 
   const createImpulseResponse = (audioContext: AudioContext) => {
@@ -278,6 +310,10 @@ export const SynthPane = () => {
     params.secondOscOn,
   ]);
 
+  useEffect(() => {
+    console.log(params.filter.envelopeLink);
+  }, [params.filter.envelopeLink]);
+
   return (
     <div className={styles.synthContainer}>
       <div className={styles.top}>
@@ -287,6 +323,15 @@ export const SynthPane = () => {
           onFilterChange={(frequency: number) => {
             setParams({ ...params, filter: { ...params.filter, frequency } });
           }}
+          onLinkClick={() =>
+            setParams({
+              ...params,
+              filter: {
+                ...params.filter,
+                envelopeLink: !params.filter.envelopeLink,
+              },
+            })
+          }
         />
         {waveforms.map((current, i) => (
           <span key={i} className={classNames(styles.wavePane)}>

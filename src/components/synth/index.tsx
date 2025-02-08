@@ -348,12 +348,14 @@ export const SynthPane = () => {
             />
           </span>
         ))}
-        <AddOscillator
-          toggled={params.secondOscOn}
-          onClick={() => {
-            setParams({ ...params, secondOscOn: !params.secondOscOn });
-          }}
-        />
+        {false && (
+          <AddOscillator
+            toggled={params.secondOscOn}
+            onClick={() => {
+              setParams({ ...params, secondOscOn: !params.secondOscOn });
+            }}
+          />
+        )}
       </div>
       <div className={styles.bottom}>
         <EnvelopeParams

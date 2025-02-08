@@ -61,7 +61,7 @@ export const SynthPane = () => {
     filter: settings.filter ?? {
       frequency: 20000,
       type: "lowpass",
-      q: 10,
+      q: 0,
       envelopeLink: false,
     },
     secondOscOn: false,
@@ -140,6 +140,8 @@ export const SynthPane = () => {
     // gainNodeRef.current!.gain.setValueAtTime(0, time);
 
     // apply attack
+    // BUG: FIRST PRESS ON ATTACK CHANGE IS ALWAYS FUCKED
+    // BUG: ATTACK IS PRETTY MUCH FUCKED
     gainNodeRef.current!.gain.linearRampToValueAtTime(params.gain, attackTime);
     if (params.filter.envelopeLink)
       filterRef.current!.frequency.linearRampToValueAtTime(
@@ -323,6 +325,9 @@ export const SynthPane = () => {
           filter={params.filter}
           onFilterChange={(frequency: number) => {
             setParams({ ...params, filter: { ...params.filter, frequency } });
+          }}
+          onResChange={(q: number) => {
+            setParams({ ...params, filter: { ...params.filter, q } });
           }}
           onLinkClick={() =>
             setParams({

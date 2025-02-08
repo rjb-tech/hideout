@@ -11,6 +11,7 @@ interface IFilterParams {
   filterLinked: boolean;
   onFilterChange: (...args: any[]) => void;
   onLinkClick: (...args: any[]) => void;
+  onResChange: (...args: any[]) => void;
 }
 
 export const FilterParams = ({
@@ -19,6 +20,7 @@ export const FilterParams = ({
   octave,
   filterLinked,
   onLinkClick,
+  onResChange,
 }: IFilterParams) => {
   const minFreq = chromaticKeys["KeyA"].baseFrequency * octave;
 
@@ -31,13 +33,22 @@ export const FilterParams = ({
           `${filterLinked && styles.linked}`,
         )}
       />
-      <Slider
-        min={minFreq}
-        max={20000}
-        value={filter.frequency}
-        onChange={(e: any) => onFilterChange(e.target.value)}
-        sideText="Filter"
-      />
+      <div className={styles.sliders}>
+        <Slider
+          min={minFreq}
+          max={20000}
+          value={filter.frequency}
+          onChange={(e: any) => onFilterChange(e.target.value)}
+          sideText="Frequency"
+        />
+        <Slider
+          min={0}
+          max={50}
+          value={filter.q}
+          onChange={(e: any) => onResChange(e.target.value)}
+          sideText="Resonance"
+        />
+      </div>
     </div>
   );
 };

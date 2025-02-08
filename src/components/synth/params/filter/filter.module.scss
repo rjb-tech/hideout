@@ -3,6 +3,9 @@
 .filterParamsContainer {
   display: flex;
   gap: 0.5rem;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
 }
 
 .envelopeLink {
@@ -15,4 +18,9 @@
 
 .linked {
   color: vars.$white;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
 }

@@ -2,6 +2,7 @@
 import { Pane } from "@components/pane";
 import DefaultLayout from "./DefaultLayout.astro";
 import { Window } from "@components/window";
+import { GoHome } from "@components/goHome";
 
 const { frontmatter } = Astro.props;
 ---
@@ -9,9 +10,12 @@ const { frontmatter } = Astro.props;
 <DefaultLayout title="RJB Tech Blog">
   <Window dynamicHeight>
     <Pane fullWidth>
-      <h1>
-        {frontmatter.title}
-      </h1>
+      <header>
+        <h1>
+          {frontmatter.title}
+        </h1>
+        <GoHome />
+      </header>
     </Pane>
     <Pane fullWidth> <div class="content"><slot /></div> </Pane>
   </Window>
@@ -19,7 +23,7 @@ const { frontmatter } = Astro.props;
 
 <style>
   h1 {
-    margin: 2rem;
+    margin: 0;
   }
 
   .content {
@@ -28,5 +32,18 @@ const { frontmatter } = Astro.props;
     height: 100%;
     padding: 2rem;
     text-align: left;
+  }
+
+  header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+
+    @media (width <= 768px) {
+      padding: 0.5rem 0;
+    }
   }
 </style>

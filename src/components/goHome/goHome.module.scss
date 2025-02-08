@@ -1,0 +1,13 @@
+@use "@styles/variables.scss" as vars;
+
+.goHome {
+  height: fit-content;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  background-color: vars.$green;
+  border-radius: 4px;
+}
+
+.link {
+  text-decoration: none;
+}

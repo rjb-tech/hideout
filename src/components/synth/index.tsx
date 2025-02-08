@@ -318,6 +318,7 @@ export const SynthPane = () => {
     <div className={styles.synthContainer}>
       <div className={styles.top}>
         <FilterParams
+          filterLinked={params.filter.envelopeLink}
           octave={params.octave}
           filter={params.filter}
           onFilterChange={(frequency: number) => {

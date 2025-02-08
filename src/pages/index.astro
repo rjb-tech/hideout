@@ -8,6 +8,11 @@ import { Window } from "@components/window";
 import { Pane } from "@components/pane";
 
 import styles from "./_home.module.scss";
+import {
+  BookOpenIcon,
+  EnvelopeIcon,
+  EnvelopeOpenIcon,
+} from "@heroicons/react/16/solid";
 
 const posts = Object.values(
   import.meta.glob<MarkdownInstance<HideoutMarkdown>>("@pages/blog/*.md", {
@@ -21,19 +26,32 @@ const posts = Object.values(
     <div class={styles.topContainer}>
       <Pane>
         <div class={styles.bio}>
-          <img src="/logo.png" />
+          <img class={styles.logo} src="/logo.png" />
           <span class={styles.name}>Ryne Burden</span>
           <span class={styles.job}>Software Engineer</span>
-          <div>
-            <a href="/portfolio" target="_self"> Portfolio </a>
-          </div>
-          <div>
-            <a href="https://github.com/rjb-tech">Github</a>
-          </div>
-          <div>
-            <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
-              LinkedIn
-            </a>
+          <div class={styles.linkContainer}>
+            <div class={styles.linkButton}>
+              <div class={styles.icon}>
+                <EnvelopeOpenIcon />
+              </div>
+              <a href="mailto:me@rjb.tech" target="_self"> Email Me </a>
+            </div>
+            <div class={styles.linkButton}>
+              <img class={styles.icon} src="github-logo.png" />
+              <a href="https://github.com/rjb-tech">Github</a>
+            </div>
+            <div class={styles.linkButton}>
+              <img class={styles.icon} src="linked-in-logo.png" />
+              <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
+                LinkedIn
+              </a>
+            </div>
+            <div class={styles.linkButton}>
+              <div class={styles.icon}>
+                <BookOpenIcon />
+              </div>
+              <a href="/portfolio" target="_self"> Portfolio </a>
+            </div>
           </div>
         </div>
       </Pane>

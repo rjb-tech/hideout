@@ -4,6 +4,7 @@ import type { SynthFilter } from "@hideoutTypes/synth";
 import { chromaticKeys } from "../../constants";
 import { LinkIcon } from "@heroicons/react/16/solid";
 import classNames from "classnames";
+import { EnvelopeLink } from "./envelopeLink";
 
 interface IFilterParams {
   octave: number;
@@ -26,13 +27,7 @@ export const FilterParams = ({
 
   return (
     <div className={styles.filterParamsContainer}>
-      <LinkIcon
-        onClick={onLinkClick}
-        className={classNames(
-          styles.envelopeLink,
-          `${filterLinked && styles.linked}`,
-        )}
-      />
+      <EnvelopeLink selected={filterLinked} onClick={onLinkClick} />
       <div className={styles.sliders}>
         <Slider
           min={minFreq}

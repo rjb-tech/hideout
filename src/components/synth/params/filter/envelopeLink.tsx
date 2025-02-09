@@ -1,11 +1,11 @@
 import styles from "./filter.module.scss";
 
-interface IEnvelopeLink {
+interface IEnvelopeLinkIcon {
   selected: boolean;
   onClick: (...args: any[]) => void;
 }
 
-export const EnvelopeLink = ({ selected, onClick }: IEnvelopeLink) => {
+export const EnvelopeLinkIcon = ({ selected, onClick }: IEnvelopeLinkIcon) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

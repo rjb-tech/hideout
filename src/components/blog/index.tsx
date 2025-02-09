@@ -13,6 +13,7 @@ export const Blog = ({ posts }: IBlog) => {
   const [postIndex, setPostIndex] = useState<number>(posts.length - 1);
 
   const multiplePosts = posts.length > 1;
+  const currentPost = posts[postIndex];
 
   const onArrowClick = (direction: "incr" | "decr") => {
     const newIndex =
@@ -26,7 +27,7 @@ export const Blog = ({ posts }: IBlog) => {
   return (
     <div className={styles.container}>
       <div className={styles.tagContainer}>
-        {posts[postIndex].frontmatter.tags.map((tag, idx) => (
+        {currentPost.frontmatter.tags.map((tag, idx) => (
           <span key={idx} className={styles.tag}>
             {tag}
           </span>
@@ -36,19 +37,19 @@ export const Blog = ({ posts }: IBlog) => {
         className={`${multiplePosts ? styles.blogContainer : styles.fullHeightBlogContainer}`}
       >
         <div className={styles.titleContainer}>
-          <h2 className={styles.title}>{posts[postIndex].frontmatter.title}</h2>
+          <h2 className={styles.title}>{currentPost.frontmatter.title}</h2>
         </div>
         <div className={styles.postContainer}>
-          <span>{posts[postIndex].frontmatter.description}</span>
+          <span>{currentPost.frontmatter.description}</span>
         </div>
         <div className={styles.bottomContainer}>
           <span className={styles.readingTime}>
-            {posts[postIndex].frontmatter.readingTime}
+            {currentPost.frontmatter.readingTime}
           </span>
 
           <div className={styles.buttonContainer}>
             <div className={styles.button}>
-              <a href={posts[postIndex].url} target="_self">
+              <a href={currentPost.url} target="_self">
                 Read This
               </a>
             </div>

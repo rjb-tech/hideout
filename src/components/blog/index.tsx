@@ -40,7 +40,7 @@ export const Blog = ({ posts }: IBlog) => {
           <h2 className={styles.title}>{currentPost.frontmatter.title}</h2>
         </div>
         <div className={styles.postContainer}>
-          <span>{currentPost.frontmatter.description}</span>
+          <span>{currentPost.frontmatter.teaser}</span>
         </div>
         <div className={styles.bottomContainer}>
           <span className={styles.readingTime}>

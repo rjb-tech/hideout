@@ -3,5 +3,5 @@ export interface HideoutMarkdown {
   date: string;
   tags: string[];
   readingTime: string;
-  description?: string;
+  teaser?: string;
 }

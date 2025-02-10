@@ -18,7 +18,7 @@ date: "2025-02-09"
 
 #### Future Capital (March 2023 - Present)
 
-- Significantly enhacned participant data security by implementing AES-256-GCM for at-rest encryption and x25519/xChaCha20-Poly1305 for in-transit encryption.
+- Significantly enhanced participant data security by implementing AES-256-GCM for at-rest SQL Server encryption and x25519/xChaCha20-Poly1305 for in-transit encryption.
 - Architected and led a 3+ month project to build a scalable and concurrent distributed system leveraging Docker, Playwright, React, RabbitMQ, Node.js, .NET, and Azure Container Apps to automate previously manual operations for direct-to-consumer retirement accounts (e.g. Fidelity and Empower) such as trading, downloading funds, and modifying future elections.
 - Largely increased average assets under management per signup by engineering a streamlined, multi-account signup flow using React and .NET to replace the previous single-account solution.
 - Spearheaded a critical fullstack project integrating Yodlee FastLink across account management dashboards and signup flows, resolving a major outage for clients owning accounts on Open Banking enabled distributors like Fidelity and TIAA.

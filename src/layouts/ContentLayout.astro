@@ -12,9 +12,13 @@ const date = toZonedTime(new Date(frontmatter.date), "UTC");
 const published = format(date, "MMMM dd, yyyy");
 
 const showTags = frontmatter.tags.length > 0;
+const titleMap: Record<string, string> = {
+  Portfolio: "Ryne Portfolio",
+  Resume: "Ryne Resume",
+};
 ---
 
-<DefaultLayout title="RJB Tech Blog">
+<DefaultLayout title={titleMap[frontmatter.title] ?? "RJB Tech Blog"}>
   <Window dynamicHeight>
     <Pane fullWidth>
       <h1>

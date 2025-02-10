@@ -6,26 +6,13 @@ tags: []
 date: "2025-02-09"
 ---
 
-## Information
+### Email: me@rjb.tech
 
-**Email**: me@rjb.tech
+### Location: Tennessee, United States
 
-**Location**: Tennessee, United States
+---
 
-### Skills
-
-- Typescript
-- React
-- Redux
-- C#/.NET
-- Python
-- Next.js
-- SQL
-- Azure
-- Azure DevOps
-- Git/Github
-- Audio Signal Flow
-- REST
+## Work Experience
 
 ### Software Engineer -> Team Lead/Senior Software Engineer
 
@@ -37,8 +24,6 @@ date: "2025-02-09"
 - Spearheaded a critical fullstack project integrating Yodlee FastLink across account management dashboards and signup flows, resolving a major outage for clients owning accounts on Open Banking enabled distributors like Fidelity and TIAA.
 - Drove a 4% increase in direct-to-consumer signup conversion by executing a complete overhaul of the React-based onboarding flow, serving as the sole technical lead and collaborating closely with the head of product using Figma to implement redesigned user interfaces.
 - Decreased post-release bugs by introducing automated test suites for our .NET backend (Moq and Xunit) and React-based dashboard (playwright) for use within our Azure Devops pipelines for pull request validation.
-
----
 
 ### Fullstack Engineer I and II
 

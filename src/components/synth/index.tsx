@@ -120,35 +120,33 @@ export const SynthPane = () => {
     };
 
   const handleChromaticKeyDown = (frequency: number, time: number) => {
-    oscRef.current!.frequency.setValueAtTime(frequency * params.octave, time);
-    if (params.filter.envelopeLink)
-      filterRef.current!.frequency.setValueAtTime(
-        params.filter.frequency,
-        time,
-      );
+    gainNodeRef.current!.gain.cancelScheduledValues(time);
+    filterRef.current!.frequency.cancelScheduledValues(time);
+    gainNodeRef.current!.gain.setValueAtTime(0, time);
 
-    // js is dumb, had to parse these as floats
-    const maxFilterFrequency =
-      parseFloat(`${params.filter.frequency}`) +
-      parseFloat(`${params.filter.frequency}`) * (params.envelope.decay / 100);
+    oscRef.current!.frequency.setValueAtTime(frequency * params.octave, time);
+    // if (params.filter.envelopeLink)
+    //   filterRef.current!.frequency.setValueAtTime(
+    //     params.filter.frequency,
+    //     time,
+    //   );
 
     const attackTime = time + params.envelope.attack / 100;
     const decayTime = attackTime + params.envelope.decay / 100;
 
-    gainNodeRef.current!.gain.cancelScheduledValues(time);
-    filterRef.current!.frequency.cancelScheduledValues(time);
-    // gainNodeRef.current!.gain.setValueAtTime(0, time);
-
-    // apply attack
-    // BUG: FIRST PRESS ON ATTACK CHANGE IS ALWAYS FUCKED
-    // BUG: ATTACK IS PRETTY MUCH FUCKED
     gainNodeRef.current!.gain.linearRampToValueAtTime(params.gain, attackTime);
-    if (params.filter.envelopeLink)
+    if (params.filter.envelopeLink) {
+      // js is dumb, had to parse these as floats
+      const maxFilterFrequency =
+        parseFloat(`${params.filter.frequency}`) +
+        parseFloat(`${params.filter.frequency}`) *
+          (params.envelope.decay / 100);
+
       filterRef.current!.frequency.linearRampToValueAtTime(
         maxFilterFrequency,
         attackTime,
       );
-
+    }
     // apply decay into sustain
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       params.gain * (params.envelope.sustain / 100),
@@ -167,16 +165,22 @@ export const SynthPane = () => {
   // probably should apply key up differently depending on envelope
   // second oscillator might be needed to make it clean
   const handleChromaticKeyUp = (time: number) => {
+    gainNodeRef.current!.gain.cancelScheduledValues(time);
+    filterRef.current!.frequency.cancelScheduledValues(time);
+
     gainNodeRef.current!.gain.linearRampToValueAtTime(
       0,
       time + params.envelope.release / 100,
     );
 
     if (params.filter.envelopeLink) {
-      filterRef.current!.frequency.linearRampToValueAtTime(
+      const filterEndFreq =
         parseFloat(`${params.filter.frequency}`) -
-          parseFloat(`${params.filter.frequency}`) *
-            (params.envelope.release / 100),
+        parseFloat(`${params.filter.frequency}`) *
+          (params.envelope.release / 100);
+
+      filterRef.current!.frequency.linearRampToValueAtTime(
+        filterEndFreq,
         time + params.envelope.release / 100,
       );
     }

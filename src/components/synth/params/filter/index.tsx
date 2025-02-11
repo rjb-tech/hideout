@@ -36,7 +36,7 @@ export const FilterParams = ({
         />
         <Slider
           min={0}
-          max={50}
+          max={30}
           value={filter.q}
           onChange={(e: any) => onResChange(e.target.value)}
           sideText="Resonance"

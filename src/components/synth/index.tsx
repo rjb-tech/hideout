@@ -56,7 +56,7 @@ export const SynthPane = () => {
     },
     reverb: settings.reverb ?? {
       decay: null,
-      mix: 0.35,
+      mix: 0.4,
     },
     filter: settings.filter ?? {
       frequency: 20000,

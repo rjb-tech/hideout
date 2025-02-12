@@ -8,6 +8,7 @@ interface IWindow {
 }
 
 export const Window = ({ dynamicHeight, children }: IWindow) => {
+  const year = new Date().getFullYear();
   return (
     <div
       className={
@@ -17,6 +18,7 @@ export const Window = ({ dynamicHeight, children }: IWindow) => {
       }
     >
       {children}
+      <p className={styles.copyright}>&copy; Ryne Burden {year}</p>
     </div>
   );
 };

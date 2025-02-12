@@ -8,12 +8,7 @@ import { Window } from "@components/window";
 import { Pane } from "@components/pane";
 
 import styles from "./_home.module.scss";
-import {
-  BookOpenIcon,
-  EnvelopeIcon,
-  EnvelopeOpenIcon,
-  UserIcon,
-} from "@heroicons/react/16/solid";
+import { BookOpenIcon, UserIcon } from "@heroicons/react/16/solid";
 
 const posts = Object.values(
   import.meta.glob<MarkdownInstance<HideoutMarkdown>>("@pages/blog/*.md", {

@@ -83,13 +83,23 @@ const titleMap: Record<string, string> = {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (width < 768px) {
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   .contentInformation {
     display: flex;
     align-items: flex-end;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
+
+    @media (width < 768px) {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
 
     .tagContainer {
       display: flex;

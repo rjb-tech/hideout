@@ -69,7 +69,9 @@ export const SynthPane = () => {
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
+  const osc2gainNodeRef = useRef<GainNode | null>(null);
   const oscRef = useRef<OscillatorNode | null>(null);
+  const osc2Ref = useRef<OscillatorNode | null>(null);
   const delayRef = useRef<DelayNode | null>(null);
   const delayFeedbackRef = useRef<GainNode | null>(null);
   const convolverRef = useRef<ConvolverNode | null>(null);
@@ -125,6 +127,7 @@ export const SynthPane = () => {
     gainNodeRef.current!.gain.setValueAtTime(0, time);
 
     oscRef.current!.frequency.setValueAtTime(frequency * params.octave, time);
+    osc2Ref.current!.frequency.setValueAtTime(frequency * params.octave, time);
     // if (params.filter.envelopeLink)
     //   filterRef.current!.frequency.setValueAtTime(
     //     params.filter.frequency,
@@ -225,7 +228,9 @@ export const SynthPane = () => {
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
+    osc2gainNodeRef.current = audioRef.current.createGain();
     oscRef.current = audioRef.current.createOscillator();
+    osc2Ref.current = audioRef.current.createOscillator();
     delayRef.current = audioRef.current.createDelay();
     delayFeedbackRef.current = audioRef.current.createGain();
     convolverRef.current = audioRef.current.createConvolver();
@@ -233,16 +238,19 @@ export const SynthPane = () => {
     filterRef.current = audioRef.current.createBiquadFilter();
 
     gainNodeRef.current.gain.value = 0;
+    osc2gainNodeRef.current.gain.value = GAIN_MAX - 0.1;
     filterRef.current.frequency.value = params.filter.frequency;
     filterRef.current.type = params.filter.type;
     filterRef.current.Q.value = params.filter.q;
 
     oscRef.current.connect(filterRef.current!);
+    osc2Ref.current.connect(osc2gainNodeRef.current);
     filterRef.current.connect(gainNodeRef.current);
     gainNodeRef.current.connect(audioRef.current.destination);
 
-    // I don't like the conditionals here. It makes the signal flow connections unclear
+    if (params.secondOscOn) osc2gainNodeRef.current.connect(filterRef.current!);
     if (params.delay.time !== null) {
+      // I don't like the conditionals here. It makes the signal flow connections unclear
       delayFeedbackRef.current.gain.value = params.delay.feedback;
       delayRef.current.delayTime.value = params.delay.time / 1000;
 
@@ -263,6 +271,7 @@ export const SynthPane = () => {
     }
 
     oscRef.current.type = params.waveform as OscillatorType;
+    osc2Ref.current.type = "sawtooth";
 
     const keyupListener = (e: KeyboardEvent) => {
       if (pressedKey.current === e.code) {
@@ -276,6 +285,7 @@ export const SynthPane = () => {
       const actionKey = actionKeys[e.code];
       try {
         oscRef.current!.start();
+        osc2Ref.current!.start();
       } catch {}
       if (chromaticKey) {
         if (pressedKey.current !== e.code) {
@@ -301,13 +311,13 @@ export const SynthPane = () => {
 
       try {
         oscRef.current?.stop();
+        osc2Ref.current?.stop();
         audioRef.current?.close();
       } catch {}
     };
   }, [
     params.delay,
     params.envelope,
-    params.gain,
     params.gain,
     params.octave,
     params.reverb,
@@ -340,7 +350,7 @@ export const SynthPane = () => {
           }
         />
         <div className={styles.waveformSelector}>
-          WAVEFORM
+          OSC 1
           <div className={styles.waveforms}>
             {waveforms.map((current, i) => (
               <span key={i} className={classNames(styles.wavePane)}>
@@ -353,14 +363,15 @@ export const SynthPane = () => {
             ))}
           </div>
         </div>
-        {false && (
+        <div className={styles.osc2}>
+          OSC 2
           <AddOscillator
             toggled={params.secondOscOn}
             onClick={() => {
               setParams({ ...params, secondOscOn: !params.secondOscOn });
             }}
           />
-        )}
+        </div>
       </div>
       <div className={styles.bottom}>
         <EnvelopeParams

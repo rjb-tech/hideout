@@ -18,6 +18,7 @@ export const SpaceParams = ({
 }: ISpaceParams) => {
   return (
     <div className={styles.container}>
+      SPACE
       <div className={styles.selectorContainer}>
         Delay (ms)
         <Selector

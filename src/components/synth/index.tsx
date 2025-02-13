@@ -339,15 +339,20 @@ export const SynthPane = () => {
             })
           }
         />
-        {waveforms.map((current, i) => (
-          <span key={i} className={classNames(styles.wavePane)}>
-            <Waveform
-              type={current}
-              selected={waveforms.indexOf(params.waveform) === i}
-              onClick={() => setParams({ ...params, waveform: current })}
-            />
-          </span>
-        ))}
+        <div className={styles.waveformSelector}>
+          WAVEFORM
+          <div className={styles.waveforms}>
+            {waveforms.map((current, i) => (
+              <span key={i} className={classNames(styles.wavePane)}>
+                <Waveform
+                  type={current}
+                  selected={waveforms.indexOf(params.waveform) === i}
+                  onClick={() => setParams({ ...params, waveform: current })}
+                />
+              </span>
+            ))}
+          </div>
+        </div>
         {false && (
           <AddOscillator
             toggled={params.secondOscOn}

@@ -19,12 +19,25 @@
   width: 100%;
   justify-content: center;
 
-  .wavePane {
-    padding: 0.25rem;
+  .waveformSelector {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 2px solid vars.$white;
+    padding: 0.5rem;
     border-radius: 8px;
+    font-size: small;
+
+    .waveforms {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .wavePane {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 

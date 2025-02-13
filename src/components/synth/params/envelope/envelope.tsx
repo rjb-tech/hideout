@@ -14,6 +14,7 @@ export const EnvelopeParams = ({
 }: IEnvelopeParams) => {
   return (
     <div className={styles.envelopeContainer}>
+      <span className={styles.header}>ENVELOPE</span>
       <Slider
         min={1} // smooths the sound just a touch
         max={100}

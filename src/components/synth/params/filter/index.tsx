@@ -24,23 +24,26 @@ export const FilterParams = ({
   const minFreq = chromaticKeys["KeyA"].baseFrequency * octave;
 
   return (
-    <div className={styles.filterParamsContainer}>
-      <EnvelopeLinkIcon selected={filterLinked} onClick={onLinkClick} />
-      <div className={styles.sliders}>
-        <Slider
-          min={minFreq}
-          max={20000}
-          value={filter.frequency}
-          onChange={(e: any) => onFilterChange(e.target.value)}
-          sideText="Frequency"
-        />
-        <Slider
-          min={0}
-          max={30}
-          value={filter.q}
-          onChange={(e: any) => onResChange(e.target.value)}
-          sideText="Resonance"
-        />
+    <div className={styles.filterContainer}>
+      FILTER
+      <div className={styles.filterParamsContainer}>
+        <EnvelopeLinkIcon selected={filterLinked} onClick={onLinkClick} />
+        <div className={styles.sliders}>
+          <Slider
+            min={minFreq}
+            max={20000}
+            value={filter.frequency}
+            onChange={(e: any) => onFilterChange(e.target.value)}
+            sideText="Frequency"
+          />
+          <Slider
+            min={0}
+            max={30}
+            value={filter.q}
+            onChange={(e: any) => onResChange(e.target.value)}
+            sideText="Resonance"
+          />
+        </div>
       </div>
     </div>
   );

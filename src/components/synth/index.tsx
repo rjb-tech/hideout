@@ -163,10 +163,6 @@ export const SynthPane = () => {
       );
   };
 
-  // short key presses still don't apply release correctly
-  // might be something with not hitting attack?
-  // probably should apply key up differently depending on envelope
-  // second oscillator might be needed to make it clean
   const handleChromaticKeyUp = (time: number) => {
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     filterRef.current!.frequency.cancelScheduledValues(time);

@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  border: 2px solid vars.$white;
+  border: 1px solid vars.$white;
   padding: 0.5rem;
   border-radius: 8px;
   font-size: small;
@@ -65,7 +65,7 @@
   position: absolute;
   cursor: pointer;
   inset: 0;
-  border: 2px solid #414141;
+  border: 1px solid #414141;
   border-radius: 50px;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -84,7 +84,7 @@
 
 .switch input:checked + .slider {
   box-shadow: 0 0 20px vars.$lightGreen;
-  border: 2px solid vars.$lightGreen;
+  border: px solid vars.$lightGreen;
 }
 
 .switch input:checked + .slider:before {

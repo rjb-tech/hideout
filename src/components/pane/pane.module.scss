@@ -12,7 +12,7 @@
   text-align: center;
   background-color: funcs.hexToRgba(vars.$lighterGray, 0.7);
   border-radius: 12px;
-  border: 1px inset funcs.hexToRgba(vars.$lighterGray, 1);
+  border: 0.5px solid funcs.hexToRgba(vars.$white, 0.1);
   box-sizing: border-box;
 
   @media (width <= vars.$tabletBreakpoint) {

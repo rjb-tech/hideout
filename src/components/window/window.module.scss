@@ -11,7 +11,7 @@
   border-radius: 8px;
   padding: 1.5rem;
   background-color: funcs.hexToRgba(vars.$darkerGray, 0.65);
-  border: 2px solid funcs.hexToRgba(vars.$darkerGray, 0.4);
+  border: 1px solid funcs.hexToRgba(vars.$darkerGray, 0.4);
   gap: 1rem;
 
   @media (width >= vars.$largeScreenBreakpoint) {

@@ -5,9 +5,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   font-size: small;
   border: 1px solid vars.$white;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 8px;
+
+  .header {
+    margin-bottom: 0.25rem;
+  }
 }

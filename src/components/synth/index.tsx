@@ -324,6 +324,7 @@ export const SynthPane = () => {
 
   return (
     <div className={styles.synthContainer}>
+      <strong>RJB-20</strong>
       <div className={styles.top}>
         <FilterParams
           filterLinked={params.filter.envelopeLink}
@@ -346,7 +347,7 @@ export const SynthPane = () => {
           }
         />
         <div className={styles.waveformSelector}>
-          OSC 1
+          OSC1
           <div className={styles.waveforms}>
             {waveforms.map((current, i) => (
               <span key={i} className={classNames(styles.wavePane)}>
@@ -360,7 +361,7 @@ export const SynthPane = () => {
           </div>
         </div>
         <div className={styles.osc2}>
-          OSC 2
+          OSC2
           <AddOscillator
             toggled={params.secondOscOn}
             onClick={() => {

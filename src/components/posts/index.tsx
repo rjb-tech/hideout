@@ -6,6 +6,7 @@ import { toZonedTime } from "date-fns-tz";
 
 import styles from "./posts.module.scss";
 import sharedStyles from "@styles/sharedStyles.module.scss";
+import { GoHome } from "@components/goHome";
 
 interface IPostsDisplay {
   posts: MarkdownInstance<HideoutMarkdown>[];
@@ -36,18 +37,20 @@ export const PostsDisplay = ({ posts }: IPostsDisplay) => {
 
   return (
     <div className={styles.postsContainer}>
-      <div className={styles.filterContainer}>
-        Filter posts by tag
-        <div className={styles.filters}>
-          {tags.map((tag, idx) => (
-            <span
-              key={idx}
-              onClick={() => handleTagClick(tag)}
-              className={`${styles.tagFilter} ${sharedStyles.noSelect} ${selectedTags.includes(tag) && sharedStyles.selected}`}
-            >
-              {tag}
-            </span>
-          ))}
+      <div className={styles.navContainer}>
+        <GoHome />
+        <div className={styles.filterContainer}>
+          <div className={styles.filters}>
+            {tags.map((tag, idx) => (
+              <span
+                key={idx}
+                onClick={() => handleTagClick(tag)}
+                className={`${styles.tagFilter} ${sharedStyles.noSelect} ${selectedTags.includes(tag) && sharedStyles.selected}`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
       <div className={styles.postList}>

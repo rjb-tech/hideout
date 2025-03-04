@@ -5,6 +5,13 @@
   text-decoration: none;
 }
 
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
 .postsContainer {
   height: 100%;
   width: 80%;
@@ -22,7 +29,6 @@
 .filterContainer {
   justify-self: center;
   height: fit-content;
-  width: 100%;
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
@@ -35,7 +41,7 @@
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  margin-bottom: 1rem;
+  align-items: center;
   flex-wrap: wrap;
 
   .tagFilter {

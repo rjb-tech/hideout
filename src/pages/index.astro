@@ -30,34 +30,42 @@ const posts = Object.values(
           <span class={styles.name}>Ryne Burden</span>
           <span class={styles.job}>Software Engineer</span>
           <div class={styles.linkContainer}>
-            <div class={styles.linkButton}>
-              <img class={styles.icon} src="github-logo.png" />
-              <a href="https://github.com/rjb-tech">Github</a>
-            </div>
+            <a href="https://github.com/rjb-tech">
+              <div class={styles.linkButton}>
+                <img class={styles.icon} src="github-logo.png" />
+                Github
+              </div>
+            </a>
             <!-- <div class={styles.linkButton}>
               <img class={styles.icon} src="linked-in-logo.png" />
               <a href="https://www.linkedin.com/in/ryne-burden-4210a0a3/">
                 LinkedIn
               </a>
             </div> -->
-            <div class={styles.linkButton}>
-              <div class={styles.icon}>
-                <BookOpenIcon />
+            <a href="/portfolio" target="_self">
+              <div class={styles.linkButton}>
+                <div class={styles.icon}>
+                  <BookOpenIcon />
+                </div>
+                Portfolio
               </div>
-              <a href="/portfolio" target="_self"> Portfolio </a>
-            </div>
-            <div class={styles.linkButton}>
-              <div class={styles.icon}>
-                <UserIcon />
+            </a>
+            <a href="/resume" target="_self">
+              <div class={styles.linkButton}>
+                <div class={styles.icon}>
+                  <UserIcon />
+                </div>
+                Resume
               </div>
-              <a href="/resume" target="_self"> Resume</a>
-            </div>
-            <div class={styles.linkButton}>
-              <div class={styles.icon}>
-                <BookmarkIcon />
+            </a>
+            <a href="/blog" target="_self">
+              <div class={styles.linkButton}>
+                <div class={styles.icon}>
+                  <BookmarkIcon />
+                </div>
+                Blog
               </div>
-              <a href="/blog" target="_self"> Blog</a>
-            </div>
+            </a>
           </div>
         </div>
       </Pane>

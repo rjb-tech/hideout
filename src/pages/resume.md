@@ -6,7 +6,7 @@ tags: []
 date: "2025-02-09"
 ---
 
-### Email: me@rjb.tech
+### Email: dev@rjb.tech
 
 ### Location: Tennessee, United States
 

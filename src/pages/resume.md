@@ -27,7 +27,7 @@ date: "2025-02-09"
 - Led production releases and established comprehensive SDLC process for a team of 5 engineers, implementing review procedures that eliminated regressions and reduced deployment risks.
 - Spearheaded critical third-party API integration of Yodlee FastLink 4 across account management dashboards and signup flows, resolving a major week-long outage affecting all accounts on Open Banking enabled distributors like Fidelity and TIAA.
 
-### Fullstack Engineer I and II
+### Fullstack Engineer I --> Fullstack Engineer II
 
 #### Balto (December 2021 - December 2022)
 

@@ -3,7 +3,7 @@ title: "Resume"
 description:
 layout: "@layouts/ContentLayout.astro"
 tags: []
-date: "2025-02-09"
+date: "2025-07-04"
 ---
 
 ### Email: dev@rjb.tech

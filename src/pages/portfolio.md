@@ -3,7 +3,7 @@ title: Portfolio
 description: This is my portfolio :)
 layout: "@layouts/ContentLayout.astro"
 tags: []
-date: "2025-02-09"
+date: "2025-07-04"
 ---
 
 ## [Syncwav](https://youtu.be/00sSCxs14j0)

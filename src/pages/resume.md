@@ -14,7 +14,7 @@ date: "2025-02-09"
 
 ## Work Experience
 
-### Software Engineer -> Team Lead/Senior Software Engineer
+### Software Engineer --> Team Lead Senior Software Engineer
 
 #### Future Capital (March 2023 - Present)
 

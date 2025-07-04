@@ -18,12 +18,14 @@ date: "2025-02-09"
 
 #### Future Capital (March 2023 - Present)
 
-- Significantly enhanced participant data security by implementing AES-256-GCM for at-rest SQL Server encryption and x25519/xChaCha20-Poly1305 for in-transit encryption.
-- Architected and led a 3+ month project to build a scalable and concurrent distributed system leveraging Docker, Playwright, React, RabbitMQ, Node.js, .NET, and Azure Container Apps to automate previously manual operations for direct-to-consumer retirement accounts (e.g. Fidelity and Empower) such as trading, downloading funds, and modifying future elections.
-- Largely increased average assets under management per signup by engineering a streamlined, multi-account signup flow using React and .NET to replace the previous single-account solution.
-- Spearheaded a critical fullstack project integrating Yodlee FastLink across account management dashboards and signup flows, resolving a major outage for clients owning accounts on Open Banking enabled distributors like Fidelity and TIAA.
+- Built a containerized RPA system using Docker, Playwright, RabbitMQ, Node.js, and Azure Container Apps with queue-based autoscaling that automated clerical retirement account access, freeing up time for each operations team agent to prioritize business critical workflows like account trades and client meetings.
+- Developed an extensible SAML Assertion Consumer in C#/.NET supporting IdP-initiated authentication flows from multiple identity providers, driving increased platform adoption and enabling seamless advisor-portal access for a strategic broker-dealer partnership serving 2,700+ wealth management firms.
+- Addressed participant and advisor complaints by converting our single-account signup flow to a multi-account signup flow using React and .NET, increasing average AUM per signup by 10-20%.
+- Significantly enhanced data security and compliance by migrating from a single-key TripleDES encryption system to per-user encryption keys using AES-256-GCM for at-rest and ephemeral x25519/xChaCha20-Poly1305 for in-transit encryption, dramatically reducing risk of data breach and data exposure in the event of a breach.
+- Established unit testing standards and best practices for the .NET Core backend from scratch, implementing over 100 unit tests with Moq and XUnit and creating documentation to guide team development practices.
 - Drove a 4% increase in direct-to-consumer signup conversion by executing a complete overhaul of the React-based onboarding flow, serving as the sole technical lead and collaborating closely with the head of product using Figma to implement redesigned user interfaces.
-- Decreased post-release bugs by introducing automated test suites for our .NET backend (Moq and Xunit) and React-based dashboard (playwright) for use within our Azure Devops pipelines for pull request validation.
+- Led production releases and established comprehensive SDLC process for a team of 5 engineers, implementing review procedures that eliminated regressions and reduced deployment risks.
+- Spearheaded critical third-party API integration of Yodlee FastLink 4 across account management dashboards and signup flows, resolving a major week-long outage affecting all accounts on Open Banking enabled distributors like Fidelity and TIAA.
 
 ### Fullstack Engineer I and II
 

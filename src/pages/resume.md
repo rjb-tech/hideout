@@ -18,7 +18,7 @@ date: "2025-07-04"
 
 #### Future Capital (March 2023 - Present)
 
-- Built a containerized RPA system using Docker, Playwright, RabbitMQ, Node.js, and Azure Container Apps with queue-based autoscaling that automated clerical retirement account access, freeing up time for each operations team agent to prioritize business critical workflows like account trades and client meetings.
+- Built a containerized RPA system using Docker, Playwright, RabbitMQ, Node.js, and Azure Container Apps with queue-based autoscaling that automated clerical retirement account access, freeing up to multiple hours per week for each operations team agent to prioritize business critical workflows like account trades and client meetings.
 - Developed an extensible SAML Assertion Consumer in C#/.NET supporting IdP-initiated authentication flows from multiple identity providers, driving increased platform adoption and enabling seamless advisor-portal access for a strategic broker-dealer partnership serving 2,700+ wealth management firms.
 - Addressed participant and advisor complaints by converting our single-account signup flow to a multi-account signup flow using React and .NET, increasing average AUM per signup by 10-20%.
 - Significantly enhanced data security and compliance by migrating from a single-key TripleDES encryption system to per-user encryption keys using AES-256-GCM for at-rest and ephemeral x25519/xChaCha20-Poly1305 for in-transit encryption, dramatically reducing risk of data breach and data exposure in the event of a breach.

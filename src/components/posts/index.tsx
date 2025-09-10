@@ -6,7 +6,7 @@ import { toZonedTime } from "date-fns-tz";
 
 import styles from "./posts.module.scss";
 import sharedStyles from "@styles/sharedStyles.module.scss";
-import { GoHome } from "@components/goHome";
+import { LinkButton } from "@components/linkButton";
 
 interface IPostsDisplay {
   posts: MarkdownInstance<HideoutMarkdown>[];
@@ -38,7 +38,7 @@ export const PostsDisplay = ({ posts }: IPostsDisplay) => {
   return (
     <div className={styles.postsContainer}>
       <div className={styles.navContainer}>
-        <GoHome />
+        <LinkButton text="Home" href="/" />
         <div className={styles.filterContainer}>
           <div className={styles.filters}>
             {tags.map((tag, idx) => (

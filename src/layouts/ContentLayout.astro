@@ -2,7 +2,7 @@
 import { Pane } from "@components/pane";
 import DefaultLayout from "./DefaultLayout.astro";
 import { Window } from "@components/window";
-import { GoHome } from "@components/goHome";
+import { LinkButton } from "@components/linkButton";
 import { format, formatISO } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 
@@ -28,7 +28,10 @@ const titleMap: Record<string, string> = {
     <Pane fullWidth>
       <div class="contentContainer">
         <div class="contentHeader">
-          <GoHome />
+          <span class="navButtons">
+            <LinkButton text="Home" href="/" />
+            <LinkButton text="Blog" href="/blog" />
+          </span>
           <div class="contentInformation">
             {
               showTags && (
@@ -124,5 +127,10 @@ const titleMap: Record<string, string> = {
     height: 100%;
     text-align: left;
     line-height: 1.5rem;
+  }
+
+  .navButtons {
+    display: flex;
+    gap: 1rem;
   }
 </style>

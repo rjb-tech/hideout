@@ -298,11 +298,7 @@ export const SynthPane = () => {
           <div className={styles.waveforms}>
             {waveforms.map((current, i) => (
               <span key={i} className={classNames(styles.wavePane)}>
-                <Waveform
-                  type={current}
-                  selected={waveforms.indexOf(params.waveform) === i}
-                  onClick={() => synthParamsStore.setKey("waveform", current)}
-                />
+                <Waveform type={current} />
               </span>
             ))}
           </div>

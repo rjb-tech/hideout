@@ -22,12 +22,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 ### To Do
 
 - Accessibility
-- Add second oscillator Only accessible on large screens
-- Wire up envelope to filter
-- lil envelope button
 - Fix filter so it doesn't stop the sound on change
-- Move post tags below nav arrow
 - Sequencer
   - BPM selector
   - Hook up delay to bpm
-- Filter resonance

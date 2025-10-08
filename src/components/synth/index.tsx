@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useStore } from "@nanostores/react";
 import classNames from "classnames";
 
 import {
@@ -22,6 +23,7 @@ import { EnvelopeParams } from "./params/envelope/envelope";
 import { SpaceParams } from "./params/space";
 import { FilterParams } from "./params/filter";
 import { AddOscillator } from "./params/addOscillator";
+import { synthParamsStore } from "src/stores/synth";
 
 /*
   To add:
@@ -40,32 +42,8 @@ export const SynthPane = () => {
     window.sessionStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}",
   ) as SynthSettings;
 
-  const [params, setParams] = useState<SynthSettings>({
-    gain: settings.gain ?? GAIN_MAX,
-    octave: settings.octave ?? 2,
-    waveform: settings.waveform ?? "sawtooth",
-    envelope: settings.envelope ?? {
-      attack: 0,
-      decay: 15,
-      sustain: 0,
-      release: 0,
-    },
-    delay: settings.delay ?? {
-      time: null,
-      feedback: 0, // not working
-    },
-    reverb: settings.reverb ?? {
-      decay: null,
-      mix: 0.4,
-    },
-    filter: settings.filter ?? {
-      frequency: 20000,
-      type: "lowpass",
-      q: 0,
-      envelopeLink: false,
-    },
-    secondOscOn: false,
-  });
+  // hook up a useEffect to pull synth settings if they exist
+  const params = useStore(synthParamsStore);
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -98,7 +76,7 @@ export const SynthPane = () => {
         ? (currentIndex + 1) % waveforms.length
         : (currentIndex - 1 + waveforms.length) % waveforms.length;
 
-    setParams({ ...params, waveform: waveforms[newIndex] });
+    synthParamsStore.setKey("waveform", waveforms[newIndex]);
   };
 
   const handleOctaveChangeAction = (direction: ActionDirection) => {
@@ -106,18 +84,15 @@ export const SynthPane = () => {
       direction === "incr" ? params.octave + 1 : params.octave - 1;
 
     if (octaveOptions.includes(newOctave)) {
-      setParams({ ...params, octave: newOctave });
+      synthParamsStore.setKey("octave", newOctave);
     }
   };
 
   const handleEnvelopeChange =
     (parameter: EnvelopeParameter) => (event: any) => {
-      setParams({
-        ...params,
-        envelope: {
-          ...params.envelope,
-          [parameter]: parseInt(event.target.value, 10),
-        },
+      synthParamsStore.setKey("envelope", {
+        ...params.envelope,
+        [parameter]: parseInt(event.target.value, 10),
       });
     };
 
@@ -202,22 +177,13 @@ export const SynthPane = () => {
   };
 
   const onDelayChange = (time: number | null) => {
-    setParams({
-      ...params,
-      delay: {
-        ...params.delay,
-        time,
-      },
-    });
+    synthParamsStore.setKey("delay", { ...params.delay, time });
   };
 
   const onReverbChange = (decay: number | null) => {
-    setParams({
-      ...params,
-      reverb: {
-        ...params.reverb,
-        decay,
-      },
+    synthParamsStore.setKey("reverb", {
+      ...params.reverb,
+      decay,
     });
   };
 
@@ -331,18 +297,15 @@ export const SynthPane = () => {
           octave={params.octave}
           filter={params.filter}
           onFilterChange={(frequency: number) => {
-            setParams({ ...params, filter: { ...params.filter, frequency } });
+            synthParamsStore.setKey("filter", { ...params.filter, frequency });
           }}
           onResChange={(q: number) => {
-            setParams({ ...params, filter: { ...params.filter, q } });
+            synthParamsStore.setKey("filter", { ...params.filter, q });
           }}
           onLinkClick={() =>
-            setParams({
-              ...params,
-              filter: {
-                ...params.filter,
-                envelopeLink: !params.filter.envelopeLink,
-              },
+            synthParamsStore.setKey("filter", {
+              ...params.filter,
+              envelopeLink: !params.filter.envelopeLink,
             })
           }
         />
@@ -354,7 +317,7 @@ export const SynthPane = () => {
                 <Waveform
                   type={current}
                   selected={waveforms.indexOf(params.waveform) === i}
-                  onClick={() => setParams({ ...params, waveform: current })}
+                  onClick={() => synthParamsStore.setKey("waveform", current)}
                 />
               </span>
             ))}
@@ -365,7 +328,7 @@ export const SynthPane = () => {
           <AddOscillator
             toggled={params.secondOscOn}
             onClick={() => {
-              setParams({ ...params, secondOscOn: !params.secondOscOn });
+              synthParamsStore.setKey("secondOscOn", !params.secondOscOn);
             }}
           />
         </div>

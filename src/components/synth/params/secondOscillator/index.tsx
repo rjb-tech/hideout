@@ -1,8 +1,9 @@
 import { useStore } from "@nanostores/react";
-import styles from "./secondOscillator.module.scss";
-import { synthParamsStore } from "src/stores/synth";
+import { synthParamsStore } from "@stores/synth";
 
-export const SecondOscillator = () => {
+import styles from "./secondOscillator.module.scss";
+
+export const SecondOscillatorParams = () => {
   const { secondOscOn } = useStore(synthParamsStore);
   return (
     <svg

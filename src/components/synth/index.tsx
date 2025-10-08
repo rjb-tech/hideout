@@ -12,12 +12,8 @@ import {
 import { type ActionDirection, type ActionKey } from "@hideoutTypes/synth";
 
 import styles from "./synth.module.scss";
-import { EnvelopeParams } from "./params/envelope/envelope";
-import { SpaceParams } from "./params/space";
-import { FilterParams } from "./params/filter";
-import { SecondOscillator } from "./params/secondOscillator";
-import { synthParamsStore } from "src/stores/synth";
-import { WaveformParams } from "./params/waveform";
+import { synthParamsStore } from "@stores/synth";
+import { SynthParams } from "./params";
 
 /*
   To add:
@@ -261,23 +257,9 @@ export const SynthPane = () => {
   ]);
 
   return (
-    <div className={styles.synthContainer}>
+    <div className={styles.container}>
       <strong>RJB-20</strong>
-      <div className={styles.top}>
-        <FilterParams />
-        <div className={styles.waveformSelector}>
-          OSC1
-          <WaveformParams />
-        </div>
-        <div className={styles.osc2}>
-          OSC2
-          <SecondOscillator />
-        </div>
-      </div>
-      <div className={styles.bottom}>
-        <EnvelopeParams />
-        <SpaceParams />
-      </div>
+      <SynthParams />
     </div>
   );
 };

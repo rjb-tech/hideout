@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import classNames from "classnames";
+import { useEffect, useRef } from "react";
+import { useStore } from "@nanostores/react";
 
 import {
   actionKeys,
@@ -8,20 +8,16 @@ import {
   waveforms,
   octaveOptions,
 } from "./constants";
-import { Waveform } from "./params/waveform/waveform";
 
-import {
-  type ActionDirection,
-  type ActionKey,
-  type EnvelopeParameter,
-  type SynthSettings,
-} from "@hideoutTypes/synth";
+import { type ActionDirection, type ActionKey } from "@hideoutTypes/synth";
 
 import styles from "./synth.module.scss";
 import { EnvelopeParams } from "./params/envelope/envelope";
 import { SpaceParams } from "./params/space";
 import { FilterParams } from "./params/filter";
-import { AddOscillator } from "./params/addOscillator";
+import { SecondOscillator } from "./params/secondOscillator";
+import { synthParamsStore } from "src/stores/synth";
+import { WaveformParams } from "./params/waveform";
 
 /*
   To add:
@@ -36,36 +32,8 @@ import { AddOscillator } from "./params/addOscillator";
 const LOCAL_STORAGE_KEY = "synth_settings";
 
 export const SynthPane = () => {
-  const settings = JSON.parse(
-    window.sessionStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}",
-  ) as SynthSettings;
-
-  const [params, setParams] = useState<SynthSettings>({
-    gain: settings.gain ?? GAIN_MAX,
-    octave: settings.octave ?? 2,
-    waveform: settings.waveform ?? "sawtooth",
-    envelope: settings.envelope ?? {
-      attack: 0,
-      decay: 15,
-      sustain: 0,
-      release: 0,
-    },
-    delay: settings.delay ?? {
-      time: null,
-      feedback: 0, // not working
-    },
-    reverb: settings.reverb ?? {
-      decay: null,
-      mix: 0.4,
-    },
-    filter: settings.filter ?? {
-      frequency: 20000,
-      type: "lowpass",
-      q: 0,
-      envelopeLink: false,
-    },
-    secondOscOn: false,
-  });
+  // hook up a useEffect to pull synth settings if they exist
+  const params = useStore(synthParamsStore);
 
   const audioRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -98,7 +66,7 @@ export const SynthPane = () => {
         ? (currentIndex + 1) % waveforms.length
         : (currentIndex - 1 + waveforms.length) % waveforms.length;
 
-    setParams({ ...params, waveform: waveforms[newIndex] });
+    synthParamsStore.setKey("waveform", waveforms[newIndex]);
   };
 
   const handleOctaveChangeAction = (direction: ActionDirection) => {
@@ -106,20 +74,9 @@ export const SynthPane = () => {
       direction === "incr" ? params.octave + 1 : params.octave - 1;
 
     if (octaveOptions.includes(newOctave)) {
-      setParams({ ...params, octave: newOctave });
+      synthParamsStore.setKey("octave", newOctave);
     }
   };
-
-  const handleEnvelopeChange =
-    (parameter: EnvelopeParameter) => (event: any) => {
-      setParams({
-        ...params,
-        envelope: {
-          ...params.envelope,
-          [parameter]: parseInt(event.target.value, 10),
-        },
-      });
-    };
 
   const handleChromaticKeyDown = (frequency: number, time: number) => {
     gainNodeRef.current!.gain.cancelScheduledValues(time);
@@ -199,26 +156,6 @@ export const SynthPane = () => {
       }
     }
     return impulse;
-  };
-
-  const onDelayChange = (time: number | null) => {
-    setParams({
-      ...params,
-      delay: {
-        ...params.delay,
-        time,
-      },
-    });
-  };
-
-  const onReverbChange = (decay: number | null) => {
-    setParams({
-      ...params,
-      reverb: {
-        ...params.reverb,
-        decay,
-      },
-    });
   };
 
   useEffect(() => {
@@ -311,6 +248,7 @@ export const SynthPane = () => {
         audioRef.current?.close();
       } catch {}
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     params.delay,
     params.envelope,
@@ -326,61 +264,19 @@ export const SynthPane = () => {
     <div className={styles.synthContainer}>
       <strong>RJB-20</strong>
       <div className={styles.top}>
-        <FilterParams
-          filterLinked={params.filter.envelopeLink}
-          octave={params.octave}
-          filter={params.filter}
-          onFilterChange={(frequency: number) => {
-            setParams({ ...params, filter: { ...params.filter, frequency } });
-          }}
-          onResChange={(q: number) => {
-            setParams({ ...params, filter: { ...params.filter, q } });
-          }}
-          onLinkClick={() =>
-            setParams({
-              ...params,
-              filter: {
-                ...params.filter,
-                envelopeLink: !params.filter.envelopeLink,
-              },
-            })
-          }
-        />
+        <FilterParams />
         <div className={styles.waveformSelector}>
           OSC1
-          <div className={styles.waveforms}>
-            {waveforms.map((current, i) => (
-              <span key={i} className={classNames(styles.wavePane)}>
-                <Waveform
-                  type={current}
-                  selected={waveforms.indexOf(params.waveform) === i}
-                  onClick={() => setParams({ ...params, waveform: current })}
-                />
-              </span>
-            ))}
-          </div>
+          <WaveformParams />
         </div>
         <div className={styles.osc2}>
           OSC2
-          <AddOscillator
-            toggled={params.secondOscOn}
-            onClick={() => {
-              setParams({ ...params, secondOscOn: !params.secondOscOn });
-            }}
-          />
+          <SecondOscillator />
         </div>
       </div>
       <div className={styles.bottom}>
-        <EnvelopeParams
-          onEnvelopeChange={handleEnvelopeChange}
-          envelope={params.envelope}
-        />
-        <SpaceParams
-          currentDelay={params.delay.time}
-          onDelayChange={onDelayChange}
-          currentReverb={params.reverb.decay}
-          onReverbChange={onReverbChange}
-        />
+        <EnvelopeParams />
+        <SpaceParams />
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import type { ReactElement, ReactNode } from "react";
 import styles from "./linkButton.module.scss";
 
 interface ILinkButton {

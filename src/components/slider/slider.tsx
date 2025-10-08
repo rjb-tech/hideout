@@ -4,7 +4,7 @@ interface ISlider {
   value: number;
   min: number;
   max: number;
-  onChange: (...args: any[]) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   sideText?: string;
 }
 

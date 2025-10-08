@@ -1,19 +1,19 @@
-import styles from "./addOscillator.module.scss";
+import { useStore } from "@nanostores/react";
+import styles from "./secondOscillator.module.scss";
+import { synthParamsStore } from "src/stores/synth";
 
-interface IAddOscillator {
-  toggled: boolean;
-  onClick: (...args: any[]) => void;
-}
-
-export const AddOscillator = ({ toggled, onClick }: IAddOscillator) => {
+export const SecondOscillator = () => {
+  const { secondOscOn } = useStore(synthParamsStore);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
       className={styles.addOscillator}
-      onClick={onClick}
+      onClick={() => {
+        synthParamsStore.setKey("secondOscOn", !secondOscOn);
+      }}
     >
-      {toggled && (
+      {secondOscOn && (
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="8" result="blur" />
@@ -29,7 +29,7 @@ export const AddOscillator = ({ toggled, onClick }: IAddOscillator) => {
         strokeWidth={3}
         strokeLinecap="round"
         className={styles.addOscillator}
-        filter={toggled ? "url(#glow)" : ""}
+        filter={secondOscOn ? "url(#glow)" : ""}
       />
       {/* Plus symbol */}
       <path
@@ -37,7 +37,7 @@ export const AddOscillator = ({ toggled, onClick }: IAddOscillator) => {
         d="M79.17 16.67 L79.17 33.33 M70.83 25 L87.5 25"
         stroke="currentColor"
         strokeWidth={3}
-        filter={toggled ? "url(#glow)" : ""}
+        filter={secondOscOn ? "url(#glow)" : ""}
       />
     </svg>
   );

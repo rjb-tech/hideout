@@ -1,24 +1,16 @@
 ---
-import type { MarkdownInstance } from "astro";
-import type { HideoutMarkdown } from "@hideoutTypes/content";
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { SynthPane } from "@components/synth";
-import { Blog } from "@components/blog";
-import { Window } from "@components/window";
-import { Pane } from "@components/pane";
-
-import styles from "./_home.module.scss";
 import {
   BookmarkIcon,
   BookOpenIcon,
   UserIcon,
 } from "@heroicons/react/16/solid";
 
-const posts = Object.values(
-  import.meta.glob<MarkdownInstance<HideoutMarkdown>>("@pages/blog/*.md", {
-    eager: true,
-  }),
-);
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { SynthPane } from "@components/synth";
+import { Window } from "@components/window";
+import { Pane } from "@components/pane";
+
+import styles from "./_home.module.scss";
 ---
 
 <DefaultLayout title="RJB Tech">

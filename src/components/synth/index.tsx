@@ -22,7 +22,7 @@ import styles from "./synth.module.scss";
 import { EnvelopeParams } from "./params/envelope/envelope";
 import { SpaceParams } from "./params/space";
 import { FilterParams } from "./params/filter";
-import { AddOscillator } from "./params/addOscillator";
+import { SecondOscillator } from "./params/secondOscillator";
 import { synthParamsStore } from "src/stores/synth";
 
 /*
@@ -305,12 +305,7 @@ export const SynthPane = () => {
         </div>
         <div className={styles.osc2}>
           OSC2
-          <AddOscillator
-            toggled={params.secondOscOn}
-            onClick={() => {
-              synthParamsStore.setKey("secondOscOn", !params.secondOscOn);
-            }}
-          />
+          <SecondOscillator />
         </div>
       </div>
       <div className={styles.bottom}>

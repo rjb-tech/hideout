@@ -1,10 +1,14 @@
 module.exports = {
-  extends: ["plugin:astro/recommended"],
-  plugins: ["jsx-a11y", "react-hooks"],
+  extends: [
+    "plugin:astro/recommended",
+    "plugin:@typescript-eslint/recommended",
+  ],
+  plugins: ["jsx-a11y", "react-hooks", "@typescript-eslint"],
   rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
   },
+  parser: "@typescript-eslint/parser",
   overrides: [
     {
       // Define the configuration for `.astro` file.

@@ -88,14 +88,6 @@ export const SynthPane = () => {
     }
   };
 
-  const handleEnvelopeChange =
-    (parameter: EnvelopeParameter) => (event: any) => {
-      synthParamsStore.setKey("envelope", {
-        ...params.envelope,
-        [parameter]: parseInt(event.target.value, 10),
-      });
-    };
-
   const handleChromaticKeyDown = (frequency: number, time: number) => {
     gainNodeRef.current!.gain.cancelScheduledValues(time);
     filterRef.current!.frequency.cancelScheduledValues(time);
@@ -309,10 +301,7 @@ export const SynthPane = () => {
         </div>
       </div>
       <div className={styles.bottom}>
-        <EnvelopeParams
-          onEnvelopeChange={handleEnvelopeChange}
-          envelope={params.envelope}
-        />
+        <EnvelopeParams />
         <SpaceParams
           currentDelay={params.delay.time}
           onDelayChange={onDelayChange}

@@ -6,3 +6,14 @@
   stroke: vars.$white;
   cursor: pointer;
 }
+
+.waveforms {
+  display: flex;
+  gap: 1rem;
+}
+
+.wavePane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -24,6 +24,7 @@ import { SpaceParams } from "./params/space";
 import { FilterParams } from "./params/filter";
 import { SecondOscillator } from "./params/secondOscillator";
 import { synthParamsStore } from "src/stores/synth";
+import { WaveformParams } from "./params/waveform";
 
 /*
   To add:
@@ -276,13 +277,7 @@ export const SynthPane = () => {
         <FilterParams />
         <div className={styles.waveformSelector}>
           OSC1
-          <div className={styles.waveforms}>
-            {waveforms.map((current, i) => (
-              <span key={i} className={classNames(styles.wavePane)}>
-                <Waveform type={current} />
-              </span>
-            ))}
-          </div>
+          <WaveformParams />
         </div>
         <div className={styles.osc2}>
           OSC2

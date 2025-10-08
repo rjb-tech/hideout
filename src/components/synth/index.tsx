@@ -168,17 +168,6 @@ export const SynthPane = () => {
     return impulse;
   };
 
-  const onDelayChange = (time: number | null) => {
-    synthParamsStore.setKey("delay", { ...params.delay, time });
-  };
-
-  const onReverbChange = (decay: number | null) => {
-    synthParamsStore.setKey("reverb", {
-      ...params.reverb,
-      decay,
-    });
-  };
-
   useEffect(() => {
     audioRef.current = new window.AudioContext();
     gainNodeRef.current = audioRef.current.createGain();
@@ -302,12 +291,7 @@ export const SynthPane = () => {
       </div>
       <div className={styles.bottom}>
         <EnvelopeParams />
-        <SpaceParams
-          currentDelay={params.delay.time}
-          onDelayChange={onDelayChange}
-          currentReverb={params.reverb.decay}
-          onReverbChange={onReverbChange}
-        />
+        <SpaceParams />
       </div>
     </div>
   );

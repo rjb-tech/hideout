@@ -1,21 +1,24 @@
+import { useStore } from "@nanostores/react";
+
+import styles from "./space.module.scss";
+import { synthParamsStore } from "src/stores/synth";
 import { delayTimeOptions, reverbDecayOptions } from "../../constants";
 import { Selector } from "./selector";
 
-import styles from "./space.module.scss";
+export const SpaceParams = () => {
+  const { delay, reverb } = useStore(synthParamsStore);
 
-interface ISpaceParams {
-  currentDelay: number | null;
-  onDelayChange: (time: number | null) => void;
-  currentReverb: number | null;
-  onReverbChange: (decay: number | null) => void;
-}
+  const onDelayChange = (time: number | null) => {
+    synthParamsStore.setKey("delay", { ...delay, time });
+  };
 
-export const SpaceParams = ({
-  currentDelay,
-  onDelayChange,
-  currentReverb,
-  onReverbChange,
-}: ISpaceParams) => {
+  const onReverbChange = (decay: number | null) => {
+    synthParamsStore.setKey("reverb", {
+      ...reverb,
+      decay,
+    });
+  };
+
   return (
     <div className={styles.container}>
       SPACE
@@ -25,7 +28,7 @@ export const SpaceParams = ({
           scale={1000}
           onChange={onDelayChange}
           options={delayTimeOptions}
-          selected={currentDelay}
+          selected={delay.time}
         />
       </div>
       <div className={styles.selectorContainer}>
@@ -34,7 +37,7 @@ export const SpaceParams = ({
           scale={1}
           onChange={onReverbChange}
           options={reverbDecayOptions}
-          selected={currentReverb}
+          selected={reverb.decay}
         />
       </div>
     </div>

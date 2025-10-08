@@ -1,11 +1,16 @@
+import { useStore } from "@nanostores/react";
 import styles from "./filter.module.scss";
+import { synthParamsStore } from "src/stores/synth";
 
-interface IEnvelopeLinkIcon {
-  selected: boolean;
-  onClick: (...args: any[]) => void;
-}
+export const EnvelopeLinkIcon = () => {
+  const { filter } = useStore(synthParamsStore);
 
-export const EnvelopeLinkIcon = ({ selected, onClick }: IEnvelopeLinkIcon) => {
+  const onLinkEnvelope = () =>
+    synthParamsStore.setKey("filter", {
+      ...filter,
+      envelopeLink: !filter.envelopeLink,
+    });
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,9 +19,9 @@ export const EnvelopeLinkIcon = ({ selected, onClick }: IEnvelopeLinkIcon) => {
       strokeWidth="5"
       stroke="currentColor"
       className={styles.envelopeLink}
-      onClick={onClick}
+      onClick={onLinkEnvelope}
     >
-      {selected && (
+      {filter.envelopeLink && (
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="8" result="blur" />
@@ -39,7 +44,7 @@ export const EnvelopeLinkIcon = ({ selected, onClick }: IEnvelopeLinkIcon) => {
         l -18.75 18.75 
         a 18.75 18.75 0 0 0 5.17 30.18
       "
-        filter={selected ? "url(#glow)" : ""}
+        filter={filter.envelopeLink ? "url(#glow)" : ""}
       />
     </svg>
   );

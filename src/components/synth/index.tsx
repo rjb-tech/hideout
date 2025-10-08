@@ -292,23 +292,7 @@ export const SynthPane = () => {
     <div className={styles.synthContainer}>
       <strong>RJB-20</strong>
       <div className={styles.top}>
-        <FilterParams
-          filterLinked={params.filter.envelopeLink}
-          octave={params.octave}
-          filter={params.filter}
-          onFilterChange={(frequency: number) => {
-            synthParamsStore.setKey("filter", { ...params.filter, frequency });
-          }}
-          onResChange={(q: number) => {
-            synthParamsStore.setKey("filter", { ...params.filter, q });
-          }}
-          onLinkClick={() =>
-            synthParamsStore.setKey("filter", {
-              ...params.filter,
-              envelopeLink: !params.filter.envelopeLink,
-            })
-          }
-        />
+        <FilterParams />
         <div className={styles.waveformSelector}>
           OSC1
           <div className={styles.waveforms}>

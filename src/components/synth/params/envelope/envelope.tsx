@@ -4,12 +4,14 @@ import { Slider } from "@components/slider/slider";
 import styles from "./envelope.module.scss";
 import { useStore } from "@nanostores/react";
 import { synthParamsStore } from "src/stores/synth";
+import type { ChangeEvent } from "react";
 
 export const EnvelopeParams = () => {
   const { envelope } = useStore(synthParamsStore);
 
   const handleEnvelopeChange =
-    (parameter: EnvelopeParameter) => (event: any) => {
+    (parameter: EnvelopeParameter) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
       synthParamsStore.setKey("envelope", {
         ...envelope,
         [parameter]: parseInt(event.target.value, 10),

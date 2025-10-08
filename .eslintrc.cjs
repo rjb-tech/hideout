@@ -7,6 +7,7 @@ module.exports = {
   rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/triple-slash-reference": "off",
   },
   parser: "@typescript-eslint/parser",
   overrides: [
@@ -21,7 +22,6 @@ module.exports = {
         parser: "@typescript-eslint/parser",
         extraFileExtensions: [".astro"],
       },
-      rules: {},
     },
     // ...
   ],

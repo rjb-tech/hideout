@@ -2,7 +2,6 @@ import classNames from "classnames";
 
 import styles from "./space.module.scss";
 import sharedStyles from "@styles/sharedStyles.module.scss";
-import { useEffect } from "react";
 
 interface ISelector {
   onChange: (time: number | null) => void;

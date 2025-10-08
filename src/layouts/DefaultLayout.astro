@@ -28,7 +28,7 @@ const isProd = import.meta.env.PROD;
     ></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // @ts-ignore
+        // @ts-expect-error - VANTA types not available
         VANTA.NET({
           el: "#vanta-bg",
           mouseControls: true,

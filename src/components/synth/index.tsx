@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useStore } from "@nanostores/react";
-import classNames from "classnames";
 
 import {
   actionKeys,
@@ -9,14 +8,8 @@ import {
   waveforms,
   octaveOptions,
 } from "./constants";
-import { Waveform } from "./params/waveform/waveform";
 
-import {
-  type ActionDirection,
-  type ActionKey,
-  type EnvelopeParameter,
-  type SynthSettings,
-} from "@hideoutTypes/synth";
+import { type ActionDirection, type ActionKey } from "@hideoutTypes/synth";
 
 import styles from "./synth.module.scss";
 import { EnvelopeParams } from "./params/envelope/envelope";
@@ -39,10 +32,6 @@ import { WaveformParams } from "./params/waveform";
 const LOCAL_STORAGE_KEY = "synth_settings";
 
 export const SynthPane = () => {
-  const settings = JSON.parse(
-    window.sessionStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}",
-  ) as SynthSettings;
-
   // hook up a useEffect to pull synth settings if they exist
   const params = useStore(synthParamsStore);
 
@@ -259,6 +248,7 @@ export const SynthPane = () => {
         audioRef.current?.close();
       } catch {}
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     params.delay,
     params.envelope,

@@ -5,6 +5,7 @@ import styles from "./filter.module.scss";
 import { chromaticKeys } from "../../constants";
 import { EnvelopeLinkIcon } from "./envelopeLink";
 import { synthParamsStore } from "src/stores/synth";
+import type { ChangeEvent } from "react";
 
 export const FilterParams = () => {
   const { filter, octave } = useStore(synthParamsStore);
@@ -18,12 +19,6 @@ export const FilterParams = () => {
     synthParamsStore.setKey("filter", { ...filter, q });
   };
 
-  const onLinkEnvelope = () =>
-    synthParamsStore.setKey("filter", {
-      ...filter,
-      envelopeLink: !filter.envelopeLink,
-    });
-
   return (
     <div className={styles.filterContainer}>
       FILTER
@@ -34,14 +29,18 @@ export const FilterParams = () => {
             min={minFreq}
             max={20000}
             value={filter.frequency}
-            onChange={(e: any) => onFilterChange(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              onFilterChange(parseInt(e.target.value, 10))
+            }
             sideText="Frequency"
           />
           <Slider
             min={0}
             max={30}
             value={filter.q}
-            onChange={(e: any) => onResonanceChange(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              onResonanceChange(parseInt(e.target.value, 10))
+            }
             sideText="Resonance"
           />
         </div>

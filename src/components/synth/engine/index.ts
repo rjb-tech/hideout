@@ -12,9 +12,11 @@ class SynthEngine {
   private audio = new AudioContext();
 
   // gain nodes
-  private gain = this.audio.createGain();
-  private gain2 = this.audio.createGain();
+  private oscillatorGain = this.audio.createGain();
+  private oscillator2Gain = this.audio.createGain();
+  private delayGain = this.audio.createGain();
   private reverbGain = this.audio.createGain();
+  private mainGain = this.audio.createGain();
 
   // oscillators
   private oscillator = this.audio.createOscillator();
@@ -55,13 +57,27 @@ class SynthEngine {
   }
 
   public init() {
-    this.oscillator.connect(this.filter);
-    this.oscillator2.connect(this.gain2);
-    this.filter.connect(this.gain);
-    this.gain.connect(this.audio.destination);
+    this.oscillator.connect(this.oscillatorGain);
+    this.oscillator2.connect(this.oscillator2Gain);
+    this.oscillatorGain.connect(this.filter);
+    this.oscillator2Gain.connect(this.filter);
 
-    this.gain.gain.value = GAIN_MAX;
-    this.gain2.gain.value = GAIN_MAX - 0.1;
+    this.filter.connect(this.mainGain);
+
+    this.mainGain.connect(this.delay);
+    this.mainGain.connect(this.reverb);
+
+    this.reverb.connect(this.reverbGain);
+    this.delay.connect(this.delayGain);
+
+    this.mainGain.connect(this.audio.destination);
+    this.delayGain.connect(this.audio.destination);
+    this.reverbGain.connect(this.audio.destination);
+
+    this.oscillatorGain.gain.value = GAIN_MAX;
+    this.oscillator2Gain.gain.value = GAIN_MAX;
+    this.delayGain.gain.value = GAIN_MAX; // need a mix value
+    this.reverbGain.gain.value = this.params.reverb.mix;
   }
 
   public cleanup() {
@@ -76,9 +92,9 @@ class SynthEngine {
       this.oscillator2.start();
     } catch {}
 
-    this.gain.gain.cancelScheduledValues(this.audio.currentTime);
+    this.mainGain.gain.cancelScheduledValues(this.audio.currentTime);
     this.filter.frequency.cancelScheduledValues(this.audio.currentTime);
-    this.gain.gain.setValueAtTime(0, this.audio.currentTime);
+    this.mainGain.gain.setValueAtTime(0, this.audio.currentTime);
 
     this.oscillator.frequency.setValueAtTime(
       frequency * this.params.octave,
@@ -93,7 +109,7 @@ class SynthEngine {
       this.audio.currentTime + this.params.envelope.attack / 100;
     const decayTime = attackTime + this.params.envelope.decay / 100;
 
-    this.gain.gain.linearRampToValueAtTime(this.params.gain, attackTime);
+    this.mainGain.gain.linearRampToValueAtTime(this.params.gain, attackTime);
     if (this.params.filter.envelopeLink) {
       const maxFilterFrequency =
         parseFloat(`${this.params.filter.frequency}`) +
@@ -106,7 +122,7 @@ class SynthEngine {
       );
     }
     // apply decay into sustain
-    this.gain.gain.linearRampToValueAtTime(
+    this.mainGain.gain.linearRampToValueAtTime(
       this.params.gain * (this.params.envelope.sustain / 100),
       decayTime,
     );
@@ -119,10 +135,10 @@ class SynthEngine {
   }
 
   public stopOscillator(): void {
-    this.gain.gain.cancelScheduledValues(this.audio.currentTime);
+    this.mainGain.gain.cancelScheduledValues(this.audio.currentTime);
     this.filter.frequency.cancelScheduledValues(this.audio.currentTime);
 
-    this.gain.gain.linearRampToValueAtTime(
+    this.mainGain.gain.linearRampToValueAtTime(
       0,
       this.audio.currentTime + this.params.envelope.release / 100,
     );
@@ -148,25 +164,20 @@ class SynthEngine {
 
   private updateDelay(update: SynthDelay) {
     if (!!update.time) {
+      this.delayGain.gain.value = GAIN_MAX;
       this.delay.delayTime.value = update.time / 1000;
-
-      this.gain.connect(this.delay);
-      this.delay.connect(this.audio.destination);
     } else {
-      // turn off here
+      this.delayGain.gain.value = 0;
     }
   }
 
   private updateReverb(update: SynthReverb) {
+    console.log(update);
     if (update.decay !== null) {
-      this.reverbGain.gain.value = update.mix;
+      this.reverbGain.gain.value = GAIN_MAX;
       this.reverb.buffer = this.createImpulseResponse(update.decay);
-
-      this.gain.connect(this.reverb);
-      this.reverb.connect(this.reverbGain);
-      this.reverbGain.connect(this.audio.destination);
     } else {
-      // turn off here
+      this.reverbGain.gain.value = 0;
     }
   }
 
@@ -176,10 +187,14 @@ class SynthEngine {
   }
 
   private toggleSecondOscillator() {
-    this.gain2.connect(this.filter);
+    if (this.params.secondOscOn) {
+      this.oscillator2Gain.gain.value = GAIN_MAX - 0.2;
+    } else {
+      this.oscillator2Gain.gain.value = 0;
+    }
   }
 
-  private createImpulseResponse(decayTimeMs: number) {
+  private createImpulseResponse(decayTimeInSeconds: number) {
     const sampleRate = this.audio.sampleRate;
     const length = 2 * sampleRate; // 2 seconds
     const impulse = this.audio.createBuffer(2, length, sampleRate);
@@ -187,7 +202,7 @@ class SynthEngine {
     for (let channel = 0; channel < 2; channel++) {
       const channelData = impulse.getChannelData(channel);
       for (let i = 0; i < length; i++) {
-        const decay = Math.exp(-i / (sampleRate * decayTimeMs));
+        const decay = Math.exp(-i / (sampleRate * decayTimeInSeconds));
         channelData[i] = (Math.random() * 2 - 1) * decay;
       }
     }

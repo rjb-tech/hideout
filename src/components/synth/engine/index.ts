@@ -34,7 +34,7 @@ class SynthEngine {
 
   /* ----- Methods ----- */
   public constructor() {
-    synthParamsStore.subscribe((value, oldValue, key) => {
+    synthParamsStore.subscribe((value, _, key) => {
       this.params = value;
       switch (key) {
         case "reverb":

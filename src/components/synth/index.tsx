@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
 
 import { SynthParams } from "./params";
-import { SynthOscillator } from "./oscillator";
+import { SynthProcessor } from "./processor";
 import { SYNTH_LOCAL_STORAGE_KEY, synthParamsStore } from "@stores/synth";
 
 import styles from "./synth.module.scss";
@@ -31,7 +31,7 @@ export const SynthPane = () => {
     <div className={styles.container}>
       <strong>RJB-20</strong>
       <SynthParams />
-      <SynthOscillator />
+      <SynthProcessor />
     </div>
   );
 };

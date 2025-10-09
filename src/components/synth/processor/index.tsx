@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useStore } from "@nanostores/react";
-import { synthParamsStore } from "@stores/synth";
 
 import {
   actionKeys,
@@ -8,10 +7,11 @@ import {
   octaveOptions,
   waveforms,
 } from "@constants/synth";
+import { synthParamsStore } from "@stores/synth";
 import type { ActionDirection, ActionKey } from "@hideoutTypes/synth";
 import { synthEngine } from "../engine";
 
-export const SynthOscillator = () => {
+export const SynthProcessor = () => {
   const params = useStore(synthParamsStore);
 
   const pressedKey = useRef<string | null>(null);

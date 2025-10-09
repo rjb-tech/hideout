@@ -2,7 +2,7 @@ import { useStore } from "@nanostores/react";
 
 import { Slider } from "@components/slider/slider";
 import styles from "./filter.module.scss";
-import { chromaticKeys } from "../../constants";
+import { chromaticKeys } from "@constants/synth";
 import { EnvelopeLinkIcon } from "./envelopeLink";
 import { synthParamsStore } from "src/stores/synth";
 import type { ChangeEvent } from "react";

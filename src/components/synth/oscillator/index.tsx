@@ -8,7 +8,7 @@ import {
   GAIN_MAX,
   octaveOptions,
   waveforms,
-} from "../constants";
+} from "@constants/synth";
 import type { ActionDirection, ActionKey } from "@hideoutTypes/synth";
 
 export const SynthOscillator = () => {

@@ -1,6 +1,6 @@
 import { map, type PreinitializedMapStore } from "nanostores";
 
-import { GAIN_MAX } from "@components/synth/constants";
+import { GAIN_MAX } from "@constants/synth";
 import type { SynthSettings } from "@hideoutTypes/synth";
 
 export const SYNTH_LOCAL_STORAGE_KEY = "synth_settings";

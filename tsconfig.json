@@ -11,6 +11,7 @@
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
       "@stores/*": ["src/stores/*"],
+      "@constants/*": ["src/constants/*"],
     },
   },
   "include": ["./src/**/*"],

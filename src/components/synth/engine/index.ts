@@ -74,6 +74,7 @@ class SynthEngine {
     this.delayGain.connect(this.audio.destination);
     this.reverbGain.connect(this.audio.destination);
 
+    this.oscillator.type = this.params.waveform;
     this.oscillatorGain.gain.value = GAIN_MAX;
     this.oscillator2Gain.gain.value = GAIN_MAX;
     this.delayGain.gain.value = GAIN_MAX; // need a mix value

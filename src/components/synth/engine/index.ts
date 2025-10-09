@@ -95,7 +95,6 @@ class SynthEngine {
 
     this.gain.gain.linearRampToValueAtTime(this.params.gain, attackTime);
     if (this.params.filter.envelopeLink) {
-      // js is dumb, had to parse these as floats
       const maxFilterFrequency =
         parseFloat(`${this.params.filter.frequency}`) +
         parseFloat(`${this.params.filter.frequency}`) *

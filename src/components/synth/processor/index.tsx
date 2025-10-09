@@ -7,13 +7,12 @@ import {
   octaveOptions,
   waveforms,
 } from "@constants/synth";
-import { synthParamsStore } from "@stores/synth";
+import { SYNTH_LOCAL_STORAGE_KEY, synthParamsStore } from "@stores/synth";
 import type { ActionDirection, ActionKey } from "@hideoutTypes/synth";
 import { synthEngine } from "../engine";
 
 export const SynthProcessor = () => {
   const params = useStore(synthParamsStore);
-
   const pressedKey = useRef<string | null>(null);
 
   const handleActionKeys = (action: ActionKey) => {
@@ -53,13 +52,13 @@ export const SynthProcessor = () => {
       pressedKey.current = null;
     }
   };
+
   const keydownListener = (e: KeyboardEvent) => {
     const chromaticKey = chromaticKeys[e.code];
     const actionKey = actionKeys[e.code];
     if (chromaticKey) {
       if (pressedKey.current !== e.code) {
         pressedKey.current = e.code;
-        const freq = chromaticKey.baseFrequency * params.octave; // can I move this to the synth engine?
         synthEngine.playOscillator(chromaticKey.baseFrequency);
       }
     } else if (actionKey) {
@@ -75,11 +74,20 @@ export const SynthProcessor = () => {
     window.addEventListener("keydown", keydownListener);
 
     return () => {
+      synthEngine.cleanup();
+
       window.removeEventListener("keyup", keyupListener);
       window.removeEventListener("keydown", keydownListener);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    window.sessionStorage.setItem(
+      SYNTH_LOCAL_STORAGE_KEY,
+      JSON.stringify(params),
+    );
+  }, [params]);
 
   return <></>;
 };

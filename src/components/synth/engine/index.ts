@@ -53,7 +53,7 @@ class SynthEngine {
           this.updateOscillatorWaveform(value.waveform);
           break;
         case "secondOscOn":
-          this.toggleSecondOscillator();
+          this.updateSecondOscillator(value.secondOscOn);
           break;
       }
     });
@@ -196,8 +196,8 @@ class SynthEngine {
     this.oscillator.type = update as OscillatorType;
   }
 
-  private toggleSecondOscillator() {
-    if (this.params.secondOscOn) {
+  private updateSecondOscillator(active: boolean) {
+    if (active) {
       this.oscillator2Gain.gain.value = GAIN_MAX - 0.2;
     } else {
       this.oscillator2Gain.gain.value = 0;

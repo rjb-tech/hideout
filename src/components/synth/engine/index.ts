@@ -7,6 +7,9 @@ import type {
 } from "@hideoutTypes/synth";
 import { synthParamsStore } from "@stores/synth";
 
+// todo
+// add feedback for delay
+
 class SynthEngine {
   /* ----- Class Members ----- */
   private audio = new AudioContext();
@@ -93,25 +96,27 @@ class SynthEngine {
       this.oscillator2.start();
     } catch {}
 
-    this.mainGain.gain.cancelScheduledValues(this.audio.currentTime);
-    this.filter.frequency.cancelScheduledValues(this.audio.currentTime);
-    this.mainGain.gain.setValueAtTime(0, this.audio.currentTime);
+    const now = this.audio.currentTime;
+    this.mainGain.gain.cancelScheduledValues(now);
+    this.filter.frequency.cancelScheduledValues(now);
+    this.mainGain.gain.setValueAtTime(this.mainGain.gain.value, now);
+    this.mainGain.gain.linearRampToValueAtTime(0, now + 0.005);
 
     this.oscillator.frequency.setValueAtTime(
       frequency * this.params.octave,
-      this.audio.currentTime,
+      now,
     );
     this.oscillator2.frequency.setValueAtTime(
       frequency * this.params.octave,
-      this.audio.currentTime,
+      now,
     ); // detune setting??
 
-    const attackTime =
-      this.audio.currentTime + this.params.envelope.attack / 100;
+    const attackTime = now + 0.005 + this.params.envelope.attack / 100;
     const decayTime = attackTime + this.params.envelope.decay / 100;
 
     this.mainGain.gain.linearRampToValueAtTime(this.params.gain, attackTime);
     if (this.params.filter.envelopeLink) {
+      this.filter.frequency.setValueAtTime(this.filter.frequency.value, now);
       const maxFilterFrequency =
         parseFloat(`${this.params.filter.frequency}`) +
         parseFloat(`${this.params.filter.frequency}`) *
@@ -136,15 +141,20 @@ class SynthEngine {
   }
 
   public stopOscillator(): void {
-    this.mainGain.gain.cancelScheduledValues(this.audio.currentTime);
-    this.filter.frequency.cancelScheduledValues(this.audio.currentTime);
+    const now = this.audio.currentTime;
+
+    this.mainGain.gain.cancelScheduledValues(now);
+    this.filter.frequency.cancelScheduledValues(now);
+
+    this.mainGain.gain.setValueAtTime(this.mainGain.gain.value, now);
 
     this.mainGain.gain.linearRampToValueAtTime(
       0,
-      this.audio.currentTime + this.params.envelope.release / 100,
+      now + this.params.envelope.release / 100,
     );
 
     if (this.params.filter.envelopeLink) {
+      this.filter.frequency.setValueAtTime(this.filter.frequency.value, now);
       const filterEndFreq =
         parseFloat(`${this.params.filter.frequency}`) -
         parseFloat(`${this.params.filter.frequency}`) *
@@ -152,7 +162,7 @@ class SynthEngine {
 
       this.filter.frequency.linearRampToValueAtTime(
         filterEndFreq,
-        this.audio.currentTime + this.params.envelope.release / 100,
+        now + this.params.envelope.release / 100,
       );
     }
   }
@@ -173,7 +183,6 @@ class SynthEngine {
   }
 
   private updateReverb(update: SynthReverb) {
-    console.log(update);
     if (update.decay !== null) {
       this.reverbGain.gain.value = GAIN_MAX;
       this.reverb.buffer = this.createImpulseResponse(update.decay);

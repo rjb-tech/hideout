@@ -60,6 +60,7 @@ class SynthEngine {
   }
 
   // there's a click when hitting sustain volume
+  // filter starts at a reduced frequency that what is indicated by the ui
 
   public init() {
     this.oscillator.connect(this.oscillatorGain);
@@ -83,6 +84,7 @@ class SynthEngine {
     this.delayGain.gain.value = GAIN_MAX; // need a mix value
     this.reverbGain.gain.value = GAIN_MAX;
 
+    this.updateFilter(this.params.filter);
     this.updateOscillatorWaveform(this.params.waveform);
     this.updateSecondOscillator(this.params.secondOscOn);
   }
@@ -110,7 +112,7 @@ class SynthEngine {
       now,
     );
     this.oscillator2.frequency.setValueAtTime(
-      frequency * this.params.octave,
+      frequency * this.params.octave - 1,
       now,
     ); // detune setting??
 

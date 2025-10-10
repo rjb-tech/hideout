@@ -8,12 +8,17 @@ import {
   waveforms,
 } from "@constants/synth";
 import { SYNTH_LOCAL_STORAGE_KEY, synthParamsStore } from "@stores/synth";
-import type { ActionDirection, ActionKey } from "@hideoutTypes/synth";
+import {
+  type SynthSettings,
+  type ActionDirection,
+  type ActionKey,
+} from "@hideoutTypes/synth";
 import { synthEngine } from "../engine";
 
 export const SynthProcessor = () => {
   const params = useStore(synthParamsStore);
   const pressedKey = useRef<string | null>(null);
+  const paramsRef = useRef<SynthSettings>(params);
 
   const handleActionKeys = (action: ActionKey) => {
     switch (action.scope) {
@@ -27,7 +32,7 @@ export const SynthProcessor = () => {
   };
 
   const handleWaveChangeAction = (direction: ActionDirection) => {
-    const currentIndex = waveforms.indexOf(params.waveform);
+    const currentIndex = waveforms.indexOf(paramsRef.current.waveform);
     const newIndex =
       direction === "incr"
         ? (currentIndex + 1) % waveforms.length
@@ -38,7 +43,9 @@ export const SynthProcessor = () => {
 
   const handleOctaveChangeAction = (direction: ActionDirection) => {
     const newOctave =
-      direction === "incr" ? params.octave + 1 : params.octave - 1;
+      direction === "incr"
+        ? paramsRef.current.octave + 1
+        : paramsRef.current.octave - 1;
 
     if (octaveOptions.includes(newOctave)) {
       synthParamsStore.setKey("octave", newOctave);
@@ -87,6 +94,8 @@ export const SynthProcessor = () => {
       SYNTH_LOCAL_STORAGE_KEY,
       JSON.stringify(params),
     );
+
+    paramsRef.current = params;
   }, [params]);
 
   return <></>;

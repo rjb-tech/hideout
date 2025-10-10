@@ -59,6 +59,8 @@ class SynthEngine {
     });
   }
 
+  // there's a click when hitting sustain volume
+
   public init() {
     this.oscillator.connect(this.oscillatorGain);
     this.oscillator2.connect(this.oscillator2Gain);
@@ -77,11 +79,12 @@ class SynthEngine {
     this.delayGain.connect(this.audio.destination);
     this.reverbGain.connect(this.audio.destination);
 
-    this.oscillator.type = this.params.waveform;
     this.oscillatorGain.gain.value = GAIN_MAX;
-    this.oscillator2Gain.gain.value = this.params.secondOscOn ? GAIN_MAX : 0;
     this.delayGain.gain.value = GAIN_MAX; // need a mix value
-    this.reverbGain.gain.value = this.params.reverb.mix;
+    this.reverbGain.gain.value = GAIN_MAX;
+
+    this.updateOscillatorWaveform(this.params.waveform);
+    this.updateSecondOscillator(this.params.secondOscOn);
   }
 
   public cleanup() {

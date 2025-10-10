@@ -2,7 +2,7 @@ import { useStore } from "@nanostores/react";
 
 import styles from "./space.module.scss";
 import { synthParamsStore } from "src/stores/synth";
-import { delayTimeOptions, reverbDecayOptions } from "../../constants";
+import { delayTimeOptions, reverbDecayOptions } from "@constants/synth";
 import { Selector } from "./selector";
 
 export const SpaceParams = () => {

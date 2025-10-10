@@ -64,7 +64,7 @@ StreamThing is a social streaming network that aims to bring the easy decision-m
 
 ---
 
-## Hideout
+## [Hideout](https://github.com/rjb-tech/hideout)
 
 Built in 2025
 

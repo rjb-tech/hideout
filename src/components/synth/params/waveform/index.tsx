@@ -1,8 +1,8 @@
 import classNames from "classnames";
 
-import { waveforms } from "../../constants";
 import styles from "./waveform.module.scss";
 import { Waveform } from "./waveform";
+import { waveforms } from "@constants/synth";
 
 export const WaveformParams = () => {
   return (

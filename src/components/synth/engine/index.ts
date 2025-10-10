@@ -79,7 +79,7 @@ class SynthEngine {
 
     this.oscillator.type = this.params.waveform;
     this.oscillatorGain.gain.value = GAIN_MAX;
-    this.oscillator2Gain.gain.value = GAIN_MAX;
+    this.oscillator2Gain.gain.value = this.params.secondOscOn ? GAIN_MAX : 0;
     this.delayGain.gain.value = GAIN_MAX; // need a mix value
     this.reverbGain.gain.value = this.params.reverb.mix;
   }

@@ -44,3 +44,12 @@ export interface SynthSettings {
   filter: SynthFilter;
   secondOscOn: boolean;
 }
+
+export interface SynthSequencerParams {
+  bpm: number;
+  notes: number[];
+  playing: boolean;
+  recording: boolean;
+  activeStep: number;
+  numSteps: number;
+}

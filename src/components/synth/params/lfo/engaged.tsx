@@ -1,6 +1,8 @@
 import { useStore } from "@nanostores/react";
 import { synthParamsStore } from "@stores/synth";
+
 import styles from "./lfo.module.scss";
+
 export default function LfoEngaged() {
   const { lfo } = useStore(synthParamsStore);
   return (
@@ -8,7 +10,7 @@ export default function LfoEngaged() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 100 100"
-      strokeWidth="4"
+      strokeWidth="5"
       stroke="currentColor"
       className={styles.engaged}
       onClick={() =>
@@ -17,7 +19,7 @@ export default function LfoEngaged() {
     >
       {lfo.engaged && (
         <defs>
-          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <filter id="glow">
             <feGaussianBlur stdDeviation="8" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>

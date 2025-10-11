@@ -5,6 +5,7 @@ import { SpaceParams } from "./space";
 import { WaveformParams } from "./waveform";
 
 import styles from "./params.module.scss";
+import { SynthSequencer } from "../sequencer";
 
 export const SynthParams = () => {
   return (
@@ -19,6 +20,9 @@ export const SynthParams = () => {
           OSC2
           <SecondOscillatorParams />
         </div>
+      </div>
+      <div className={styles.middle}>
+        <SynthSequencer />
       </div>
       <div className={styles.bottom}>
         <EnvelopeParams />

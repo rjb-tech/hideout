@@ -10,9 +10,11 @@ import { BPM_MAX } from "@constants/synth";
 import { synthEngine } from "../../engine";
 import SequencerPlayPause from "./playPauseIcon";
 import SequencerRecord from "./recordIcon";
+import SequencerReset from "./resetIcon";
 
 export const SynthSequencer = () => {
   const [keyPressed, setKeyPressed] = useState(false);
+  const [resetSelected, setResetSelected] = useState(false);
 
   const params = useStore(synthParamsStore);
   const paramsRef = useRef<SynthSettings>(params);
@@ -107,14 +109,19 @@ export const SynthSequencer = () => {
       </div>
       <div className={styles.controlPanel}>
         <div className={styles.buttonPanel}>
-          {/* <div
-            className={`${styles.button} ${params.sequencer.recording && sharedStyles.selected}`}
-            onClick={() => setRecording(!params.sequencer.recording)}
+          <div className={styles.icon}>
+            <SequencerRecord />
+          </div>
+          <div className={styles.icon}>
+            <SequencerPlayPause />
+          </div>
+          <div
+            className={styles.icon}
+            onMouseDown={() => setResetSelected(true)}
+            onMouseUp={() => setResetSelected(false)}
           >
-            <PlusCircleIcon fontSize={1} />
-          </div> */}
-          <SequencerRecord />
-          <SequencerPlayPause />
+            <SequencerReset selected={resetSelected} />
+          </div>
         </div>
         <div className={styles.bpm}>
           <label className={styles.bpmLabel} htmlFor="bpm">

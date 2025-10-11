@@ -5,7 +5,7 @@ import styles from "./waveform.module.scss";
 import { useStore } from "@nanostores/react";
 import { synthParamsStore } from "src/stores/synth";
 
-interface IWaveform {
+interface IWaveformIcon {
   type: HideoutWaveforms;
 }
 
@@ -19,7 +19,7 @@ const pathMap: Record<HideoutWaveforms, string> = {
   square: `M 10 80 L 10 20 L 50 20 L 50 80 L 90 80 L 90 20`,
 };
 
-export const Waveform = ({ type }: IWaveform): ReactNode => {
+export const WaveformIcon = ({ type }: IWaveformIcon): ReactNode => {
   const { waveform } = useStore(synthParamsStore);
   const selected = waveform === type;
 

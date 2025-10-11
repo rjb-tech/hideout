@@ -1,26 +1,18 @@
 import { EnvelopeParams } from "./envelope/envelope";
 import { FilterParams } from "./filter";
-import { SecondOscillatorParams } from "./secondOscillator";
 import { SpaceParams } from "./space";
-import { WaveformParams } from "./waveform";
 
 import styles from "./params.module.scss";
 import { SynthSequencer } from "./sequencer";
 import { SynthLfo } from "./lfo";
+import { SynthOscillatorParams } from "./oscillators";
 
 export const SynthParams = () => {
   return (
     <>
       <div className={styles.top}>
         <SynthSequencer />
-        <div className={styles.waveformSelector}>
-          OSC1
-          <WaveformParams />
-        </div>
-        <div className={styles.osc2}>
-          OSC2
-          <SecondOscillatorParams />
-        </div>
+        <SynthOscillatorParams />
       </div>
       <div className={styles.middle}>
         <EnvelopeParams />

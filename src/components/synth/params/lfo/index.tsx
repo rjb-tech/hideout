@@ -3,7 +3,7 @@ import { useStore } from "@nanostores/react";
 import { synthParamsStore } from "@stores/synth";
 import { BPM_MAX } from "@constants/synth";
 
-import styles from "./LFO.module.scss";
+import styles from "./lfo.module.scss";
 import LfoEngaged from "./engaged";
 
 export const SynthLfo = () => {
@@ -11,7 +11,7 @@ export const SynthLfo = () => {
 
   return (
     <div className={styles.container}>
-      LFO
+      LFO (not available yet)
       <div className={styles.controls}>
         <LfoEngaged />
         <div className={styles.sliders}>
@@ -20,6 +20,7 @@ export const SynthLfo = () => {
             min={1}
             max={100}
             sideText="Depth"
+            disabled
             onChange={(e) =>
               synthParamsStore.setKey("lfo", {
                 ...lfo,
@@ -32,7 +33,7 @@ export const SynthLfo = () => {
             min={1}
             max={BPM_MAX}
             sideText="Speed"
-            disabled={lfo.bpmLink}
+            disabled={true && lfo.bpmLink}
             onChange={(e) =>
               synthParamsStore.setKey("lfo", {
                 ...lfo,

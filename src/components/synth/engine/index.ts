@@ -91,6 +91,8 @@ class SynthEngine {
     this.updateOscillatorWaveform(this.params.waveform);
     this.updateSecondOscillator(this.params.secondOscOn);
     this.updateClick(this.params.metronomeOn);
+    this.updateDelay(this.params.delay);
+    this.updateReverb(this.params.reverb);
   }
 
   public cleanup() {
@@ -116,14 +118,8 @@ class SynthEngine {
     this.mainGain.gain.setValueAtTime(this.mainGain.gain.value, now);
     this.mainGain.gain.linearRampToValueAtTime(0, now + 0.005);
 
-    this.oscillator.frequency.setValueAtTime(
-      frequency * this.params.octave,
-      now,
-    );
-    this.oscillator2.frequency.setValueAtTime(
-      frequency * this.params.octave - 1,
-      now,
-    ); // detune setting??
+    this.oscillator.frequency.setValueAtTime(frequency, now);
+    this.oscillator2.frequency.setValueAtTime(frequency - 1, now); // detune setting??
 
     const attackTime = now + 0.005 + this.params.envelope.attack / 100;
     const decayTime = attackTime + this.params.envelope.decay / 100;
@@ -181,6 +177,22 @@ class SynthEngine {
         now + this.params.envelope.release / 100,
       );
     }
+  }
+
+  public recordNoteToSequencer(freq: number): void {
+    const { activeStep, numSteps } = this.params.sequencer;
+    this.params.sequencer.notes[activeStep] = freq;
+
+    synthParamsStore.setKey("sequencer", {
+      ...this.params.sequencer,
+      activeStep: (activeStep + 1) % numSteps,
+    });
+  }
+
+  public playSequencerActiveStep(): void {
+    const { notes, activeStep } = this.params.sequencer;
+    const freq = notes[activeStep];
+    if (!!freq && freq !== 0) this.playOscillator(freq);
   }
 
   public updateClick(update: boolean): void {

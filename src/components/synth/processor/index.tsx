@@ -61,12 +61,21 @@ export const SynthProcessor = () => {
   };
 
   const keydownListener = (e: KeyboardEvent) => {
+    if (paramsRef.current.sequencer.playing) return;
+
     const chromaticKey = chromaticKeys[e.code];
     const actionKey = actionKeys[e.code];
     if (chromaticKey) {
       if (pressedKey.current !== e.code) {
         pressedKey.current = e.code;
-        synthEngine.playOscillator(chromaticKey.baseFrequency);
+        synthEngine.playOscillator(
+          chromaticKey.baseFrequency * paramsRef.current.octave,
+        );
+        if (paramsRef.current.sequencer.recording) {
+          synthEngine.recordNoteToSequencer(
+            chromaticKey.baseFrequency * paramsRef.current.octave,
+          );
+        }
       }
     } else if (actionKey) {
       e.preventDefault();

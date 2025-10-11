@@ -47,13 +47,14 @@ export const SynthSequencer = () => {
     let interval: number | undefined;
     if (paramsRef.current.sequencer.playing) {
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      synthEngine.playSequencerActiveStep();
       paramsRef.current.metronomeOn && synthEngine.playClick();
-      incrementActiveStep();
       interval = setInterval(
         () => {
+          incrementActiveStep();
+          synthEngine.playSequencerActiveStep();
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           paramsRef.current.metronomeOn && synthEngine.playClick();
-          incrementActiveStep();
         },
         1000 / (paramsRef.current.sequencer.bpm / 60),
       );

@@ -22,11 +22,11 @@ export const SynthParams = () => {
         </div>
       </div>
       <div className={styles.middle}>
-        <SynthSequencer />
-      </div>
-      <div className={styles.bottom}>
         <EnvelopeParams />
         <SpaceParams />
+      </div>
+      <div className={styles.bottom}>
+        <SynthSequencer />
       </div>
     </>
   );

@@ -140,6 +140,8 @@ class SynthEngine {
         maxFilterFrequency,
         attackTime,
       );
+    } else {
+      this.filter.frequency.setValueAtTime(this.params.filter.frequency, now);
     }
     // apply decay into sustain
     this.mainGain.gain.linearRampToValueAtTime(

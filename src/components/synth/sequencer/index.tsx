@@ -16,20 +16,24 @@ export const SynthSequencer = () => {
   const paramsRef = useRef<SynthSettings>(params);
 
   const setActiveStep = (activeStep: number) => {
-    synthParamsStore.setKey("sequencer", { ...params.sequencer, activeStep });
+    synthParamsStore.setKey("sequencer", {
+      ...paramsRef.current.sequencer,
+      activeStep,
+    });
   };
 
   const setRecording = (recording: boolean) => {
-    synthParamsStore.setKey("sequencer", { ...params.sequencer, recording });
+    console.log("setting recording as", recording);
+    synthParamsStore.setKey("sequencer", {
+      ...paramsRef.current.sequencer,
+      recording,
+    });
   };
 
   const incrementActiveStep = () => {
     // the ref is used here to avoid closure issues with the interval
     const { activeStep, numSteps } = paramsRef.current.sequencer;
-    synthParamsStore.setKey("sequencer", {
-      ...params.sequencer,
-      activeStep: (activeStep + 1) % numSteps,
-    });
+    setActiveStep((activeStep + 1) % numSteps);
   };
 
   useEffect(() => {
@@ -37,7 +41,6 @@ export const SynthSequencer = () => {
   }, [params]);
 
   useEffect(() => {
-    setRecording(false);
     let interval: number | undefined;
     if (paramsRef.current.sequencer.playing) {
       paramsRef.current.metronomeOn && synthEngine.playClick();
@@ -63,6 +66,9 @@ export const SynthSequencer = () => {
         synthParamsStore.setKey("sequencer", {
           ...paramsRef.current.sequencer,
           playing: !paramsRef.current.sequencer.playing,
+          recording: paramsRef.current.sequencer.recording
+            ? !paramsRef.current.sequencer.recording
+            : paramsRef.current.sequencer.recording,
         });
       }
     };

@@ -32,6 +32,7 @@ export const actionKeys: ActionKeys = {
 };
 
 export const GAIN_MAX = 0.4;
+export const BPM_MAX = 500;
 
 export const waveforms: HideoutWaveforms[] = [
   "sine",

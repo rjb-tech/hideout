@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 0.5rem;
   border: 1px solid vars.$white;
-  padding: 1rem;
+  padding: 1.3rem; // to match sequencer, would be at 1 otherwise
   border-radius: 8px;
   font-size: small;
 }
@@ -15,7 +15,7 @@
   flex-direction: column;
   font-size: small;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1.3rem; // to match sequencer, would be at 1 otherwise
   border: 1px solid vars.$white;
   border-radius: 8px;
 }

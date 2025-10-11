@@ -7,7 +7,7 @@ import sharedStyles from "@styles/sharedStyles.module.scss";
 import type { SynthSettings } from "@hideoutTypes/synth";
 import { synthParamsStore } from "@stores/synth";
 import { BPM_MAX } from "@constants/synth";
-import { synthEngine } from "../engine";
+import { synthEngine } from "../../engine";
 
 export const SynthSequencer = () => {
   const [keyPressed, setKeyPressed] = useState(false);

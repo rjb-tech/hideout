@@ -5,7 +5,7 @@ import { SpaceParams } from "./space";
 import { WaveformParams } from "./waveform";
 
 import styles from "./params.module.scss";
-import { SynthSequencer } from "../sequencer";
+import { SynthSequencer } from "./sequencer";
 
 export const SynthParams = () => {
   return (

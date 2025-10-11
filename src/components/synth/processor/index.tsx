@@ -61,11 +61,10 @@ export const SynthProcessor = () => {
   };
 
   const keydownListener = (e: KeyboardEvent) => {
-    if (paramsRef.current.sequencer.playing) return;
-
     const chromaticKey = chromaticKeys[e.code];
     const actionKey = actionKeys[e.code];
     if (chromaticKey) {
+      if (paramsRef.current.sequencer.playing) return;
       if (pressedKey.current !== e.code) {
         pressedKey.current = e.code;
         synthEngine.playOscillator(

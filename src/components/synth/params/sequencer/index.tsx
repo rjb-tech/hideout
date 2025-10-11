@@ -1,5 +1,5 @@
 import { PlayPauseIcon, PlusCircleIcon } from "@heroicons/react/16/solid";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useStore } from "@nanostores/react";
 
 import styles from "./sequencer.module.scss";
@@ -42,10 +42,12 @@ export const SynthSequencer = () => {
   useEffect(() => {
     let interval: number | undefined;
     if (paramsRef.current.sequencer.playing) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       paramsRef.current.metronomeOn && synthEngine.playClick();
       incrementActiveStep();
       interval = setInterval(
         () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           paramsRef.current.metronomeOn && synthEngine.playClick();
           incrementActiveStep();
         },
@@ -56,6 +58,7 @@ export const SynthSequencer = () => {
     }
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.sequencer.playing]);
 
   useEffect(() => {
@@ -85,6 +88,7 @@ export const SynthSequencer = () => {
       window.removeEventListener("keydown", keyDownListener);
       window.removeEventListener("keyup", keyUpListener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -128,11 +132,12 @@ export const SynthSequencer = () => {
             id="bpm"
             type="text"
             value={params.sequencer.bpm}
-            onChange={(e: any) => {
-              if ((e.target.value as number) <= BPM_MAX) {
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              const value = parseInt(e.target.value, 10);
+              if (value <= BPM_MAX) {
                 synthParamsStore.setKey("sequencer", {
                   ...params.sequencer,
-                  bpm: e.target.value,
+                  bpm: value,
                 });
               }
             }}

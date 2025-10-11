@@ -23,7 +23,6 @@ export const SynthSequencer = () => {
   };
 
   const setRecording = (recording: boolean) => {
-    console.log("setting recording as", recording);
     synthParamsStore.setKey("sequencer", {
       ...paramsRef.current.sequencer,
       recording,

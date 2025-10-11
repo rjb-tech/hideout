@@ -3,8 +3,8 @@ import { synthParamsStore } from "@stores/synth";
 
 import sharedStyles from "@styles/sharedStyles.module.scss";
 
-export default function LfoEngaged() {
-  const { lfo } = useStore(synthParamsStore);
+export default function SequencerPlayPause() {
+  const { sequencer } = useStore(synthParamsStore);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,13 +13,17 @@ export default function LfoEngaged() {
       strokeWidth="3"
       stroke="currentColor"
       className={
-        lfo.engaged ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+        sequencer.playing ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
       }
       onClick={() =>
-        synthParamsStore.setKey("lfo", { ...lfo, engaged: !lfo.engaged })
+        synthParamsStore.setKey("sequencer", {
+          ...sequencer,
+          playing: !sequencer.playing,
+          recording: false,
+        })
       }
     >
-      {lfo.engaged && (
+      {sequencer.playing && (
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="8" result="blur" />
@@ -33,10 +37,10 @@ export default function LfoEngaged() {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M 50 10 v 40 M 27.5 27.5 A 30 30 0 1 0 72.5 27.5"
-        filter={lfo.engaged ? "url(#glow)" : ""}
+        d="M 25 30 L 25 70 L 50 50 Z M 60 30 v 40 M 75 30 v 40"
+        filter={sequencer.playing ? "url(#glow)" : ""}
         className={
-          lfo.engaged ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+          sequencer.playing ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
         }
       />
     </svg>

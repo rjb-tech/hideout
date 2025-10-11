@@ -1,7 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { synthParamsStore } from "@stores/synth";
 
-import styles from "./secondOscillator.module.scss";
+import sharedStyles from "@styles/sharedStyles.module.scss";
 
 export const SecondOscillatorParams = () => {
   const { secondOscOn } = useStore(synthParamsStore);
@@ -9,7 +9,9 @@ export const SecondOscillatorParams = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
-      className={styles.addOscillator}
+      className={
+        secondOscOn ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+      }
       onClick={() => {
         synthParamsStore.setKey("secondOscOn", !secondOscOn);
       }}
@@ -18,7 +20,10 @@ export const SecondOscillatorParams = () => {
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="8" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
           </filter>
         </defs>
       )}
@@ -29,12 +34,16 @@ export const SecondOscillatorParams = () => {
         stroke="currentColor"
         strokeWidth={3}
         strokeLinecap="round"
-        className={styles.addOscillator}
+        className={
+          secondOscOn ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+        }
         filter={secondOscOn ? "url(#glow)" : ""}
       />
       {/* Plus symbol */}
       <path
-        className={styles.addOscillator}
+        className={
+          secondOscOn ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+        }
         d="M79.17 16.67 L79.17 33.33 M70.83 25 L87.5 25"
         stroke="currentColor"
         strokeWidth={3}

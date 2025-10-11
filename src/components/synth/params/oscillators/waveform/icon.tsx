@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import type { HideoutWaveforms } from "@hideoutTypes/synth";
 
-import styles from "./waveform.module.scss";
 import { useStore } from "@nanostores/react";
 import { synthParamsStore } from "src/stores/synth";
+
+import sharedStyles from "@styles/sharedStyles.module.scss";
 
 interface IWaveformIcon {
   type: HideoutWaveforms;
@@ -31,21 +32,26 @@ export const WaveformIcon = ({ type }: IWaveformIcon): ReactNode => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
-      className={styles.waveform}
+      className={selected ? sharedStyles.svgLightGreen : sharedStyles.svgWhite}
       onClick={onClick}
     >
       {selected && (
         <defs>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="5" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
           </filter>
         </defs>
       )}
       <path
         d={pathMap[type]}
         fill="none"
-        className={styles.waveform}
+        className={
+          selected ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+        }
         stroke="currentColor"
         strokeWidth="3"
         filter={selected ? "url(#glow)" : ""}

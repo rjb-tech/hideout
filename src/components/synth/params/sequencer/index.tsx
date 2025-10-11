@@ -8,6 +8,8 @@ import type { SynthSettings } from "@hideoutTypes/synth";
 import { synthParamsStore } from "@stores/synth";
 import { BPM_MAX } from "@constants/synth";
 import { synthEngine } from "../../engine";
+import SequencerPlayPause from "./playPauseIcon";
+import SequencerRecord from "./recordIcon";
 
 export const SynthSequencer = () => {
   const [keyPressed, setKeyPressed] = useState(false);
@@ -105,23 +107,14 @@ export const SynthSequencer = () => {
       </div>
       <div className={styles.controlPanel}>
         <div className={styles.buttonPanel}>
-          <div
+          {/* <div
             className={`${styles.button} ${params.sequencer.recording && sharedStyles.selected}`}
             onClick={() => setRecording(!params.sequencer.recording)}
           >
             <PlusCircleIcon fontSize={1} />
-          </div>
-          <div
-            className={`${styles.button} ${params.sequencer.playing && sharedStyles.selected}`}
-            onClick={() =>
-              synthParamsStore.setKey("sequencer", {
-                ...params.sequencer,
-                playing: !params.sequencer.playing,
-              })
-            }
-          >
-            <PlayPauseIcon fontSize={1} />
-          </div>
+          </div> */}
+          <SequencerRecord />
+          <SequencerPlayPause />
         </div>
         <div className={styles.bpm}>
           <label className={styles.bpmLabel} htmlFor="bpm">

@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
-import styles from "./filter.module.scss";
 import { synthParamsStore } from "src/stores/synth";
+
+import sharedStyles from "@styles/sharedStyles.module.scss";
 
 export const EnvelopeLinkIcon = () => {
   const { filter } = useStore(synthParamsStore);
@@ -16,16 +17,21 @@ export const EnvelopeLinkIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 100 100"
-      strokeWidth="5"
+      strokeWidth="3"
       stroke="currentColor"
-      className={styles.envelopeLink}
+      className={
+        filter.envelopeLink ? sharedStyles.svgLightGreen : sharedStyles.svgWhite
+      }
       onClick={onLinkEnvelope}
     >
       {filter.envelopeLink && (
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="8" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
           </filter>
         </defs>
       )}
@@ -45,6 +51,11 @@ export const EnvelopeLinkIcon = () => {
         a 18.75 18.75 0 0 0 5.17 30.18
       "
         filter={filter.envelopeLink ? "url(#glow)" : ""}
+        className={
+          filter.envelopeLink
+            ? sharedStyles.svgLightGreen
+            : sharedStyles.svgWhite
+        }
       />
     </svg>
   );

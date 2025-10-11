@@ -22,3 +22,24 @@
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.svgWhite {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  color: vars.$white;
+}
+
+.svgLightGreen {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  color: vars.$lightGreen;
+}
+
+.svgRed {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  color: red;
+}

@@ -1,82 +1,69 @@
-import {
-  ClockIcon,
-  PlayPauseIcon,
-  PlusCircleIcon,
-} from "@heroicons/react/16/solid";
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { PlayPauseIcon, PlusCircleIcon } from "@heroicons/react/16/solid";
+import { useEffect, useRef, useState } from "react";
+import { useStore } from "@nanostores/react";
 
 import styles from "./sequencer.module.scss";
 import sharedStyles from "@styles/sharedStyles.module.scss";
-import type { SynthSequencerParams } from "@hideoutTypes/synth";
-import { maxBpm } from "../constants";
+import type { SynthSettings } from "@hideoutTypes/synth";
+import { synthParamsStore } from "@stores/synth";
+import { BPM_MAX } from "@constants/synth";
+import { synthEngine } from "../engine";
 
-interface ISynthSequencer {
-  params: SynthSequencerParams;
-  numSteps: number;
-  handleParamChange: (newParams: SynthSequencerParams) => void;
-}
-
-export const SynthSequencer = ({
-  params,
-  numSteps,
-  handleParamChange,
-}: ISynthSequencer) => {
+export const SynthSequencer = () => {
   const [keyPressed, setKeyPressed] = useState(false);
-  const [metronomeOn, setMetronomeOn] = useState(false);
 
-  const metronomeOnRef = useRef<boolean>(metronomeOn);
-  const paramsRef = useRef<SynthSequencerParams>(params);
+  const params = useStore(synthParamsStore);
+  const paramsRef = useRef<SynthSettings>(params);
 
   const setActiveStep = (activeStep: number) => {
-    handleParamChange({ ...params, activeStep });
-  };
-
-  const setPlaying = (playing: boolean) => {
-    handleParamChange({ ...params, playing });
+    synthParamsStore.setKey("sequencer", { ...params.sequencer, activeStep });
   };
 
   const setRecording = (recording: boolean) => {
-    handleParamChange({ ...params, recording });
+    synthParamsStore.setKey("sequencer", { ...params.sequencer, recording });
   };
 
-  useEffect(() => {
-    metronomeOnRef.current = metronomeOn;
-  }, [metronomeOn]);
+  const incrementActiveStep = () => {
+    // the ref is used here to avoid closure issues with the interval
+    const { activeStep, numSteps } = paramsRef.current.sequencer;
+    synthParamsStore.setKey("sequencer", {
+      ...params.sequencer,
+      activeStep: (activeStep + 1) % numSteps,
+    });
+  };
 
   useEffect(() => {
     paramsRef.current = params;
   }, [params]);
 
   useEffect(() => {
-    var click = new Audio("/public/click.mp3");
-    let interval = undefined;
-    if (paramsRef.current.playing) {
-      click.currentTime = 0;
-      click.muted = !metronomeOnRef.current;
-      click.play();
+    setRecording(false);
+    let interval: number | undefined;
+    if (paramsRef.current.sequencer.playing) {
+      paramsRef.current.metronomeOn && synthEngine.playClick();
+      incrementActiveStep();
       interval = setInterval(
         () => {
-          click.currentTime = 0;
-          click.muted = !metronomeOnRef.current;
-          click.play();
-          setActiveStep(
-            paramsRef.current.activeStep + 1 > numSteps - 1
-              ? 0
-              : paramsRef.current.activeStep + 1,
-          );
+          paramsRef.current.metronomeOn && synthEngine.playClick();
+          incrementActiveStep();
         },
-        1000 / (params.bpm / 60),
+        1000 / (paramsRef.current.sequencer.bpm / 60),
       );
+    } else {
+      clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [params.playing]);
+  }, [params.sequencer.playing]);
 
   useEffect(() => {
     const keyDownListener = (e: KeyboardEvent) => {
       if (e.code === "Space" && !keyPressed) {
         setKeyPressed(true);
-        setPlaying(!paramsRef.current.playing);
+        synthParamsStore.setKey("sequencer", {
+          ...paramsRef.current.sequencer,
+          playing: !paramsRef.current.sequencer.playing,
+        });
       }
     };
 
@@ -94,29 +81,35 @@ export const SynthSequencer = ({
       window.removeEventListener("keyup", keyUpListener);
     };
   }, []);
+
   return (
     <div className={styles.container}>
       SEQUENCER
       <div className={styles.steps}>
-        {Array.from({ length: numSteps }).map((_, idx) => (
+        {Array.from({ length: params.sequencer.numSteps }).map((_, idx) => (
           <span
             key={idx}
             onClick={() => setActiveStep(idx)}
-            className={`${styles.step} ${idx === params.activeStep && styles.active}`}
+            className={`${styles.step} ${idx === params.sequencer.activeStep && styles.active}`}
           />
         ))}
       </div>
       <div className={styles.controlPanel}>
         <div className={styles.buttonPanel}>
           <div
-            className={`${styles.button} ${params.recording && sharedStyles.selected}`}
-            onClick={() => setRecording(!params.recording)}
+            className={`${styles.button} ${params.sequencer.recording && sharedStyles.selected}`}
+            onClick={() => setRecording(!params.sequencer.recording)}
           >
             <PlusCircleIcon fontSize={1} />
           </div>
           <div
-            className={`${styles.button} ${params.playing && sharedStyles.selected}`}
-            onClick={() => setPlaying(!params.playing)}
+            className={`${styles.button} ${params.sequencer.playing && sharedStyles.selected}`}
+            onClick={() =>
+              synthParamsStore.setKey("sequencer", {
+                ...params.sequencer,
+                playing: !params.sequencer.playing,
+              })
+            }
           >
             <PlayPauseIcon fontSize={1} />
           </div>
@@ -129,21 +122,18 @@ export const SynthSequencer = ({
             name="bpm"
             id="bpm"
             type="text"
-            value={params.bpm}
+            value={params.sequencer.bpm}
             onChange={(e: any) => {
-              if ((e.target.value as number) <= maxBpm) {
-                handleParamChange({ ...params, bpm: e.target.value });
+              if ((e.target.value as number) <= BPM_MAX) {
+                synthParamsStore.setKey("sequencer", {
+                  ...params.sequencer,
+                  bpm: e.target.value,
+                });
               }
             }}
             className={styles.bpmInput}
           />
         </div>
-        {/* <div
-          className={`${styles.button} ${metronomeOn && sharedStyles.selected}`}
-          onClick={() => setMetronomeOn((val) => !val)}
-        >
-          <ClockIcon fontSize={1} />
-        </div> */}
       </div>
     </div>
   );

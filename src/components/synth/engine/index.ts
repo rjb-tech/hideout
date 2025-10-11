@@ -13,6 +13,7 @@ import { synthParamsStore } from "@stores/synth";
 class SynthEngine {
   /* ----- Class Members ----- */
   private audio = new AudioContext();
+  private click = new Audio("/public/click.mp3");
 
   // gain nodes
   private oscillatorGain = this.audio.createGain();
@@ -55,6 +56,8 @@ class SynthEngine {
         case "secondOscOn":
           this.updateSecondOscillator(value.secondOscOn);
           break;
+        case "metronomeOn":
+          this.updateClick(value.metronomeOn);
       }
     });
   }
@@ -87,12 +90,18 @@ class SynthEngine {
     this.updateFilter(this.params.filter);
     this.updateOscillatorWaveform(this.params.waveform);
     this.updateSecondOscillator(this.params.secondOscOn);
+    this.updateClick(this.params.metronomeOn);
   }
 
   public cleanup() {
     this.oscillator.stop();
     this.oscillator2.stop();
     this.audio.close();
+  }
+
+  public playClick(): void {
+    this.click.currentTime = 0;
+    this.click.play();
   }
 
   public playOscillator(frequency: number): void {
@@ -170,6 +179,10 @@ class SynthEngine {
         now + this.params.envelope.release / 100,
       );
     }
+  }
+
+  public updateClick(update: boolean): void {
+    this.click.muted = update;
   }
 
   private updateFilter(update: SynthFilter) {

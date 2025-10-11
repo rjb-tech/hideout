@@ -43,6 +43,8 @@ export interface SynthSettings {
   reverb: SynthReverb;
   filter: SynthFilter;
   secondOscOn: boolean;
+  sequencer: SynthSequencerParams;
+  metronomeOn: boolean;
 }
 
 export interface SynthSequencerParams {

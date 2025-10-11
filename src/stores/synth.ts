@@ -34,4 +34,13 @@ export const synthParamsStore: PreinitializedMapStore<SynthSettings> = map({
     envelopeLink: false,
   },
   secondOscOn: existingSettings.secondOscOn ?? false,
+  sequencer: {
+    bpm: existingSettings?.sequencer?.bpm ?? 120,
+    notes: [],
+    playing: false,
+    recording: false,
+    activeStep: 0,
+    numSteps: 8,
+  },
+  metronomeOn: false,
 });

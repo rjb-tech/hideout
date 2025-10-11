@@ -1,0 +1,74 @@
+@use "@styles/variables.scss" as vars;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid vars.$white;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: small;
+}
+
+.controlPanel {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+
+  .buttonPanel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+
+    .button {
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      height: 1rem;
+      width: 1rem;
+      border: 1px solid vars.$white;
+      border-radius: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.steps {
+  display: flex;
+  gap: 0.35rem;
+
+  .step {
+    height: 0.35rem;
+    width: 1.25rem;
+    background-color: rgba(237, 0, 0, 0.5);
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: rgba(237, 0, 0, 1);
+  }
+}
+
+.bpm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .bpmInput {
+    border: 1px solid vars.$white;
+    border-radius: 8px;
+    background-color: transparent;
+    color: vars.$white;
+    user-select: none;
+    outline: none;
+    width: 2.5rem;
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .bpmLabel {
+    position: relative;
+  }
+}

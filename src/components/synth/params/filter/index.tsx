@@ -27,7 +27,7 @@ export const FilterParams = () => {
         <div className={styles.sliders}>
           <Slider
             min={minFreq}
-            max={20000}
+            max={12000}
             value={filter.frequency}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               onFilterChange(parseInt(e.target.value, 10))

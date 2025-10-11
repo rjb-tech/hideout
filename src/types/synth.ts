@@ -45,6 +45,7 @@ export interface SynthSettings {
   secondOscOn: boolean;
   sequencer: SynthSequencerParams;
   metronomeOn: boolean;
+  lfo: SynthLfoParams;
 }
 
 export interface SynthSequencerParams {
@@ -54,4 +55,11 @@ export interface SynthSequencerParams {
   recording: boolean;
   activeStep: number;
   numSteps: number;
+}
+
+export interface SynthLfoParams {
+  depth: number;
+  speed: number;
+  bpmLink: boolean;
+  engaged: boolean;
 }

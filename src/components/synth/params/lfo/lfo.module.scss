@@ -1,0 +1,48 @@
+@use "@styles/variables.scss" as vars;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid vars.$white;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: small;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonPanel {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid vars.$white;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.engaged {
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  color: vars.$white;
+}

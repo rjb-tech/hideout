@@ -43,4 +43,10 @@ export const synthParamsStore: PreinitializedMapStore<SynthSettings> = map({
     numSteps: 8,
   },
   metronomeOn: false,
+  lfo: existingSettings.lfo ?? {
+    depth: 0,
+    speed: 0,
+    bpmLink: false,
+    engaged: false,
+  },
 });

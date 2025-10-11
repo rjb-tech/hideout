@@ -6,12 +6,13 @@ import { WaveformParams } from "./waveform";
 
 import styles from "./params.module.scss";
 import { SynthSequencer } from "./sequencer";
+import { SynthLfo } from "./lfo";
 
 export const SynthParams = () => {
   return (
     <>
       <div className={styles.top}>
-        <FilterParams />
+        <SynthSequencer />
         <div className={styles.waveformSelector}>
           OSC1
           <WaveformParams />
@@ -26,7 +27,8 @@ export const SynthParams = () => {
         <SpaceParams />
       </div>
       <div className={styles.bottom}>
-        <SynthSequencer />
+        <FilterParams />
+        <SynthLfo />
       </div>
     </>
   );

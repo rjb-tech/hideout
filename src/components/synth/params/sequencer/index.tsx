@@ -12,6 +12,8 @@ import SequencerPlayPause from "./playPauseIcon";
 import SequencerRecord from "./recordIcon";
 import SequencerReset from "./resetIcon";
 
+// make steps grey if they haven't been assigned a note
+
 export const SynthSequencer = () => {
   const [keyPressed, setKeyPressed] = useState(false);
   const [resetSelected, setResetSelected] = useState(false);
@@ -60,6 +62,7 @@ export const SynthSequencer = () => {
       );
     } else {
       clearInterval(interval);
+      synthEngine.stopOscillator();
     }
 
     return () => clearInterval(interval);

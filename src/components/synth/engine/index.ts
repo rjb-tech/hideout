@@ -13,7 +13,7 @@ import { synthParamsStore } from "@stores/synth";
 class SynthEngine {
   /* ----- Class Members ----- */
   private audio = new AudioContext();
-  private click = new Audio("/public/click.mp3");
+  private click = new Audio("/click.mp3");
 
   // gain nodes
   private oscillatorGain = this.audio.createGain();

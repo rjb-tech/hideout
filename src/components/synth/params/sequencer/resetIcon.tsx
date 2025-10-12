@@ -24,7 +24,7 @@ export default function SequencerReset({ selected }: ISequencerReset) {
           activeStep: 0,
           playing: false,
           recording: false,
-          notes: new Array(sequencer.numSteps).map((_) => 0),
+          notes: Array.from({ length: sequencer.numSteps }),
         })
       }
     >

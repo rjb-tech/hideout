@@ -50,7 +50,7 @@ export interface SynthSettings {
 
 export interface SynthSequencerParams {
   bpm: number;
-  notes: number[];
+  notes: (number | null)[];
   playing: boolean;
   recording: boolean;
   activeStep: number;

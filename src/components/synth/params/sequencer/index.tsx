@@ -103,11 +103,11 @@ export const SynthSequencer = () => {
     <div className={styles.container}>
       SEQUENCER
       <div className={styles.steps}>
-        {Array.from({ length: params.sequencer.numSteps }).map((_, idx) => (
+        {params.sequencer.notes.map((current, idx) => (
           <span
             key={idx}
             onClick={() => setActiveStep(idx)}
-            className={`${styles.step} ${idx === params.sequencer.activeStep && styles.active}`}
+            className={`${styles.step} ${idx === params.sequencer.activeStep && styles.active} ${!!current ? styles.notEmpty : styles.empty}`}
           />
         ))}
       </div>

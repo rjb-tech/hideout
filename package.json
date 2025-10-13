@@ -24,6 +24,7 @@
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
+    "logrocket": "^10.1.0",
     "mdast-util-to-string": "^4.0.0",
     "nanostores": "^1.0.1",
     "react": "^18.2.0",

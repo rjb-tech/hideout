@@ -1,9 +1,7 @@
-import { PlayPauseIcon, PlusCircleIcon } from "@heroicons/react/16/solid";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useStore } from "@nanostores/react";
 
 import styles from "./sequencer.module.scss";
-import sharedStyles from "@styles/sharedStyles.module.scss";
 import type { SynthSettings } from "@hideoutTypes/synth";
 import { synthParamsStore } from "@stores/synth";
 import { BPM_MAX } from "@constants/synth";
@@ -28,13 +26,6 @@ export const SynthSequencer = () => {
     });
   };
 
-  const setRecording = (recording: boolean) => {
-    synthParamsStore.setKey("sequencer", {
-      ...paramsRef.current.sequencer,
-      recording,
-    });
-  };
-
   const incrementActiveStep = () => {
     // the ref is used here to avoid closure issues with the interval
     const { activeStep, numSteps } = paramsRef.current.sequencer;
@@ -48,8 +39,8 @@ export const SynthSequencer = () => {
   useEffect(() => {
     let interval: number | undefined;
     if (paramsRef.current.sequencer.playing) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       synthEngine.playSequencerActiveStep();
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       paramsRef.current.metronomeOn && synthEngine.playClick();
       interval = setInterval(
         () => {

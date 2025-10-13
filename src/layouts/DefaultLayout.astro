@@ -9,7 +9,7 @@ interface Props {
 const { title } = Astro.props;
 const isProd = import.meta.env.PROD;
 
-if (isProd) LogRocket.init("z65wlt/hideout-production");
+LogRocket.init("z65wlt/hideout-production");
 ---
 
 <!doctype html>

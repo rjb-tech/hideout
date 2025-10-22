@@ -3,7 +3,7 @@
 
 .windowContainer {
   width: 50%;
-  height: 85%;
+  // height: 85%;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -15,7 +15,7 @@
   gap: 1rem;
 
   @media (width >= vars.$largeScreenBreakpoint) {
-    height: 50%;
+    // height: fit-content;
     width: 50%;
   }
 

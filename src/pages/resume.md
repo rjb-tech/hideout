@@ -20,11 +20,11 @@ date: "2026-08-06"
 
 - Developed an LLM-provider-agnostic agentic harness powering customer-facing natural-language features, taking it from concept to a live 10+ customer beta in under 4 months — supporting reads and writes across major services
 
-- Advocated for and integrated auditability and safety as a release requirement for the harness — not a peripheral feature, but a precondition for shipping AI-driven customer features
+- Designed and built the harness security auditing layer: malicious prompt blocking, token usage policies, encryption-boundary-safe data handling, and full session reconstruction enabling admins to replay and review complete sessions
 
-- Designed and built the resulting security auditing layer: malicious prompt blocking, token usage policies, encryption-boundary-safe data handling, and full session reconstruction enabling admins to replay and review complete sessions
+- Identified a recurring gap in beta success tracking, and built a usage/adoption dashboard for the harness — tracking cost, active users/orgs, latency, daily session volume, and reconstructed session review, with org-level drill-down
 
-- Built a usage and adoption dashboard for the harness — tracking cost, active users/orgs, latency, and daily session volume with org-level drill-down — that became the primary source of truth for beta usage, adopted by customer success for per-org tracking and review
+- Dashboard became the engineering team's source of truth for beta activity, directly informing feature planning based on real user behavior, and was also adopted by customer success for tier 1 support
 
 - Built an MCP service adapting our microservice infrastructure for compatibility with the harness, enabling natural-language-driven reads/writes across services without custom glue code
 

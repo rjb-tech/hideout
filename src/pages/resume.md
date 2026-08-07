@@ -20,7 +20,7 @@ date: "2026-08-06"
 
 - Developed an LLM-provider-agnostic agentic harness powering customer-facing natural-language features, taking it from concept to a live 10+ customer beta in under 4 months — supporting reads and writes across major services
 
-- Advocated for and established auditability and safety as a release requirement for the harness — not a peripheral feature, but a precondition for shipping AI-driven customer features
+- Advocated for and integrated auditability and safety as a release requirement for the harness — not a peripheral feature, but a precondition for shipping AI-driven customer features
 
 - Designed and built the resulting security auditing layer: malicious prompt blocking, token usage policies, encryption-boundary-safe data handling, and full session reconstruction enabling admins to replay and review complete sessions
 

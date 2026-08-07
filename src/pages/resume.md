@@ -3,7 +3,7 @@ title: "Resume"
 description:
 layout: "@layouts/ContentLayout.astro"
 tags: []
-date: "2025-10-01"
+date: "2026-08-06"
 ---
 
 ### Email: dev@rjb.tech
@@ -14,9 +14,21 @@ date: "2025-10-01"
 
 ## Work Experience
 
+### Fullstack Engineer III (senior engineer)
+
+- Developed an LLM-provider-agnostic agentic harness powering customer-facing natural-language features, taking it from concept to a live 10+ customer beta in under 4 months — supporting reads and writes across major services
+
+- Advocated for and established auditability and safety as a release requirement for the harness — not a peripheral feature, but a precondition for shipping AI-driven customer features
+
+- Designed and built the resulting security auditing layer: malicious prompt blocking, token usage policies, encryption-boundary-safe data handling, and full session reconstruction enabling admins to replay and review complete sessions
+
+- Built a usage and adoption dashboard for the harness — tracking cost, active users/orgs, latency, and daily session volume with org-level drill-down — that became the primary source of truth for beta usage, adopted by customer success for per-org tracking and review
+
+- Built an MCP service adapting our microservice infrastructure for compatibility with the harness, enabling natural-language-driven reads/writes across services without custom glue code
+
 ### Software Engineer --> Team Lead Senior Software Engineer
 
-#### Future Capital (March 2023 - Present)
+#### Future Capital (March 2023 - November 2025)
 
 - Built scalable browser automation platform for retirement account access across distributors lacking API support, using privacy-preserving architecture where clients control authentication/MFA while operations agents manage account tasks in auditable sessions (Node.js, Playwright, Redis, RabbitMQ, Kubernetes).
 

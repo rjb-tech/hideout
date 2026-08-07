@@ -13,6 +13,7 @@
   background-color: funcs.hexToRgba(vars.$darkerGray, 0.65);
   border: 1px solid funcs.hexToRgba(vars.$darkerGray, 0.4);
   gap: 1rem;
+  margin: auto;
 
   @media (width >= vars.$largeScreenBreakpoint) {
     // height: fit-content;

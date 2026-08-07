@@ -74,14 +74,10 @@ const isProd = import.meta.env.PROD;
         width: 100%;
         height: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         color: #f4f4f9; /* same as vars.$white */
         overflow-y: scroll;
-
-        @media (width <= 768px) {
-          align-items: flex-start;
-        }
       }
 
       a {

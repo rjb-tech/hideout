@@ -16,6 +16,8 @@ date: "2026-08-06"
 
 ### Fullstack Engineer III (senior engineer)
 
+#### Balto (December 2025 - Present)
+
 - Developed an LLM-provider-agnostic agentic harness powering customer-facing natural-language features, taking it from concept to a live 10+ customer beta in under 4 months — supporting reads and writes across major services
 
 - Advocated for and established auditability and safety as a release requirement for the harness — not a peripheral feature, but a precondition for shipping AI-driven customer features
